@@ -17,10 +17,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 24px;
+      padding: 20px;
       font-family: Arial, sans-serif;
       color: white;
-      text-align: center;
       background:
         radial-gradient(circle at top, #263e88, transparent 40%),
         linear-gradient(135deg, #070b24, #15134d);
@@ -28,27 +27,28 @@
 
     .game-card {
       width: 100%;
-      max-width: 680px;
-      padding: 48px 28px;
+      max-width: 620px;
+      padding: 35px 28px;
       border: 1px solid rgba(94, 234, 255, 0.5);
       border-radius: 28px;
-      background: rgba(10, 16, 52, 0.85);
+      text-align: center;
+      background: rgba(10, 16, 52, 0.9);
       box-shadow: 0 0 40px rgba(76, 201, 240, 0.25);
     }
 
     .atom {
       position: relative;
-      width: 150px;
-      height: 150px;
-      margin: 0 auto 24px;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 18px;
     }
 
     .nucleus {
       position: absolute;
-      top: 55px;
-      left: 55px;
-      width: 40px;
-      height: 40px;
+      top: 45px;
+      left: 45px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: #ff4fd8;
       box-shadow: 0 0 24px #ff4fd8;
@@ -56,7 +56,7 @@
 
     .orbit {
       position: absolute;
-      inset: 20px;
+      inset: 14px;
       border: 2px solid #55e8ff;
       border-radius: 50%;
     }
@@ -70,25 +70,56 @@
     }
 
     h1 {
-      margin-bottom: 8px;
-      font-size: clamp(32px, 7vw, 58px);
+      margin: 5px 0;
+      font-size: clamp(30px, 7vw, 50px);
       color: #67edff;
     }
 
     h2 {
-      margin-top: 0;
-      font-size: clamp(18px, 4vw, 26px);
+      margin: 0 0 15px;
+      font-size: 22px;
       font-weight: normal;
     }
 
     p {
       color: #d2d8ff;
-      line-height: 1.7;
+      line-height: 1.6;
+    }
+
+    .student-form {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 6px;
+      color: #dce5ff;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid #4e72b8;
+      border-radius: 12px;
+      font-size: 16px;
+      color: white;
+      background: rgba(8, 15, 45, 0.9);
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #58e7ff;
+      box-shadow: 0 0 10px rgba(88, 231, 255, 0.4);
     }
 
     button {
-      margin-top: 20px;
-      padding: 15px 32px;
+      width: 100%;
+      margin-top: 24px;
+      padding: 15px 28px;
       border: none;
       border-radius: 999px;
       font-size: 18px;
@@ -100,6 +131,16 @@
 
     button:hover {
       transform: translateY(-2px);
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      color: #ffd5df;
+      background: rgba(255, 75, 120, 0.18);
+      text-align: center;
     }
   </style>
 </head>
@@ -114,21 +155,92 @@
     </div>
 
     <h1>Electron Orbit Quest</h1>
-
     <h2>ภารกิจพิชิตการจัดเรียงอิเล็กตรอน</h2>
 
     <p>
-      เรียนรู้โครงสร้างอะตอม การจัดเรียงอิเล็กตรอน
-      เวเลนซ์อิเล็กตรอน และการเกิดไอออน ผ่านภารกิจแสนสนุก
+      ลงทะเบียนผู้เล่นก่อนเริ่มต้นภารกิจ
+      และเตรียมตัวออกเดินทางสู่โลกของอะตอม
     </p>
 
-    <button onclick="startGame()">เริ่มต้นภารกิจ</button>
+    <form class="student-form" id="studentForm">
+      <label for="studentName">ชื่อ–นามสกุล</label>
+      <input
+        type="text"
+        id="studentName"
+        placeholder="เช่น เด็กหญิงอะตอม สดใส"
+      >
+
+      <label for="studentClass">ชั้นเรียน</label>
+      <select id="studentClass">
+        <option value="">-- เลือกชั้นเรียน --</option>
+        <option value="ม.1">มัธยมศึกษาปีที่ 1</option>
+        <option value="ม.2">มัธยมศึกษาปีที่ 2</option>
+        <option value="ม.3">มัธยมศึกษาปีที่ 3</option>
+        <option value="ม.4">มัธยมศึกษาปีที่ 4</option>
+        <option value="ม.5">มัธยมศึกษาปีที่ 5</option>
+        <option value="ม.6">มัธยมศึกษาปีที่ 6</option>
+      </select>
+
+      <label for="studentNumber">เลขที่</label>
+      <input
+        type="number"
+        id="studentNumber"
+        min="1"
+        max="60"
+        placeholder="เช่น 15"
+      >
+
+      <div class="error-message" id="errorMessage">
+        กรุณากรอกข้อมูลให้ครบทุกช่อง
+      </div>
+
+      <button type="submit">🚀 เริ่มต้นภารกิจ</button>
+    </form>
   </main>
 
   <script>
-    function startGame() {
-      alert("ยินดีต้อนรับสู่ Electron Orbit Quest!");
-    }
+    const studentForm = document.getElementById("studentForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+    studentForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const studentName =
+        document.getElementById("studentName").value.trim();
+
+      const studentClass =
+        document.getElementById("studentClass").value;
+
+      const studentNumber =
+        document.getElementById("studentNumber").value;
+
+      if (!studentName || !studentClass || !studentNumber) {
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      errorMessage.style.display = "none";
+
+      const studentData = {
+        name: studentName,
+        className: studentClass,
+        number: studentNumber
+      };
+
+      localStorage.setItem(
+        "electronOrbitStudent",
+        JSON.stringify(studentData)
+      );
+
+      alert(
+        "ยินดีต้อนรับ " +
+        studentName +
+        "\nชั้น " +
+        studentClass +
+        " เลขที่ " +
+        studentNumber
+      );
+    });
   </script>
 </body>
 </html>
