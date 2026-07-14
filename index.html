@@ -198,117 +198,131 @@
     </form>
   </main>
 
-  <script>
-    const studentForm = document.getElementById("studentForm");
-    const errorMessage = document.getElementById("errorMessage");
+ <script>
+  const studentForm = document.getElementById("studentForm");
+  const errorMessage = document.getElementById("errorMessage");
 
-    studentForm.addEventListener("submit", function(event) {
-      event.preventDefault();
+  studentForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-      const studentName =
-        document.getElementById("studentName").value.trim();
+    const studentName =
+      document.getElementById("studentName").value.trim();
 
-      const studentClass =
-        document.getElementById("studentClass").value;
+    const studentClass =
+      document.getElementById("studentClass").value;
 
-      const studentNumber =
-        document.getElementById("studentNumber").value;
+    const studentNumber =
+      document.getElementById("studentNumber").value;
 
-      if (!studentName || !studentClass || !studentNumber) {
-        errorMessage.style.display = "block";
-        return;
-      }
+    if (!studentName || !studentClass || !studentNumber) {
+      errorMessage.style.display = "block";
+      return;
+    }
 
-      errorMessage.style.display = "none";
+    errorMessage.style.display = "none";
 
-      const studentData = {
-        name: studentName,
-        className: studentClass,
-        number: studentNumber
-      };
+    const studentData = {
+      name: studentName,
+      className: studentClass,
+      number: studentNumber
+    };
 
-      localStorage.setItem(
-        "electronOrbitStudent",
-        JSON.stringify(studentData)
-      );
+    localStorage.setItem(
+      "electronOrbitStudent",
+      JSON.stringify(studentData)
+    );
 
     showLesson(studentData);
-      
-      alert(
-function showLesson(studentData) {
-  document.querySelector(".game-card").innerHTML = `
-    <div class="lesson-page">
-      <p style="color:#67edff; font-weight:bold;">
-        ผู้เล่น: ${studentData.name}
-        | ชั้น ${studentData.className}
-        | เลขที่ ${studentData.number}
-      </p>
+  });
 
-      <h1 style="font-size:38px;">บทเรียนก่อนเริ่มภารกิจ</h1>
+  function showLesson(studentData) {
+    document.querySelector(".game-card").innerHTML = `
+      <div class="lesson-page">
 
-      <h2>ด่านที่ 1: เลขอะตอมและจำนวนอิเล็กตรอน</h2>
-
-      <div style="
-        margin-top:24px;
-        padding:24px;
-        border:1px solid #4e72b8;
-        border-radius:18px;
-        background:rgba(8,15,45,0.75);
-        text-align:left;
-      ">
-        <h3 style="color:#67edff;">เลขอะตอมคืออะไร?</h3>
-
-        <p>
-          เลขอะตอม คือ จำนวนโปรตอนที่อยู่ภายในนิวเคลียสของอะตอม
-          และใช้บอกชนิดของธาตุ
+        <p style="color:#67edff; font-weight:bold;">
+          ผู้เล่น: ${studentData.name}
+          | ชั้น ${studentData.className}
+          | เลขที่ ${studentData.number}
         </p>
 
-        <p>
-          สำหรับอะตอมที่เป็นกลาง
-          จำนวนโปรตอนจะเท่ากับจำนวนอิเล็กตรอน
-        </p>
+        <h1 style="font-size:38px;">
+          บทเรียนก่อนเริ่มภารกิจ
+        </h1>
+
+        <h2>
+          ด่านที่ 1: เลขอะตอมและจำนวนอิเล็กตรอน
+        </h2>
 
         <div style="
-          margin:22px 0;
-          padding:18px;
-          border-radius:14px;
-          background:rgba(83,232,255,0.12);
-          text-align:center;
-          font-size:20px;
+          margin-top:24px;
+          padding:24px;
+          border:1px solid #4e72b8;
+          border-radius:18px;
+          background:rgba(8,15,45,0.75);
+          text-align:left;
         ">
-          จำนวนโปรตอน = เลขอะตอม<br>
-          จำนวนอิเล็กตรอน = จำนวนโปรตอน
+
+          <h3 style="color:#67edff;">
+            เลขอะตอมคืออะไร?
+          </h3>
+
+          <p>
+            เลขอะตอม คือ จำนวนโปรตอนที่อยู่ภายในนิวเคลียส
+            และใช้บอกชนิดของธาตุ
+          </p>
+
+          <p>
+            สำหรับอะตอมที่เป็นกลาง จำนวนโปรตอนจะเท่ากับ
+            จำนวนอิเล็กตรอน
+          </p>
+
+          <div style="
+            margin:22px 0;
+            padding:18px;
+            border-radius:14px;
+            background:rgba(83,232,255,0.12);
+            text-align:center;
+            font-size:20px;
+          ">
+            จำนวนโปรตอน = เลขอะตอม<br>
+            จำนวนอิเล็กตรอน = จำนวนโปรตอน
+          </div>
+
+          <h3 style="color:#67edff;">
+            ตัวอย่าง
+          </h3>
+
+          <p>
+            ธาตุโซเดียมมีเลขอะตอม 11 จึงมีโปรตอน 11 ตัว
+            และเมื่อเป็นอะตอมที่เป็นกลางจะมีอิเล็กตรอน 11 ตัว
+          </p>
+
         </div>
 
-        <h3 style="color:#67edff;">ตัวอย่าง</h3>
+        <button onclick="startQuiz()">
+          ⚡ เริ่มทำภารกิจด่านที่ 1
+        </button>
 
-        <p>
-          ธาตุโซเดียมมีเลขอะตอม 11
-          จึงมีโปรตอน 11 ตัว
-          และถ้าเป็นอะตอมที่เป็นกลาง จะมีอิเล็กตรอน 11 ตัว
-        </p>
+        <button
+          onclick="location.reload()"
+          style="
+            margin-top:12px;
+            background:transparent;
+            border:1px solid #67edff;
+            color:#67edff;
+          "
+        >
+          ← กลับหน้าลงทะเบียน
+        </button>
+
       </div>
+    `;
+  }
 
-      <button onclick="startQuiz()">
-        ⚡ เริ่มทำภารกิจด่านที่ 1
-      </button>
+  function startQuiz() {
+    alert("พร้อมสร้างข้อสอบด่านที่ 1 แล้ว!");
+  }
+</script>
 
-      <button
-        onclick="location.reload()"
-        style="
-          margin-top:12px;
-          background:transparent;
-          border:1px solid #67edff;
-          color:#67edff;
-        "
-      >
-        ← กลับหน้าลงทะเบียน
-      </button>
-    </div>
-  `;
-}
-
-function startQuiz() {
-  alert("ขั้นต่อไปเราจะสร้างข้อสอบ 10 ข้อในหน้านี้");
-}
-);
+</body>
+</html>
