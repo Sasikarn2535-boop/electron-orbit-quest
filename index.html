@@ -476,22 +476,26 @@ function createLockedLevel(levelNumber, levelTitle) {
 
         </div>
 
-        <button onclick="startQuiz()">
-          ⚡ เริ่มทำภารกิจด่านที่ 1
-        </button>
-<button
-  onclick="location.reload()"
-       <button
-  onclick="backToLevelMap()"
-  style="
-    margin-top:12px;
-    background:transparent;
-    border:1px solid #67edff;
-    color:#67edff;
-  "
->
-  ← กลับหน้าเลือกด่าน
-</button>
+              <button onclick="startQuiz()">
+        ⚡ เริ่มทำภารกิจด่านที่ 1
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+
 function backToLevelMap() {
   const studentData = JSON.parse(
     localStorage.getItem("electronOrbitStudent")
@@ -504,8 +508,6 @@ function backToLevelMap() {
 
   showLevelMap(studentData);
 }
-    `;
-  }
 
 const levelOneQuestions = [
   {
@@ -971,7 +973,7 @@ let answerLocked = false;
       </button>
 
       <button
-        onclick="location.reload()"
+  onclick="backToLevelMap()"
         style="
           margin-top:12px;
           background:transparent;
@@ -979,7 +981,7 @@ let answerLocked = false;
           color:#67edff;
         "
       >
-        🏠 กลับหน้าลงทะเบียน
+        🗺️ กลับหน้าเลือกด่าน
       </button>
 
     </div>
