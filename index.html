@@ -289,10 +289,28 @@
             </span>
           </button>
 
-          ${createLockedLevel(
-            2,
-            "การจัดเรียงอิเล็กตรอนแบบเชลล์"
-          )}
+          <button
+  onclick="showLevelTwoLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#7b5cff,#3ed7ff);
+  "
+>
+  <span style="font-size:34px;">🪐</span>
+
+  <strong>ด่านที่ 2</strong>
+
+  <span style="font-size:14px;">
+    การจัดเรียงอิเล็กตรอนแบบเชลล์
+  </span>
+</button>
 
           ${createLockedLevel(
             3,
@@ -1000,12 +1018,230 @@ let answerLocked = false;
 
   showLesson(studentData);
 }
+   function showLevelTwoLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelTwoLesson(studentData);
+}
    function showLockedMessage(levelNumber) {
   alert(
     "🔒 ด่านที่ " +
     levelNumber +
     " ยังไม่เปิดใช้งาน\nเราจะพัฒนาด่านนี้ในขั้นต่อไป"
   );
+}
+   function showLevelTwoLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 2: การจัดเรียงอิเล็กตรอนแบบเชลล์
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          เชลล์อิเล็กตรอนคืออะไร?
+        </h3>
+
+        <p>
+          อิเล็กตรอนจะอยู่รอบนิวเคลียสเป็นระดับพลังงาน
+          เรียกว่าเชลล์ โดยเรียงจากด้านในออกไปด้านนอก
+        </p>
+
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:12px;
+          margin:20px 0;
+        ">
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(83,232,255,0.12);
+            text-align:center;
+          ">
+            <strong style="color:#67edff;">K</strong>
+            <p style="margin:6px 0 0;">
+              เชลล์ที่ 1<br>
+              บรรจุสูงสุด 2 อิเล็กตรอน
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(155,124,255,0.14);
+            text-align:center;
+          ">
+            <strong style="color:#c3b4ff;">L</strong>
+            <p style="margin:6px 0 0;">
+              เชลล์ที่ 2<br>
+              บรรจุสูงสุด 8 อิเล็กตรอน
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(255,155,86,0.12);
+            text-align:center;
+          ">
+            <strong style="color:#ffb27a;">M</strong>
+            <p style="margin:6px 0 0;">
+              เชลล์ที่ 3<br>
+              บรรจุสูงสุด 18 อิเล็กตรอน
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(255,93,180,0.12);
+            text-align:center;
+          ">
+            <strong style="color:#ff8ccb;">N</strong>
+            <p style="margin:6px 0 0;">
+              เชลล์ที่ 4<br>
+              บรรจุสูงสุด 32 อิเล็กตรอน
+            </p>
+          </div>
+
+        </div>
+
+        <div style="
+          margin:22px 0;
+          padding:18px;
+          border-radius:14px;
+          background:rgba(83,232,255,0.1);
+          text-align:center;
+          font-size:19px;
+        ">
+          สูตรจำนวนอิเล็กตรอนสูงสุดในแต่ละเชลล์
+          <br>
+          <strong style="color:#67edff;">
+            2n²
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          หลักการจัดเรียง
+        </h3>
+
+        <p>
+          เติมอิเล็กตรอนในเชลล์ด้านในก่อน
+          แล้วจึงเติมไปยังเชลล์ถัดไป
+        </p>
+
+        <h3 style="color:#67edff;">
+          ตัวอย่างที่ 1: ออกซิเจน
+        </h3>
+
+        <p>
+          ออกซิเจนมีเลขอะตอม 8 จึงมีอิเล็กตรอน 8 ตัว
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          background:rgba(83,232,255,0.12);
+          text-align:center;
+          font-size:22px;
+          font-weight:bold;
+        ">
+          K = 2, L = 6
+          <br>
+          การจัดเรียงแบบเชลล์ = 2, 6
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          ตัวอย่างที่ 2: โซเดียม
+        </h3>
+
+        <p>
+          โซเดียมมีเลขอะตอม 11 จึงมีอิเล็กตรอน 11 ตัว
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          background:rgba(155,124,255,0.14);
+          text-align:center;
+          font-size:22px;
+          font-weight:bold;
+        ">
+          K = 2, L = 8, M = 1
+          <br>
+          การจัดเรียงแบบเชลล์ = 2, 8, 1
+        </div>
+
+        <p style="
+          margin-top:22px;
+          padding:14px;
+          border-radius:12px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+        ">
+          สำหรับการเรียนเบื้องต้นของธาตุ 20 ธาตุแรก
+          มักพบการจัดเรียงเป็น 2, 8, 8, 2
+          แม้เชลล์ M จะสามารถบรรจุได้สูงสุด 18 อิเล็กตรอน
+        </p>
+
+      </div>
+
+      <button onclick="startLevelTwoQuiz()">
+        ⚡ เริ่มทำภารกิจด่านที่ 2
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function startLevelTwoQuiz() {
+  alert("หน้าบทเรียนด่านที่ 2 พร้อมแล้ว ขั้นต่อไปจะสร้าง Shell Builder");
 }
 </script>
 
