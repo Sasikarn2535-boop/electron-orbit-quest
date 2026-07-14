@@ -319,9 +319,410 @@
     `;
   }
 
-  function startQuiz() {
-    alert("พร้อมสร้างข้อสอบด่านที่ 1 แล้ว!");
+const levelOneQuestions = [
+  {
+    question: "ธาตุคาร์บอนมีเลขอะตอม 6 อะตอมคาร์บอนที่เป็นกลางมีอิเล็กตรอนกี่ตัว?",
+    choices: ["4 ตัว", "6 ตัว", "8 ตัว", "12 ตัว"],
+    answer: 1,
+    explanation:
+      "อะตอมที่เป็นกลางมีจำนวนอิเล็กตรอนเท่ากับจำนวนโปรตอน และเลขอะตอมของคาร์บอนคือ 6 จึงมีอิเล็กตรอน 6 ตัว"
+  },
+  {
+    question: "ธาตุออกซิเจนมีโปรตอน 8 ตัว เลขอะตอมของออกซิเจนมีค่าเท่าใด?",
+    choices: ["6", "8", "10", "16"],
+    answer: 1,
+    explanation:
+      "เลขอะตอมมีค่าเท่ากับจำนวนโปรตอน ดังนั้นออกซิเจนที่มีโปรตอน 8 ตัว จึงมีเลขอะตอมเท่ากับ 8"
+  },
+  {
+    question: "อะตอมโซเดียมที่เป็นกลางมีอิเล็กตรอน 11 ตัว โซเดียมมีโปรตอนกี่ตัว?",
+    choices: ["10 ตัว", "11 ตัว", "12 ตัว", "23 ตัว"],
+    answer: 1,
+    explanation:
+      "อะตอมที่เป็นกลางมีจำนวนโปรตอนเท่ากับจำนวนอิเล็กตรอน จึงมีโปรตอน 11 ตัว"
   }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let hearts = 3;
+let selectedQuestions = [];
+let answerLocked = false;
+   
+   function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  hearts = 3;
+  answerLocked = false;
+
+  selectedQuestions = shuffleQuestions([...levelOneQuestions]);
+
+  showQuestion();
+}
+   function shuffleQuestions(questions) {
+  for (let i = questions.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+    [questions[i], questions[randomIndex]] = [
+      questions[randomIndex],
+      questions[i]
+    ];
+  }
+
+  return questions;
+}
+   function showQuestion() {
+  answerLocked = false;
+
+  const question = selectedQuestions[currentQuestionIndex];
+  const totalQuestions = selectedQuestions.length;
+  const progress =
+    ((currentQuestionIndex + 1) / totalQuestions) * 100;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="quiz-page">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        margin-bottom:18px;
+        flex-wrap:wrap;
+      ">
+        <div style="color:#67edff; font-weight:bold;">
+          ข้อ ${currentQuestionIndex + 1} / ${totalQuestions}
+        </div>
+
+        <div style="font-weight:bold;">
+          คะแนน: ${score}
+        </div>
+
+        <div style="font-size:22px;">
+          ${displayHearts()}
+        </div>
+      </div>
+
+      <div style="
+        width:100%;
+        height:12px;
+        margin-bottom:28px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          border-radius:999px;
+          background:linear-gradient(90deg,#53e8ff,#9b7cff);
+          transition:width 0.3s ease;
+        "></div>
+      </div>
+
+      <p style="
+        color:#a9b8e8;
+        font-weight:bold;
+        margin-bottom:10px;
+      ">
+        ด่านที่ 1: เลขอะตอมและจำนวนอิเล็กตรอน
+      </p>
+
+      <h2 style="
+        font-size:clamp(22px,5vw,30px);
+        line-height:1.5;
+        margin-bottom:26px;
+      ">
+        ${question.question}
+      </h2>
+
+      <div id="choiceContainer">
+        ${question.choices
+          .map(
+            (choice, index) => `
+              <button
+                class="choice-button"
+                onclick="checkAnswer(${index}, this)"
+                style="
+                  width:100%;
+                  margin:8px 0;
+                  padding:15px 18px;
+                  border:1px solid #4e72b8;
+                  border-radius:14px;
+                  color:white;
+                  background:rgba(8,15,45,0.9);
+                  text-align:left;
+                  font-size:17px;
+                "
+              >
+                ${String.fromCharCode(65 + index)}. ${choice}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+
+      <div
+        id="feedbackBox"
+        style="
+          display:none;
+          margin-top:22px;
+          padding:18px;
+          border-radius:15px;
+          text-align:left;
+          line-height:1.6;
+        "
+      ></div>
+
+      <button
+        id="nextButton"
+        onclick="nextQuestion()"
+        style="display:none;"
+      >
+        ข้อต่อไป →
+      </button>
+
+    </div>
+  `;
+}
+   function displayHearts() {
+  let heartDisplay = "";
+
+  for (let i = 0; i < 3; i++) {
+    heartDisplay += i < hearts ? "❤️" : "🖤";
+  }
+
+  return heartDisplay;
+}
+   function checkAnswer(selectedIndex, selectedButton) {
+  if (answerLocked) {
+    return;
+  }
+
+  answerLocked = true;
+
+  const question = selectedQuestions[currentQuestionIndex];
+  const buttons = document.querySelectorAll(".choice-button");
+  const feedbackBox = document.getElementById("feedbackBox");
+  const nextButton = document.getElementById("nextButton");
+
+  buttons.forEach(function (button) {
+    button.disabled = true;
+    button.style.cursor = "not-allowed";
+    button.style.opacity = "0.75";
+  });
+
+  buttons[question.answer].style.background =
+    "rgba(46, 204, 113, 0.28)";
+
+  buttons[question.answer].style.borderColor =
+    "#2ecc71";
+
+  if (selectedIndex === question.answer) {
+    score += 10;
+
+    selectedButton.style.background =
+      "rgba(46, 204, 113, 0.28)";
+
+    selectedButton.style.borderColor =
+      "#2ecc71";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ${question.explanation}
+      </p>
+    `;
+
+    feedbackBox.style.background =
+      "rgba(46,204,113,0.14)";
+
+    feedbackBox.style.border =
+      "1px solid rgba(46,204,113,0.5)";
+  } else {
+    hearts -= 1;
+
+    selectedButton.style.background =
+      "rgba(255,82,112,0.25)";
+
+    selectedButton.style.borderColor =
+      "#ff5270";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ ยังไม่ถูกต้อง เสียหัวใจ 1 ดวง
+      </strong>
+
+      <p>
+        คำตอบที่ถูกคือ
+        <strong>${question.choices[question.answer]}</strong>
+      </p>
+
+      <p style="margin-bottom:0;">
+        ${question.explanation}
+      </p>
+    `;
+
+    feedbackBox.style.background =
+      "rgba(255,82,112,0.13)";
+
+    feedbackBox.style.border =
+      "1px solid rgba(255,82,112,0.5)";
+  }
+
+  feedbackBox.style.display = "block";
+
+  if (hearts <= 0) {
+    nextButton.textContent = "ดูผลภารกิจ";
+  } else if (
+    currentQuestionIndex === selectedQuestions.length - 1
+  ) {
+    nextButton.textContent = "ดูผลภารกิจ";
+  } else {
+    nextButton.textContent = "ข้อต่อไป →";
+  }
+
+  nextButton.style.display = "block";
+}
+   function nextQuestion() {
+  if (
+    hearts <= 0 ||
+    currentQuestionIndex >= selectedQuestions.length - 1
+  ) {
+    showResult();
+    return;
+  }
+
+  currentQuestionIndex += 1;
+  showQuestion();
+}
+   function showResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  const totalQuestions = selectedQuestions.length;
+  const maxScore = totalQuestions * 10;
+  const percentage = Math.round((score / maxScore) * 100);
+
+  let resultLevel = "";
+  let resultStars = "";
+  let resultMessage = "";
+
+  if (percentage >= 90) {
+    resultLevel = "Electron Master";
+    resultStars = "⭐⭐⭐";
+    resultMessage = "ยอดเยี่ยมมาก! คุณเชี่ยวชาญเรื่องเลขอะตอมแล้ว";
+  } else if (percentage >= 75) {
+    resultLevel = "Atomic Explorer";
+    resultStars = "⭐⭐";
+    resultMessage = "ทำได้ดีมาก อีกนิดเดียวก็เป็นผู้เชี่ยวชาญแล้ว";
+  } else if (percentage >= 60) {
+    resultLevel = "Orbit Trainee";
+    resultStars = "⭐";
+    resultMessage = "ผ่านภารกิจแล้ว ลองฝึกเพิ่มเติมอีกเล็กน้อย";
+  } else {
+    resultLevel = "Try Again Hero";
+    resultStars = "🔄";
+    resultMessage = "ยังไม่ผ่านภารกิจ แต่คุณสามารถลองใหม่ได้เสมอ";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    score: score,
+    maxScore: maxScore,
+    percentage: percentage,
+    level: resultLevel,
+    date: new Date().toLocaleString("th-TH")
+  };
+
+  localStorage.setItem(
+    "electronOrbitLatestResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:60px; margin-bottom:10px;">
+        ${resultStars}
+      </div>
+
+      <h1 style="font-size:clamp(34px,7vw,48px);">
+        สรุปผลภารกิจ
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${resultLevel}
+      </h2>
+
+      <p>
+        ${resultMessage}
+      </p>
+
+      <div style="
+        margin:25px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${score} / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayHearts()}
+        </p>
+      </div>
+
+      <button onclick="startQuiz()">
+        🔄 เล่นด่านนี้อีกครั้ง
+      </button>
+
+      <button
+        onclick="location.reload()"
+        style="
+          margin-top:12px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        🏠 กลับหน้าลงทะเบียน
+      </button>
+
+    </div>
+  `;
+}
 </script>
 
 </body>
