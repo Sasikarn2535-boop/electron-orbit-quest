@@ -1243,116 +1243,201 @@ let answerLocked = false;
   let shellValues = {
   K: 0,
   L: 0,
-  M: 0
+  M: 0,
+  N: 0
 };
 
 const shellQuestion = {
-  element: "โซเดียม",
-  symbol: "Na",
-  atomicNumber: 11,
+  element: "คาร์บอน",
+  symbol: "C",
+  atomicNumber: 6,
   correctAnswer: {
     K: 2,
-    L: 8,
-    M: 1
+    L: 4,
+    M: 0,
+    N: 0
   }
 };
 
 function startLevelTwoQuiz() {
+  resetShellBuilder();
+}
+
+function resetShellBuilder() {
   shellValues = {
     K: 0,
     L: 0,
-    M: 0
+    M: 0,
+    N: 0
   };
 
   showShellBuilder();
+}
+   function createElectronDots(
+  shellName,
+  electronCount,
+  radius
+) {
+  if (electronCount <= 0) {
+    return "";
+  }
+
+  let dots = "";
+
+  for (let i = 0; i < electronCount; i++) {
+    const angle =
+      -90 + (360 / electronCount) * i;
+
+    const angleInRadians =
+      angle * (Math.PI / 180);
+
+    const center = 150;
+
+    const x =
+      center +
+      radius * Math.cos(angleInRadians);
+
+    const y =
+      center +
+      radius * Math.sin(angleInRadians);
+
+    dots += `
+      <div
+        class="electron-dot"
+        title="อิเล็กตรอนในเชลล์ ${shellName}"
+        style="
+          left:${x}px;
+          top:${y}px;
+        "
+      ></div>
+    `;
+  }
+
+  return dots;
+}
+   function createModernShellControl(
+  shellName,
+  maximum
+) {
+  return `
+    <div class="shell-box">
+
+      <div class="shell-name">
+        ${shellName}
+      </div>
+
+      <div class="shell-count">
+        ${shellValues[shellName]}
+      </div>
+
+      <div class="shell-buttons">
+
+        <button
+          class="shell-mini-button"
+          onclick="changeModernShellValue(
+            '${shellName}',
+            -1,
+            ${maximum}
+          )"
+        >
+          −
+        </button>
+
+        <button
+          class="shell-mini-button"
+          onclick="changeModernShellValue(
+            '${shellName}',
+            1,
+            ${maximum}
+          )"
+        >
+          +
+        </button>
+
+      </div>
+
+    </div>
+  `;
 }
 
 function showShellBuilder() {
   const totalElectrons =
     shellValues.K +
     shellValues.L +
-    shellValues.M;
+    shellValues.M +
+    shellValues.N;
 
   document.querySelector(".game-card").innerHTML = `
-    <div class="shell-builder-page">
+    <div class="shell-game">
 
-      <p style="
-        color:#67edff;
-        font-weight:bold;
-        margin-bottom:8px;
-      ">
-        ด่านที่ 2: Shell Builder
-      </p>
+      <div class="shell-topbar">
 
-      <h1 style="
-        font-size:clamp(32px,7vw,46px);
-      ">
-        จัดเรียงอิเล็กตรอน
-      </h1>
+        <div class="element-card">
+          <div class="element-number">
+            Z = ${shellQuestion.atomicNumber}
+          </div>
 
-      <div style="
-        margin:20px 0;
-        padding:22px;
-        border:1px solid #4e72b8;
-        border-radius:18px;
-        background:rgba(8,15,45,0.8);
-      ">
+          <div class="element-symbol">
+            ${shellQuestion.symbol}
+          </div>
 
-        <div style="
-          font-size:48px;
-          font-weight:bold;
-          color:#67edff;
-        ">
-          ${shellQuestion.symbol}
+          <div class="element-name">
+            ${shellQuestion.element}
+          </div>
         </div>
 
-        <h2 style="margin-top:8px;">
-          ธาตุ${shellQuestion.element}
-        </h2>
+        <div class="shell-heading">
+          <h2>
+            จัดเรียงอิเล็กตรอนของ
+            ${shellQuestion.symbol}
+            (${shellQuestion.atomicNumber} e⁻)
+            แบบเชลล์
+          </h2>
 
-        <p>
-          เลขอะตอม ${shellQuestion.atomicNumber}
-          จึงมีอิเล็กตรอนทั้งหมด
-          <strong>${shellQuestion.atomicNumber} ตัว</strong>
-        </p>
+          <p>
+            รวมทั้งหมด ${shellQuestion.atomicNumber} อิเล็กตรอน
+          </p>
+        </div>
 
-        <p style="
-          color:${
-            totalElectrons === shellQuestion.atomicNumber
-              ? "#74f5a7"
-              : "#ffe0a6"
-          };
-          font-weight:bold;
-        ">
-          จำนวนที่จัดแล้ว:
-          ${totalElectrons} /
-          ${shellQuestion.atomicNumber}
-        </p>
+      </div>
+
+      <div class="atom-model" id="atomModel">
+
+        <div class="atom-ring ring-n"></div>
+        <div class="atom-ring ring-m"></div>
+        <div class="atom-ring ring-l"></div>
+        <div class="atom-ring ring-k"></div>
+
+        <div class="atom-nucleus"></div>
+
+        ${createElectronDots("K", shellValues.K, 41)}
+        ${createElectronDots("L", shellValues.L, 70)}
+        ${createElectronDots("M", shellValues.M, 100)}
+        ${createElectronDots("N", shellValues.N, 130)}
 
       </div>
 
       <div style="
-        display:grid;
-        gap:14px;
+        margin-bottom:12px;
+        color:${
+          totalElectrons === shellQuestion.atomicNumber
+            ? "#60f59a"
+            : "#9ca8ca"
+        };
+        text-align:center;
+        font-weight:bold;
       ">
+        จำนวนที่จัดแล้ว:
+        ${totalElectrons} /
+        ${shellQuestion.atomicNumber}
+      </div>
 
-        ${createShellControl(
-          "K",
-          "เชลล์ที่ 1",
-          2
-        )}
+      <div class="shell-controls-grid">
 
-        ${createShellControl(
-          "L",
-          "เชลล์ที่ 2",
-          8
-        )}
-
-        ${createShellControl(
-          "M",
-          "เชลล์ที่ 3",
-          8
-        )}
+        ${createModernShellControl("K", 2)}
+        ${createModernShellControl("L", 8)}
+        ${createModernShellControl("M", 8)}
+        ${createModernShellControl("N", 2)}
 
       </div>
 
@@ -1360,32 +1445,196 @@ function showShellBuilder() {
         id="shellFeedback"
         style="
           display:none;
-          margin-top:20px;
-          padding:18px;
-          border-radius:15px;
-          text-align:left;
+          margin-top:18px;
+          padding:16px;
+          border-radius:14px;
           line-height:1.6;
         "
       ></div>
 
-      <button onclick="checkShellAnswer()">
-        ✅ ตรวจคำตอบ
-      </button>
+      <div class="shell-action-grid">
+
+        <button
+          class="hint-button"
+          onclick="showShellHint()"
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          class="check-button"
+          onclick="checkShellAnswer()"
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <div class="shell-secondary-grid">
+
+        <button onclick="showLevelTwoLessonFromMap()">
+          📖 ดูบทเรียน
+        </button>
+
+        <button onclick="resetShellBuilder()">
+          🔄 เริ่มต้นใหม่
+        </button>
+
+      </div>
 
       <button
-        onclick="showLevelTwoLessonFromMap()"
+        onclick="backToLevelMap()"
         style="
           margin-top:12px;
-          background:transparent;
           border:1px solid #67edff;
           color:#67edff;
+          background:transparent;
         "
       >
-        ← กลับหน้าบทเรียน
+        ← กลับหน้าเลือกด่าน
       </button>
 
     </div>
   `;
+}
+   function changeModernShellValue(
+  shellName,
+  amount,
+  maximum
+) {
+  const currentTotal =
+    shellValues.K +
+    shellValues.L +
+    shellValues.M +
+    shellValues.N;
+
+  if (
+    amount > 0 &&
+    currentTotal >= shellQuestion.atomicNumber
+  ) {
+    alert(
+      "จัดอิเล็กตรอนครบ " +
+      shellQuestion.atomicNumber +
+      " ตัวแล้ว"
+    );
+
+    return;
+  }
+
+  const newValue =
+    shellValues[shellName] + amount;
+
+  if (newValue < 0 || newValue > maximum) {
+    return;
+  }
+
+  shellValues[shellName] = newValue;
+
+  showShellBuilder();
+}
+   function showShellHint() {
+  const feedbackBox =
+    document.getElementById("shellFeedback");
+
+  feedbackBox.style.display = "block";
+  feedbackBox.style.background =
+    "rgba(255,196,66,0.12)";
+  feedbackBox.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  feedbackBox.innerHTML = `
+    <strong style="color:#ffe27e;">
+      💡 คำใบ้
+    </strong>
+
+    <p style="margin-bottom:0;">
+      เติมอิเล็กตรอนในเชลล์ด้านในก่อน
+      โดยเชลล์ K บรรจุได้สูงสุด 2 ตัว
+      จากนั้นจึงเติมเชลล์ L
+    </p>
+  `;
+}
+   function checkShellAnswer() {
+  const feedbackBox =
+    document.getElementById("shellFeedback");
+
+  const totalElectrons =
+    shellValues.K +
+    shellValues.L +
+    shellValues.M +
+    shellValues.N;
+
+  if (
+    totalElectrons !==
+    shellQuestion.atomicNumber
+  ) {
+    feedbackBox.style.display = "block";
+    feedbackBox.style.background =
+      "rgba(255,184,76,0.12)";
+    feedbackBox.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ จำนวนอิเล็กตรอนยังไม่ครบ
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ต้องจัดให้ครบ
+        ${shellQuestion.atomicNumber} ตัว
+        ขณะนี้จัดแล้ว ${totalElectrons} ตัว
+      </p>
+    `;
+
+    return;
+  }
+
+  const isCorrect =
+    shellValues.K ===
+      shellQuestion.correctAnswer.K &&
+    shellValues.L ===
+      shellQuestion.correctAnswer.L &&
+    shellValues.M ===
+      shellQuestion.correctAnswer.M &&
+    shellValues.N ===
+      shellQuestion.correctAnswer.N;
+
+  feedbackBox.style.display = "block";
+
+  if (isCorrect) {
+    feedbackBox.style.background =
+      "rgba(46,204,113,0.14)";
+    feedbackBox.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง!
+      </strong>
+
+      <p style="margin-bottom:0;">
+        คาร์บอนมีอิเล็กตรอน 6 ตัว
+        จัดเรียงแบบเชลล์เป็น
+        <strong>2, 4</strong>
+      </p>
+    `;
+  } else {
+    feedbackBox.style.background =
+      "rgba(255,82,112,0.13)";
+    feedbackBox.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ การจัดเรียงยังไม่ถูกต้อง
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ตรวจสอบว่าเติมเชลล์ K ให้ครบก่อน
+        แล้วจึงนำอิเล็กตรอนที่เหลือไปใส่เชลล์ L
+      </p>
+    `;
+  }
 }
    function createShellControl(
   shellName,
@@ -1597,6 +1846,237 @@ function showShellBuilder() {
         ลองปรับจำนวนใหม่อีกครั้ง
       </p>
     `;
+  }
+}
+   .shell-game {
+  width: 100%;
+  text-align: left;
+}
+
+.shell-topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.element-card {
+  width: 92px;
+  min-width: 92px;
+  padding: 10px;
+  border: 2px solid #5aa7ff;
+  border-radius: 14px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(37, 52, 101, 0.95),
+    rgba(24, 32, 69, 0.95)
+  );
+  box-shadow: 0 0 18px rgba(70, 154, 255, 0.45);
+}
+
+.element-number {
+  color: #9ba7c9;
+  font-size: 13px;
+}
+
+.element-symbol {
+  margin: 4px 0;
+  color: #55dfff;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.element-name {
+  color: #dce4ff;
+  font-size: 14px;
+}
+
+.shell-heading {
+  flex: 1;
+}
+
+.shell-heading h2 {
+  margin-bottom: 5px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.shell-heading p {
+  margin: 0;
+  color: #9ca8ca;
+}
+
+.atom-model {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+}
+
+.atom-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1.5px solid rgba(74, 139, 231, 0.65);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring-k {
+  width: 82px;
+  height: 82px;
+}
+
+.ring-l {
+  width: 140px;
+  height: 140px;
+}
+
+.ring-m {
+  width: 200px;
+  height: 200px;
+}
+
+.ring-n {
+  width: 260px;
+  height: 260px;
+}
+
+.atom-nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffd15c, #ff9d00);
+  box-shadow: 0 0 20px rgba(255, 169, 23, 0.65);
+  transform: translate(-50%, -50%);
+}
+
+.electron-dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #49cfff;
+  box-shadow: 0 0 10px rgba(73, 207, 255, 0.8);
+  transform: translate(-50%, -50%);
+  transition: 0.25s ease;
+}
+
+.shell-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 10px;
+}
+
+.shell-box {
+  padding: 12px 7px;
+  border: 1px solid rgba(92, 124, 194, 0.38);
+  border-radius: 13px;
+  text-align: center;
+  background: rgba(29, 40, 83, 0.88);
+}
+
+.shell-name {
+  color: #55dfff;
+  font-weight: bold;
+}
+
+.shell-count {
+  margin: 9px 0;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.shell-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.shell-mini-button {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #435a9a;
+  border-radius: 7px;
+  color: white;
+  font-size: 20px;
+  background: #111a3b;
+}
+
+.shell-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.shell-action-grid button {
+  margin: 0;
+  border-radius: 11px;
+}
+
+.hint-button {
+  border: 1px solid #f2c652;
+  color: #ffe27e;
+  background: rgba(83, 61, 14, 0.45);
+}
+
+.check-button {
+  color: white;
+  background: linear-gradient(90deg, #20c66c, #35dd79);
+}
+
+.shell-secondary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.shell-secondary-grid button {
+  margin: 0;
+  border: 1px solid #455588;
+  border-radius: 11px;
+  color: #dce5ff;
+  background: rgba(12, 20, 52, 0.9);
+}
+
+@media (max-width: 520px) {
+  .game-card {
+    padding: 24px 14px;
+  }
+
+  .shell-topbar {
+    align-items: flex-start;
+  }
+
+  .element-card {
+    width: 82px;
+    min-width: 82px;
+  }
+
+  .atom-model {
+    width: 280px;
+    height: 280px;
+  }
+
+  .shell-controls-grid {
+    gap: 6px;
+  }
+
+  .shell-box {
+    padding: 10px 4px;
+  }
+
+  .shell-action-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 </script>
