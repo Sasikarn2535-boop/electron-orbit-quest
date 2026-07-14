@@ -1240,8 +1240,364 @@ let answerLocked = false;
     </div>
   `;
 }
-   function startLevelTwoQuiz() {
-  alert("หน้าบทเรียนด่านที่ 2 พร้อมแล้ว ขั้นต่อไปจะสร้าง Shell Builder");
+  let shellValues = {
+  K: 0,
+  L: 0,
+  M: 0
+};
+
+const shellQuestion = {
+  element: "โซเดียม",
+  symbol: "Na",
+  atomicNumber: 11,
+  correctAnswer: {
+    K: 2,
+    L: 8,
+    M: 1
+  }
+};
+
+function startLevelTwoQuiz() {
+  shellValues = {
+    K: 0,
+    L: 0,
+    M: 0
+  };
+
+  showShellBuilder();
+}
+
+function showShellBuilder() {
+  const totalElectrons =
+    shellValues.K +
+    shellValues.L +
+    shellValues.M;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="shell-builder-page">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+        margin-bottom:8px;
+      ">
+        ด่านที่ 2: Shell Builder
+      </p>
+
+      <h1 style="
+        font-size:clamp(32px,7vw,46px);
+      ">
+        จัดเรียงอิเล็กตรอน
+      </h1>
+
+      <div style="
+        margin:20px 0;
+        padding:22px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.8);
+      ">
+
+        <div style="
+          font-size:48px;
+          font-weight:bold;
+          color:#67edff;
+        ">
+          ${shellQuestion.symbol}
+        </div>
+
+        <h2 style="margin-top:8px;">
+          ธาตุ${shellQuestion.element}
+        </h2>
+
+        <p>
+          เลขอะตอม ${shellQuestion.atomicNumber}
+          จึงมีอิเล็กตรอนทั้งหมด
+          <strong>${shellQuestion.atomicNumber} ตัว</strong>
+        </p>
+
+        <p style="
+          color:${
+            totalElectrons === shellQuestion.atomicNumber
+              ? "#74f5a7"
+              : "#ffe0a6"
+          };
+          font-weight:bold;
+        ">
+          จำนวนที่จัดแล้ว:
+          ${totalElectrons} /
+          ${shellQuestion.atomicNumber}
+        </p>
+
+      </div>
+
+      <div style="
+        display:grid;
+        gap:14px;
+      ">
+
+        ${createShellControl(
+          "K",
+          "เชลล์ที่ 1",
+          2
+        )}
+
+        ${createShellControl(
+          "L",
+          "เชลล์ที่ 2",
+          8
+        )}
+
+        ${createShellControl(
+          "M",
+          "เชลล์ที่ 3",
+          8
+        )}
+
+      </div>
+
+      <div
+        id="shellFeedback"
+        style="
+          display:none;
+          margin-top:20px;
+          padding:18px;
+          border-radius:15px;
+          text-align:left;
+          line-height:1.6;
+        "
+      ></div>
+
+      <button onclick="checkShellAnswer()">
+        ✅ ตรวจคำตอบ
+      </button>
+
+      <button
+        onclick="showLevelTwoLessonFromMap()"
+        style="
+          margin-top:12px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        ← กลับหน้าบทเรียน
+      </button>
+
+    </div>
+  `;
+}
+   function createShellControl(
+  shellName,
+  shellLabel,
+  maximum
+) {
+  const value = shellValues[shellName];
+
+  return `
+    <div style="
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:15px;
+      padding:18px;
+      border:1px solid rgba(83,232,255,0.35);
+      border-radius:18px;
+      background:rgba(16,25,65,0.8);
+    ">
+
+      <div style="text-align:left;">
+        <strong style="
+          color:#67edff;
+          font-size:22px;
+        ">
+          เชลล์ ${shellName}
+        </strong>
+
+        <p style="margin:5px 0 0;">
+          ${shellLabel}
+          · สูงสุด ${maximum} ตัว
+        </p>
+      </div>
+
+      <div style="
+        display:flex;
+        align-items:center;
+        gap:10px;
+      ">
+
+        <button
+          onclick="changeShellValue(
+            '${shellName}',
+            -1,
+            ${maximum}
+          )"
+          style="
+            width:44px;
+            height:44px;
+            margin:0;
+            padding:0;
+            border-radius:50%;
+            font-size:24px;
+          "
+        >
+          −
+        </button>
+
+        <div style="
+          width:48px;
+          font-size:26px;
+          font-weight:bold;
+          color:white;
+        ">
+          ${value}
+        </div>
+
+        <button
+          onclick="changeShellValue(
+            '${shellName}',
+            1,
+            ${maximum}
+          )"
+          style="
+            width:44px;
+            height:44px;
+            margin:0;
+            padding:0;
+            border-radius:50%;
+            font-size:24px;
+          "
+        >
+          +
+        </button>
+
+      </div>
+    </div>
+  `;
+}
+   function changeShellValue(
+  shellName,
+  amount,
+  maximum
+) {
+  const totalElectrons =
+    shellValues.K +
+    shellValues.L +
+    shellValues.M;
+
+  if (
+    amount > 0 &&
+    totalElectrons >= shellQuestion.atomicNumber
+  ) {
+    alert(
+      "จัดอิเล็กตรอนครบ " +
+      shellQuestion.atomicNumber +
+      " ตัวแล้ว"
+    );
+    return;
+  }
+
+  const newValue =
+    shellValues[shellName] + amount;
+
+  if (newValue < 0 || newValue > maximum) {
+    return;
+  }
+
+  shellValues[shellName] = newValue;
+
+  showShellBuilder();
+}
+   function checkShellAnswer() {
+  const feedbackBox =
+    document.getElementById("shellFeedback");
+
+  const totalElectrons =
+    shellValues.K +
+    shellValues.L +
+    shellValues.M;
+
+  if (
+    totalElectrons !==
+    shellQuestion.atomicNumber
+  ) {
+    feedbackBox.style.display = "block";
+    feedbackBox.style.background =
+      "rgba(255,184,76,0.12)";
+    feedbackBox.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ จำนวนอิเล็กตรอนยังไม่ครบ
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ต้องจัดให้ครบ
+        ${shellQuestion.atomicNumber} ตัว
+        ตอนนี้จัดแล้ว ${totalElectrons} ตัว
+      </p>
+    `;
+
+    return;
+  }
+
+  const isCorrect =
+    shellValues.K ===
+      shellQuestion.correctAnswer.K &&
+    shellValues.L ===
+      shellQuestion.correctAnswer.L &&
+    shellValues.M ===
+      shellQuestion.correctAnswer.M;
+
+  feedbackBox.style.display = "block";
+
+  if (isCorrect) {
+    feedbackBox.style.background =
+      "rgba(46,204,113,0.14)";
+    feedbackBox.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง!
+      </strong>
+
+      <p>
+        โซเดียมมีอิเล็กตรอน 11 ตัว
+        จัดเรียงเป็น
+        <strong>2, 8, 1</strong>
+      </p>
+
+      <button
+        onclick="backToLevelMap()"
+        style="margin-top:10px;"
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+    `;
+  } else {
+    feedbackBox.style.background =
+      "rgba(255,82,112,0.13)";
+    feedbackBox.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ การจัดเรียงยังไม่ถูกต้อง
+      </strong>
+
+      <p>
+        อย่าลืมเติมเชลล์ด้านในก่อน
+        โดยเชลล์ K บรรจุได้ 2 ตัว
+        และเชลล์ L บรรจุได้ 8 ตัว
+      </p>
+
+      <p style="margin-bottom:0;">
+        ลองปรับจำนวนใหม่อีกครั้ง
+      </p>
+    `;
+  }
 }
 </script>
 
