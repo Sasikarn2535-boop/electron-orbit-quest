@@ -231,10 +231,185 @@
       "electronOrbitStudent",
       JSON.stringify(studentData)
     );
+function showLevelMap(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="level-map">
 
-    showLesson(studentData);
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+        margin-bottom:8px;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="
+        font-size:clamp(34px,7vw,48px);
+        margin-bottom:8px;
+      ">
+        แผนที่ภารกิจ
+      </h1>
+
+      <p style="
+        color:#d2d8ff;
+        margin-bottom:26px;
+      ">
+        เลือกด่านที่ต้องการเรียนรู้
+      </p>
+
+      <div style="
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:14px;
+      ">
+
+        <button
+          onclick="showLessonFromMap()"
+          style="
+            margin:0;
+            min-height:125px;
+            border-radius:18px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            gap:8px;
+          "
+        >
+          <span style="font-size:34px;">⚛️</span>
+          <strong>ด่านที่ 1</strong>
+          <span style="font-size:14px;">
+            เลขอะตอมและจำนวนอิเล็กตรอน
+          </span>
+        </button>
+
+        ${createLockedLevel(
+          2,
+          "การจัดเรียงอิเล็กตรอนแบบเชลล์"
+        )}
+
+        ${createLockedLevel(
+          3,
+          "เวเลนซ์อิเล็กตรอน"
+        )}
+
+        ${createLockedLevel(
+          4,
+          "หลัก Aufbau"
+        )}
+
+        ${createLockedLevel(
+          5,
+          "การจัดเรียงแบบออร์บิทัล"
+        )}
+
+        ${createLockedLevel(
+          6,
+          "แคตไอออน"
+        )}
+
+        ${createLockedLevel(
+          7,
+          "แอนไอออน"
+        )}
+
+        ${createLockedLevel(
+          8,
+          "แนวโน้มขนาดอะตอม"
+        )}
+
+        ${createLockedLevel(
+          9,
+          "ขนาดไอออน"
+        )}
+
+        ${createLockedLevel(
+          10,
+          "ชุดไอโซอิเล็กโทรนิก"
+        )}
+
+      </div>
+
+      <div style="
+        margin-top:18px;
+        padding:20px;
+        border:1px solid rgba(255,184,76,0.6);
+        border-radius:18px;
+        background:rgba(255,184,76,0.08);
+      ">
+        <div style="font-size:32px;">👑</div>
+
+        <h3 style="
+          margin:8px 0;
+          color:#ffd783;
+        ">
+          Final Boss
+        </h3>
+
+        <p style="
+          margin:0;
+          color:#d2d8ff;
+          font-size:14px;
+        ">
+          ปลดล็อกเมื่อผ่านทุกด่าน
+        </p>
+      </div>
+
+      <button
+        onclick="location.reload()"
+        style="
+          margin-top:18px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        ← กลับหน้าลงทะเบียน
+      </button>
+
+    </div>
+  `;
+}
+showLevelMap(studentData);
   });
+function createLockedLevel(levelNumber, levelTitle) {
+  return `
+    <button
+      type="button"
+      onclick="showLockedMessage(${levelNumber})"
+      style="
+        margin:0;
+        min-height:125px;
+        padding:15px;
+        border:1px solid rgba(126,143,190,0.45);
+        border-radius:18px;
+        color:#8793bb;
+        background:rgba(23,30,70,0.75);
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        gap:8px;
+        cursor:pointer;
+      "
+    >
+      <span style="font-size:30px;">🔒</span>
 
+      <strong>
+        ด่านที่ ${levelNumber}
+      </strong>
+
+      <span style="
+        font-size:13px;
+        line-height:1.4;
+      ">
+        ${levelTitle}
+      </span>
+    </button>
+  `;
+}
   function showLesson(studentData) {
     document.querySelector(".game-card").innerHTML = `
       <div class="lesson-page">
@@ -304,16 +479,29 @@
         </button>
 
         <button
-          onclick="location.reload()"
-          style="
-            margin-top:12px;
-            background:transparent;
-            border:1px solid #67edff;
-            color:#67edff;
-          "
-        >
-          ← กลับหน้าลงทะเบียน
-        </button>
+  onclick="backToLevelMap()"
+  style="
+    margin-top:12px;
+    background:transparent;
+    border:1px solid #67edff;
+    color:#67edff;
+  "
+>
+  ← กลับหน้าเลือกด่าน
+</button>
+
+function backToLevelMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    location.reload();
+    return;
+  }
+
+  showLevelMap(studentData);
+}
 
       </div>
     `;
@@ -796,6 +984,26 @@ let answerLocked = false;
 
     </div>
   `;
+}
+   function showLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLesson(studentData);
+}
+   function showLockedMessage(levelNumber) {
+  alert(
+    "🔒 ด่านที่ " +
+    levelNumber +
+    " ยังไม่เปิดใช้งาน\nเราจะพัฒนาด่านนี้ในขั้นต่อไป"
+  );
 }
 </script>
 
