@@ -142,7 +142,240 @@
       background: rgba(255, 75, 120, 0.18);
       text-align: center;
     }
-  </style>
+    <style>
+.shell-game {
+  width: 100%;
+  text-align: left;
+}
+
+.shell-topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.element-card {
+  width: 92px;
+  min-width: 92px;
+  padding: 10px;
+  border: 2px solid #5aa7ff;
+  border-radius: 14px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(37, 52, 101, 0.95),
+    rgba(24, 32, 69, 0.95)
+  );
+  box-shadow: 0 0 18px rgba(70, 154, 255, 0.45);
+}
+
+.element-number {
+  color: #9ba7c9;
+  font-size: 13px;
+}
+
+.element-symbol {
+  margin: 4px 0;
+  color: #55dfff;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.element-name {
+  color: #dce4ff;
+  font-size: 14px;
+}
+
+.shell-heading {
+  flex: 1;
+}
+
+.shell-heading h2 {
+  margin-bottom: 5px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.shell-heading p {
+  margin: 0;
+  color: #9ca8ca;
+}
+
+.atom-model {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+}
+
+.atom-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1.5px solid rgba(74, 139, 231, 0.65);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring-k {
+  width: 82px;
+  height: 82px;
+}
+
+.ring-l {
+  width: 140px;
+  height: 140px;
+}
+
+.ring-m {
+  width: 200px;
+  height: 200px;
+}
+
+.ring-n {
+  width: 260px;
+  height: 260px;
+}
+
+.atom-nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffd15c, #ff9d00);
+  box-shadow: 0 0 20px rgba(255, 169, 23, 0.65);
+  transform: translate(-50%, -50%);
+}
+
+.electron-dot {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #49cfff;
+  box-shadow: 0 0 10px rgba(73, 207, 255, 0.8);
+  transform: translate(-50%, -50%);
+  transition: 0.25s ease;
+}
+
+.shell-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 10px;
+}
+
+.shell-box {
+  padding: 12px 7px;
+  border: 1px solid rgba(92, 124, 194, 0.38);
+  border-radius: 13px;
+  text-align: center;
+  background: rgba(29, 40, 83, 0.88);
+}
+
+.shell-name {
+  color: #55dfff;
+  font-weight: bold;
+}
+
+.shell-count {
+  margin: 9px 0;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.shell-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.shell-mini-button {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #435a9a;
+  border-radius: 7px;
+  color: white;
+  font-size: 20px;
+  background: #111a3b;
+}
+
+.shell-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.shell-action-grid button {
+  margin: 0;
+  border-radius: 11px;
+}
+
+.hint-button {
+  border: 1px solid #f2c652;
+  color: #ffe27e;
+  background: rgba(83, 61, 14, 0.45);
+}
+
+.check-button {
+  color: white;
+  background: linear-gradient(90deg, #20c66c, #35dd79);
+}
+
+.shell-secondary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.shell-secondary-grid button {
+  margin: 0;
+  border: 1px solid #455588;
+  border-radius: 11px;
+  color: #dce5ff;
+  background: rgba(12, 20, 52, 0.9);
+}
+
+@media (max-width: 520px) {
+  .game-card {
+    padding: 24px 14px;
+  }
+
+  .shell-topbar {
+    align-items: flex-start;
+  }
+
+  .element-card {
+    width: 82px;
+    min-width: 82px;
+  }
+
+  .atom-model {
+    width: 280px;
+    height: 280px;
+  }
+
+  .shell-controls-grid {
+    gap: 6px;
+  }
+
+  .shell-box {
+    padding: 10px 4px;
+  }
+
+  .shell-action-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+  }
+</style>
 </head>
 
 <body>
@@ -1636,449 +1869,8 @@ function showShellBuilder() {
     `;
   }
 }
-   function createShellControl(
-  shellName,
-  shellLabel,
-  maximum
-) {
-  const value = shellValues[shellName];
-
-  return `
-    <div style="
-      display:grid;
-      grid-template-columns:1fr auto;
-      align-items:center;
-      gap:15px;
-      padding:18px;
-      border:1px solid rgba(83,232,255,0.35);
-      border-radius:18px;
-      background:rgba(16,25,65,0.8);
-    ">
-
-      <div style="text-align:left;">
-        <strong style="
-          color:#67edff;
-          font-size:22px;
-        ">
-          เชลล์ ${shellName}
-        </strong>
-
-        <p style="margin:5px 0 0;">
-          ${shellLabel}
-          · สูงสุด ${maximum} ตัว
-        </p>
-      </div>
-
-      <div style="
-        display:flex;
-        align-items:center;
-        gap:10px;
-      ">
-
-        <button
-          onclick="changeShellValue(
-            '${shellName}',
-            -1,
-            ${maximum}
-          )"
-          style="
-            width:44px;
-            height:44px;
-            margin:0;
-            padding:0;
-            border-radius:50%;
-            font-size:24px;
-          "
-        >
-          −
-        </button>
-
-        <div style="
-          width:48px;
-          font-size:26px;
-          font-weight:bold;
-          color:white;
-        ">
-          ${value}
-        </div>
-
-        <button
-          onclick="changeShellValue(
-            '${shellName}',
-            1,
-            ${maximum}
-          )"
-          style="
-            width:44px;
-            height:44px;
-            margin:0;
-            padding:0;
-            border-radius:50%;
-            font-size:24px;
-          "
-        >
-          +
-        </button>
-
-      </div>
-    </div>
-  `;
-}
-   function changeShellValue(
-  shellName,
-  amount,
-  maximum
-) {
-  const totalElectrons =
-    shellValues.K +
-    shellValues.L +
-    shellValues.M;
-
-  if (
-    amount > 0 &&
-    totalElectrons >= shellQuestion.atomicNumber
-  ) {
-    alert(
-      "จัดอิเล็กตรอนครบ " +
-      shellQuestion.atomicNumber +
-      " ตัวแล้ว"
-    );
-    return;
-  }
-
-  const newValue =
-    shellValues[shellName] + amount;
-
-  if (newValue < 0 || newValue > maximum) {
-    return;
-  }
-
-  shellValues[shellName] = newValue;
-
-  showShellBuilder();
-}
-   function checkShellAnswer() {
-  const feedbackBox =
-    document.getElementById("shellFeedback");
-
-  const totalElectrons =
-    shellValues.K +
-    shellValues.L +
-    shellValues.M;
-
-  if (
-    totalElectrons !==
-    shellQuestion.atomicNumber
-  ) {
-    feedbackBox.style.display = "block";
-    feedbackBox.style.background =
-      "rgba(255,184,76,0.12)";
-    feedbackBox.style.border =
-      "1px solid rgba(255,184,76,0.55)";
-
-    feedbackBox.innerHTML = `
-      <strong style="color:#ffe0a6;">
-        ⚠️ จำนวนอิเล็กตรอนยังไม่ครบ
-      </strong>
-
-      <p style="margin-bottom:0;">
-        ต้องจัดให้ครบ
-        ${shellQuestion.atomicNumber} ตัว
-        ตอนนี้จัดแล้ว ${totalElectrons} ตัว
-      </p>
-    `;
-
-    return;
-  }
-
-  const isCorrect =
-    shellValues.K ===
-      shellQuestion.correctAnswer.K &&
-    shellValues.L ===
-      shellQuestion.correctAnswer.L &&
-    shellValues.M ===
-      shellQuestion.correctAnswer.M;
-
-  feedbackBox.style.display = "block";
-
-  if (isCorrect) {
-    feedbackBox.style.background =
-      "rgba(46,204,113,0.14)";
-    feedbackBox.style.border =
-      "1px solid rgba(46,204,113,0.55)";
-
-    feedbackBox.innerHTML = `
-      <strong style="color:#74f5a7;">
-        ✅ ถูกต้อง!
-      </strong>
-
-      <p>
-        โซเดียมมีอิเล็กตรอน 11 ตัว
-        จัดเรียงเป็น
-        <strong>2, 8, 1</strong>
-      </p>
-
-      <button
-        onclick="backToLevelMap()"
-        style="margin-top:10px;"
-      >
-        🗺️ กลับหน้าเลือกด่าน
-      </button>
-    `;
-  } else {
-    feedbackBox.style.background =
-      "rgba(255,82,112,0.13)";
-    feedbackBox.style.border =
-      "1px solid rgba(255,82,112,0.55)";
-
-    feedbackBox.innerHTML = `
-      <strong style="color:#ff91a5;">
-        ❌ การจัดเรียงยังไม่ถูกต้อง
-      </strong>
-
-      <p>
-        อย่าลืมเติมเชลล์ด้านในก่อน
-        โดยเชลล์ K บรรจุได้ 2 ตัว
-        และเชลล์ L บรรจุได้ 8 ตัว
-      </p>
-
-      <p style="margin-bottom:0;">
-        ลองปรับจำนวนใหม่อีกครั้ง
-      </p>
-    `;
-  }
-}
-   .shell-game {
-  width: 100%;
-  text-align: left;
-}
-
-.shell-topbar {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 22px;
-}
-
-.element-card {
-  width: 92px;
-  min-width: 92px;
-  padding: 10px;
-  border: 2px solid #5aa7ff;
-  border-radius: 14px;
-  text-align: center;
-  background: linear-gradient(
-    180deg,
-    rgba(37, 52, 101, 0.95),
-    rgba(24, 32, 69, 0.95)
-  );
-  box-shadow: 0 0 18px rgba(70, 154, 255, 0.45);
-}
-
-.element-number {
-  color: #9ba7c9;
-  font-size: 13px;
-}
-
-.element-symbol {
-  margin: 4px 0;
-  color: #55dfff;
-  font-size: 38px;
-  font-weight: bold;
-}
-
-.element-name {
-  color: #dce4ff;
-  font-size: 14px;
-}
-
-.shell-heading {
-  flex: 1;
-}
-
-.shell-heading h2 {
-  margin-bottom: 5px;
-  font-size: 21px;
-  line-height: 1.5;
-}
-
-.shell-heading p {
-  margin: 0;
-  color: #9ca8ca;
-}
-
-.atom-model {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 20px auto;
-}
-
-.atom-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 1.5px solid rgba(74, 139, 231, 0.65);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.ring-k {
-  width: 82px;
-  height: 82px;
-}
-
-.ring-l {
-  width: 140px;
-  height: 140px;
-}
-
-.ring-m {
-  width: 200px;
-  height: 200px;
-}
-
-.ring-n {
-  width: 260px;
-  height: 260px;
-}
-
-.atom-nucleus {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #ffd15c, #ff9d00);
-  box-shadow: 0 0 20px rgba(255, 169, 23, 0.65);
-  transform: translate(-50%, -50%);
-}
-
-.electron-dot {
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #49cfff;
-  box-shadow: 0 0 10px rgba(73, 207, 255, 0.8);
-  transform: translate(-50%, -50%);
-  transition: 0.25s ease;
-}
-
-.shell-controls-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 9px;
-  margin-top: 10px;
-}
-
-.shell-box {
-  padding: 12px 7px;
-  border: 1px solid rgba(92, 124, 194, 0.38);
-  border-radius: 13px;
-  text-align: center;
-  background: rgba(29, 40, 83, 0.88);
-}
-
-.shell-name {
-  color: #55dfff;
-  font-weight: bold;
-}
-
-.shell-count {
-  margin: 9px 0;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.shell-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 7px;
-}
-
-.shell-mini-button {
-  width: 32px;
-  height: 32px;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #435a9a;
-  border-radius: 7px;
-  color: white;
-  font-size: 20px;
-  background: #111a3b;
-}
-
-.shell-action-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.shell-action-grid button {
-  margin: 0;
-  border-radius: 11px;
-}
-
-.hint-button {
-  border: 1px solid #f2c652;
-  color: #ffe27e;
-  background: rgba(83, 61, 14, 0.45);
-}
-
-.check-button {
-  color: white;
-  background: linear-gradient(90deg, #20c66c, #35dd79);
-}
-
-.shell-secondary-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.shell-secondary-grid button {
-  margin: 0;
-  border: 1px solid #455588;
-  border-radius: 11px;
-  color: #dce5ff;
-  background: rgba(12, 20, 52, 0.9);
-}
-
-@media (max-width: 520px) {
-  .game-card {
-    padding: 24px 14px;
-  }
-
-  .shell-topbar {
-    align-items: flex-start;
-  }
-
-  .element-card {
-    width: 82px;
-    min-width: 82px;
-  }
-
-  .atom-model {
-    width: 280px;
-    height: 280px;
-  }
-
-  .shell-controls-grid {
-    gap: 6px;
-  }
-
-  .shell-box {
-    padding: 10px 4px;
-  }
-
-  .shell-action-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+   
+  
 </script>
 
 </body>
