@@ -1487,10 +1487,577 @@ let answerLocked = false;
     </div>
   `;
 }
-   function startLevelThreeQuiz() {
-  alert(
-    "บทเรียนด่านที่ 3 พร้อมแล้ว ขั้นต่อไปจะสร้างเกมหาเวเลนซ์อิเล็กตรอน"
+   const valenceQuestionBank = [
+  {
+    element: "คาร์บอน",
+    symbol: "C",
+    atomicNumber: 6,
+    shellText: "2, 4",
+    outerShell: "L",
+    answer: 4
+  },
+  {
+    element: "ออกซิเจน",
+    symbol: "O",
+    atomicNumber: 8,
+    shellText: "2, 6",
+    outerShell: "L",
+    answer: 6
+  },
+  {
+    element: "โซเดียม",
+    symbol: "Na",
+    atomicNumber: 11,
+    shellText: "2, 8, 1",
+    outerShell: "M",
+    answer: 1
+  },
+  {
+    element: "แมกนีเซียม",
+    symbol: "Mg",
+    atomicNumber: 12,
+    shellText: "2, 8, 2",
+    outerShell: "M",
+    answer: 2
+  },
+  {
+    element: "คลอรีน",
+    symbol: "Cl",
+    atomicNumber: 17,
+    shellText: "2, 8, 7",
+    outerShell: "M",
+    answer: 7
+  },
+  {
+    element: "แคลเซียม",
+    symbol: "Ca",
+    atomicNumber: 20,
+    shellText: "2, 8, 8, 2",
+    outerShell: "N",
+    answer: 2
+  }
+];
+
+let selectedValenceQuestions = [];
+let currentValenceQuestionIndex = 0;
+let valenceScore = 0;
+let valenceHearts = 3;
+let valenceAnswerLocked = false;
+
+function startLevelThreeQuiz() {
+  selectedValenceQuestions = shuffleQuestions(
+    [...valenceQuestionBank]
   );
+
+  currentValenceQuestionIndex = 0;
+  valenceScore = 0;
+  valenceHearts = 3;
+  valenceAnswerLocked = false;
+
+  showValenceQuestion();
+}
+
+function showValenceQuestion() {
+  valenceAnswerLocked = false;
+
+  const question =
+    selectedValenceQuestions[currentValenceQuestionIndex];
+
+  const totalQuestions =
+    selectedValenceQuestions.length;
+
+  const progress =
+    ((currentValenceQuestionIndex + 1) /
+      totalQuestions) *
+    100;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="valence-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        margin-bottom:16px;
+        font-weight:bold;
+        flex-wrap:wrap;
+      ">
+        <span style="color:#67edff;">
+          ข้อ ${currentValenceQuestionIndex + 1}
+          / ${totalQuestions}
+        </span>
+
+        <span>
+          คะแนน ${valenceScore}
+        </span>
+
+        <span style="font-size:21px;">
+          ${displayValenceHearts()}
+        </span>
+      </div>
+
+      <div style="
+        width:100%;
+        height:10px;
+        margin-bottom:22px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          border-radius:999px;
+          background:linear-gradient(
+            90deg,
+            #ff65c3,
+            #8f6cff
+          );
+        "></div>
+      </div>
+
+      <div style="
+        display:flex;
+        align-items:center;
+        gap:18px;
+        margin-bottom:22px;
+      ">
+
+        <div class="element-card">
+          <div class="element-number">
+            Z = ${question.atomicNumber}
+          </div>
+
+          <div class="element-symbol">
+            ${question.symbol}
+          </div>
+
+          <div class="element-name">
+            ${question.element}
+          </div>
+        </div>
+
+        <div style="
+          flex:1;
+          text-align:left;
+        ">
+          <h2 style="
+            margin-bottom:8px;
+            line-height:1.5;
+          ">
+            ${question.element}
+            มีเวเลนซ์อิเล็กตรอนกี่ตัว?
+          </h2>
+
+          <p style="margin:0;">
+            การจัดเรียงแบบเชลล์:
+            <strong style="
+              color:#ff96d5;
+              font-size:20px;
+            ">
+              ${question.shellText}
+            </strong>
+          </p>
+        </div>
+
+      </div>
+
+      <div style="
+        margin:20px 0;
+        padding:18px;
+        border:1px solid rgba(255,101,195,0.4);
+        border-radius:16px;
+        background:rgba(255,101,195,0.08);
+      ">
+        <p style="
+          margin:0;
+          color:#dce5ff;
+        ">
+          เลือกจำนวนอิเล็กตรอนในเชลล์นอกสุด
+        </p>
+      </div>
+
+      <div style="
+        display:grid;
+        grid-template-columns:
+          repeat(4, minmax(0,1fr));
+        gap:10px;
+      ">
+        ${[1,2,3,4,5,6,7,8]
+          .map(
+            number => `
+              <button
+                class="valence-choice"
+                onclick="
+                  checkValenceAnswer(
+                    ${number},
+                    this
+                  )
+                "
+                style="
+                  margin:0;
+                  padding:16px 8px;
+                  border:1px solid #56669c;
+                  border-radius:14px;
+                  color:white;
+                  background:rgba(18,27,68,0.9);
+                  font-size:22px;
+                "
+              >
+                ${number}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+
+      <div
+        id="valenceFeedback"
+        style="
+          display:none;
+          margin-top:20px;
+          padding:18px;
+          border-radius:15px;
+          text-align:left;
+          line-height:1.6;
+        "
+      ></div>
+
+      <button
+        id="nextValenceButton"
+        onclick="nextValenceQuestion()"
+        style="display:none;"
+      >
+        ข้อต่อไป →
+      </button>
+
+      <button
+        onclick="showLevelThreeLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+
+function displayValenceHearts() {
+  let heartDisplay = "";
+
+  for (let i = 0; i < 3; i++) {
+    heartDisplay +=
+      i < valenceHearts ? "❤️" : "🖤";
+  }
+
+  return heartDisplay;
+}
+
+function checkValenceAnswer(
+  selectedAnswer,
+  selectedButton
+) {
+  if (valenceAnswerLocked) {
+    return;
+  }
+
+  valenceAnswerLocked = true;
+
+  const question =
+    selectedValenceQuestions[
+      currentValenceQuestionIndex
+    ];
+
+  const buttons =
+    document.querySelectorAll(
+      ".valence-choice"
+    );
+
+  const feedbackBox =
+    document.getElementById(
+      "valenceFeedback"
+    );
+
+  const nextButton =
+    document.getElementById(
+      "nextValenceButton"
+    );
+
+  buttons.forEach(function (button) {
+    button.disabled = true;
+    button.style.cursor = "not-allowed";
+    button.style.opacity = "0.75";
+  });
+
+  const correctButton =
+    [...buttons].find(
+      button =>
+        Number(button.textContent.trim()) ===
+        question.answer
+    );
+
+  if (correctButton) {
+    correctButton.style.background =
+      "rgba(46,204,113,0.28)";
+    correctButton.style.borderColor =
+      "#2ecc71";
+  }
+
+  if (selectedAnswer === question.answer) {
+    valenceScore += 10;
+
+    selectedButton.style.background =
+      "rgba(46,204,113,0.28)";
+    selectedButton.style.borderColor =
+      "#2ecc71";
+
+    feedbackBox.style.background =
+      "rgba(46,204,113,0.14)";
+    feedbackBox.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
+      </strong>
+
+      <p style="margin-bottom:0;">
+        การจัดเรียงแบบเชลล์ของ
+        ${question.element}
+        คือ
+        <strong>${question.shellText}</strong>
+        เชลล์นอกสุดคือ
+        <strong>${question.outerShell}</strong>
+        และมีอิเล็กตรอน
+        <strong>${question.answer} ตัว</strong>
+      </p>
+    `;
+  } else {
+    valenceHearts -= 1;
+
+    selectedButton.style.background =
+      "rgba(255,82,112,0.25)";
+    selectedButton.style.borderColor =
+      "#ff5270";
+
+    feedbackBox.style.background =
+      "rgba(255,82,112,0.13)";
+    feedbackBox.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedbackBox.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ ยังไม่ถูกต้อง เสียหัวใจ 1 ดวง
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ดูตัวเลขตำแหน่งสุดท้ายของ
+        <strong>${question.shellText}</strong>
+        จึงได้เวเลนซ์อิเล็กตรอน
+        <strong>${question.answer} ตัว</strong>
+      </p>
+    `;
+  }
+
+  feedbackBox.style.display = "block";
+
+  if (
+    valenceHearts <= 0 ||
+    currentValenceQuestionIndex ===
+      selectedValenceQuestions.length - 1
+  ) {
+    nextButton.textContent =
+      "ดูผลภารกิจ";
+  } else {
+    nextButton.textContent =
+      "ข้อต่อไป →";
+  }
+
+  nextButton.style.display = "block";
+}
+
+function nextValenceQuestion() {
+  if (
+    valenceHearts <= 0 ||
+    currentValenceQuestionIndex >=
+      selectedValenceQuestions.length - 1
+  ) {
+    showLevelThreeResult();
+    return;
+  }
+
+  currentValenceQuestionIndex += 1;
+
+  showValenceQuestion();
+}
+
+function showLevelThreeResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedValenceQuestions.length * 10;
+
+  const percentage = Math.round(
+    (valenceScore / maxScore) * 100
+  );
+
+  let resultLevel = "";
+  let resultStars = "";
+  let resultMessage = "";
+
+  if (percentage >= 90) {
+    resultLevel = "Electron Master";
+    resultStars = "⭐⭐⭐";
+    resultMessage =
+      "ยอดเยี่ยมมาก! คุณหาเวเลนซ์อิเล็กตรอนได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    resultLevel = "Atomic Explorer";
+    resultStars = "⭐⭐";
+    resultMessage =
+      "ทำได้ดีมาก คุณเข้าใจเชลล์นอกสุดแล้ว";
+  } else if (percentage >= 60) {
+    resultLevel = "Orbit Trainee";
+    resultStars = "⭐";
+    resultMessage =
+      "ผ่านภารกิจแล้ว ลองฝึกเพิ่มอีกเล็กน้อย";
+  } else {
+    resultLevel = "Try Again Hero";
+    resultStars = "🔄";
+    resultMessage =
+      "ทบทวนวิธีดูตัวเลขตำแหน่งสุดท้ายแล้วลองใหม่อีกครั้ง";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 3,
+    score: valenceScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    level: resultLevel,
+    hearts: valenceHearts,
+    date: new Date().toLocaleString("th-TH")
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelThreeResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="
+        font-size:58px;
+        margin-bottom:10px;
+      ">
+        ${resultStars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 3
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${resultLevel}
+      </h2>
+
+      <p>
+        ${resultMessage}
+      </p>
+
+      <div style="
+        margin:25px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${valenceScore} / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayValenceHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelThreeQuiz()">
+        🔄 เล่นด่านที่ 3 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelThreeLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
 }
    function showLockedMessage(levelNumber) {
   alert(
