@@ -568,10 +568,26 @@
   </span>
 </button>
 
-          ${createLockedLevel(
-            4,
-            "หลัก Aufbau"
-          )}
+         <button
+  onclick="showLevelFourLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#35d7ff,#5866ff);
+  "
+>
+  <span style="font-size:34px;">🧩</span>
+  <strong>ด่านที่ 4</strong>
+  <span style="font-size:14px;">
+    หลัก Aufbau
+  </span>
+</button>
 
           ${createLockedLevel(
             5,
@@ -3002,7 +3018,658 @@ function showShellBuilder() {
     </div>
   `;
 }
-  
+  function showLevelFourLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelFourLesson(studentData);
+}
+
+function showLevelFourLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="color:#67edff;font-weight:bold;">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 4: หลัก Aufbau
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          หลัก Aufbau คืออะไร?
+        </h3>
+
+        <p>
+          อิเล็กตรอนจะเข้าไปอยู่ในซับเชลล์ที่มีพลังงานต่ำก่อน
+          แล้วจึงเติมเข้าสู่ซับเชลล์ที่มีพลังงานสูงขึ้น
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          background:rgba(83,232,255,0.12);
+          text-align:center;
+          font-size:19px;
+          line-height:1.8;
+        ">
+          <strong style="color:#67edff;">
+            ลำดับการเติมอิเล็กตรอน
+          </strong><br>
+          1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p
+        </div>
+
+        <h3 style="color:#67edff;">
+          หลักการจำ
+        </h3>
+
+        <p>
+          ให้เริ่มจากซับเชลล์ที่มีพลังงานต่ำที่สุด
+          และเลือกต่อไปตามลำดับทีละตำแหน่ง
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          background:rgba(255,184,76,0.1);
+          border:1px solid rgba(255,184,76,0.4);
+        ">
+          <strong style="color:#ffe0a6;">
+            ตัวอย่าง
+          </strong>
+
+          <p style="margin-bottom:0;">
+            หลังจาก 3p ซับเชลล์ถัดไปคือ 4s
+            ไม่ใช่ 3d
+          </p>
+        </div>
+
+      </div>
+
+      <button onclick="startLevelFourQuiz()">
+        🧩 เริ่มภารกิจเรียงลำดับ
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const aufbauQuestionBank = [
+  {
+    instruction: "เรียงลำดับ 5 ซับเชลล์แรก",
+    options: ["1s", "2s", "2p", "3s", "3p"],
+    answer: ["1s", "2s", "2p", "3s", "3p"]
+  },
+  {
+    instruction: "เรียงลำดับตั้งแต่ 2p ถึง 4s",
+    options: ["2p", "3s", "3p", "4s"],
+    answer: ["2p", "3s", "3p", "4s"]
+  },
+  {
+    instruction: "เรียงลำดับตั้งแต่ 3s ถึง 3d",
+    options: ["3s", "3p", "4s", "3d"],
+    answer: ["3s", "3p", "4s", "3d"]
+  },
+  {
+    instruction: "เรียงลำดับ 6 ซับเชลล์แรก",
+    options: ["1s", "2s", "2p", "3s", "3p", "4s"],
+    answer: ["1s", "2s", "2p", "3s", "3p", "4s"]
+  },
+  {
+    instruction: "เรียงลำดับตั้งแต่ 3p ถึง 4p",
+    options: ["3p", "4s", "3d", "4p"],
+    answer: ["3p", "4s", "3d", "4p"]
+  }
+];
+
+let selectedAufbauQuestions = [];
+let currentAufbauQuestionIndex = 0;
+let aufbauScore = 0;
+let aufbauHearts = 3;
+let selectedAufbauOrder = [];
+let aufbauAnswerLocked = false;
+   function startLevelFourQuiz() {
+  selectedAufbauQuestions = shuffleQuestions(
+    [...aufbauQuestionBank]
+  );
+
+  currentAufbauQuestionIndex = 0;
+  aufbauScore = 0;
+  aufbauHearts = 3;
+  selectedAufbauOrder = [];
+  aufbauAnswerLocked = false;
+
+  showAufbauQuestion();
+}
+   function showAufbauQuestion() {
+  aufbauAnswerLocked = false;
+  selectedAufbauOrder = [];
+
+  const question =
+    selectedAufbauQuestions[currentAufbauQuestionIndex];
+
+  const shuffledOptions =
+    shuffleQuestions([...question.options]);
+
+  question.displayOptions = shuffledOptions;
+
+  const progress =
+    ((currentAufbauQuestionIndex + 1) /
+      selectedAufbauQuestions.length) * 100;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="aufbau-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:12px;
+        font-weight:bold;
+      ">
+        <div style="text-align:left;">
+          <div style="color:#9ba7c9;font-size:13px;">ด่าน</div>
+          <div style="color:#67edff;font-size:25px;">4</div>
+        </div>
+
+        <div style="font-size:24px;">
+          ${displayAufbauHearts()}
+        </div>
+
+        <div style="text-align:right;">
+          <div style="color:#9ba7c9;font-size:13px;">คะแนน</div>
+          <div style="color:#67edff;font-size:25px;">
+            ${aufbauScore}
+          </div>
+        </div>
+      </div>
+
+      <div style="
+        height:10px;
+        margin-bottom:10px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(90deg,#53e8ff,#8f6cff);
+        "></div>
+      </div>
+
+      <div style="
+        color:#dce5ff;
+        margin-bottom:18px;
+        font-weight:bold;
+      ">
+        ${currentAufbauQuestionIndex + 1}
+        / ${selectedAufbauQuestions.length}
+      </div>
+
+      <div style="
+        min-height:420px;
+        padding:22px 14px;
+        border:1px solid #354775;
+        border-radius:18px;
+        background:rgba(25,34,76,0.92);
+        text-align:left;
+      ">
+
+        <h2 style="margin-bottom:8px;">
+          เรียงลำดับการเติมอิเล็กตรอนแบบ Aufbau
+        </h2>
+
+        <p style="margin-top:0;color:#9ca8ca;">
+          ${question.instruction}
+        </p>
+
+        <div
+          id="aufbauSelectedOrder"
+          style="
+            min-height:48px;
+            padding:12px;
+            margin:12px 0;
+            border:1px dashed #4f6096;
+            border-radius:12px;
+            color:#67edff;
+            background:rgba(7,13,40,0.55);
+          "
+        >
+          เลือกซับเชลล์ที่นี่...
+        </div>
+
+        <div
+          id="aufbauOptions"
+          style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+          "
+        >
+          ${question.displayOptions.map(option => `
+            <button
+              class="aufbau-option"
+              data-option="${option}"
+              onclick="selectAufbauOption('${option}', this)"
+              style="
+                width:auto;
+                min-width:62px;
+                margin:0;
+                padding:14px 18px;
+                border:1px solid #506295;
+                border-radius:12px;
+                color:#dce5ff;
+                background:rgba(36,47,91,0.95);
+              "
+            >
+              ${option}
+            </button>
+          `).join("")}
+        </div>
+
+        <div
+          id="aufbauFeedback"
+          style="
+            display:none;
+            margin-top:18px;
+            padding:16px;
+            border-radius:14px;
+            line-height:1.6;
+          "
+        ></div>
+
+      </div>
+
+      <div style="
+        display:grid;
+        grid-template-columns:1fr 1.4fr;
+        gap:10px;
+        margin-top:14px;
+      ">
+        <button
+          onclick="showAufbauHint()"
+          style="
+            margin:0;
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkAufbauAnswer()"
+          style="
+            margin:0;
+            color:white;
+            background:linear-gradient(90deg,#20c66c,#35dd79);
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+      </div>
+
+      <button
+        onclick="resetAufbauSelection()"
+        style="
+          margin-top:10px;
+          border:1px solid #455588;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+        "
+      >
+        🔄 เริ่มเลือกใหม่
+      </button>
+
+    </div>
+  `;
+}
+   function selectAufbauOption(option, button) {
+  if (aufbauAnswerLocked) {
+    return;
+  }
+
+  selectedAufbauOrder.push(option);
+
+  button.disabled = true;
+  button.style.opacity = "0.35";
+
+  updateAufbauSelectedDisplay();
+}
+
+function updateAufbauSelectedDisplay() {
+  const display =
+    document.getElementById("aufbauSelectedOrder");
+
+  if (selectedAufbauOrder.length === 0) {
+    display.textContent =
+      "เลือกซับเชลล์ที่นี่...";
+    return;
+  }
+
+  display.innerHTML =
+    selectedAufbauOrder
+      .map(
+        (item, index) =>
+          `<span style="
+            display:inline-block;
+            margin:4px;
+            padding:8px 11px;
+            border-radius:9px;
+            background:rgba(83,232,255,0.14);
+          ">
+            ${index + 1}. ${item}
+          </span>`
+      )
+      .join(" → ");
+}
+   function displayAufbauHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result += i < aufbauHearts ? "❤️" : "🖤";
+  }
+
+  return result;
+}
+
+function showAufbauHint() {
+  const question =
+    selectedAufbauQuestions[currentAufbauQuestionIndex];
+
+  const feedback =
+    document.getElementById("aufbauFeedback");
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  feedback.innerHTML = `
+    <strong style="color:#ffe27e;">
+      💡 คำใบ้
+    </strong>
+
+    <p style="margin-bottom:0;">
+      ลำดับมาตรฐานช่วงนี้คือ
+      1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p
+    </p>
+  `;
+}
+   function checkAufbauAnswer() {
+  if (aufbauAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedAufbauQuestions[currentAufbauQuestionIndex];
+
+  const feedback =
+    document.getElementById("aufbauFeedback");
+
+  if (
+    selectedAufbauOrder.length !==
+    question.answer.length
+  ) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ เลือกซับเชลล์ยังไม่ครบ
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ต้องเลือกทั้งหมด ${question.answer.length} ตำแหน่ง
+      </p>
+    `;
+
+    return;
+  }
+
+  const isCorrect =
+    selectedAufbauOrder.every(
+      (item, index) =>
+        item === question.answer[index]
+    );
+
+  aufbauAnswerLocked = true;
+
+  if (isCorrect) {
+    aufbauScore += 10;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(46,204,113,0.14)";
+    feedback.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
+      </strong>
+
+      <p>
+        ลำดับที่ถูกต้องคือ
+        <strong>${question.answer.join(" → ")}</strong>
+      </p>
+
+      <button
+        onclick="nextAufbauQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          currentAufbauQuestionIndex ===
+          selectedAufbauQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  } else {
+    aufbauHearts -= 1;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,82,112,0.13)";
+    feedback.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ ลำดับยังไม่ถูกต้อง เสียหัวใจ 1 ดวง
+      </strong>
+
+      <p>
+        ลำดับที่ถูกต้องคือ
+        <strong>${question.answer.join(" → ")}</strong>
+      </p>
+
+      <button
+        onclick="nextAufbauQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          aufbauHearts <= 0 ||
+          currentAufbauQuestionIndex ===
+          selectedAufbauQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  }
+}
+   function resetAufbauSelection() {
+  if (aufbauAnswerLocked) {
+    return;
+  }
+
+  selectedAufbauOrder = [];
+
+  document
+    .querySelectorAll(".aufbau-option")
+    .forEach(button => {
+      button.disabled = false;
+      button.style.opacity = "1";
+    });
+
+  updateAufbauSelectedDisplay();
+}
+
+function nextAufbauQuestion() {
+  if (
+    aufbauHearts <= 0 ||
+    currentAufbauQuestionIndex >=
+      selectedAufbauQuestions.length - 1
+  ) {
+    showLevelFourResult();
+    return;
+  }
+
+  currentAufbauQuestionIndex += 1;
+  showAufbauQuestion();
+}
+   function showLevelFourResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  const maxScore =
+    selectedAufbauQuestions.length * 10;
+
+  const percentage = Math.round(
+    (aufbauScore / maxScore) * 100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+  }
+
+  localStorage.setItem(
+    "electronOrbitLevelFourResult",
+    JSON.stringify({
+      name: studentData.name,
+      className: studentData.className,
+      number: studentData.number,
+      score: aufbauScore,
+      maxScore: maxScore,
+      percentage: percentage,
+      hearts: aufbauHearts,
+      level: level,
+      date: new Date().toLocaleString("th-TH")
+    })
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>สรุปผลด่านที่ 4</h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p><strong>ผู้เล่น:</strong> ${studentData.name}</p>
+        <p><strong>คะแนน:</strong> ${aufbauScore} / ${maxScore}</p>
+        <p><strong>คิดเป็น:</strong> ${percentage}%</p>
+        <p><strong>หัวใจที่เหลือ:</strong> ${displayAufbauHearts()}</p>
+      </div>
+
+      <button onclick="startLevelFourQuiz()">
+        🔄 เล่นด่านที่ 4 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelFourLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
 </script>
 
 </body>
