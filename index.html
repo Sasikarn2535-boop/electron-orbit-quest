@@ -545,10 +545,28 @@
   </span>
 </button>
 
-          ${createLockedLevel(
-            3,
-            "เวเลนซ์อิเล็กตรอน"
-          )}
+         <button
+  onclick="showLevelThreeLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#ff65c3,#8f6cff);
+  "
+>
+  <span style="font-size:34px;">✨</span>
+
+  <strong>ด่านที่ 3</strong>
+
+  <span style="font-size:14px;">
+    เวเลนซ์อิเล็กตรอน
+  </span>
+</button>
 
           ${createLockedLevel(
             4,
@@ -1263,6 +1281,216 @@ let answerLocked = false;
   }
 
   showLevelTwoLesson(studentData);
+}
+   function showLevelThreeLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelThreeLesson(studentData);
+}
+   function showLevelThreeLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 3: เวเลนซ์อิเล็กตรอน
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          เวเลนซ์อิเล็กตรอนคืออะไร?
+        </h3>
+
+        <p>
+          เวเลนซ์อิเล็กตรอน คือ อิเล็กตรอนที่อยู่ใน
+          <strong>ระดับพลังงานหรือเชลล์นอกสุด</strong>
+          ของอะตอม
+        </p>
+
+        <p>
+          เวเลนซ์อิเล็กตรอนมีความสำคัญต่อการเกิดพันธะเคมี
+          และช่วยบอกแนวโน้มการรับหรือเสียอิเล็กตรอนของธาตุ
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          background:rgba(255,101,195,0.12);
+          border:1px solid rgba(255,101,195,0.4);
+          text-align:center;
+          font-size:20px;
+        ">
+          เวเลนซ์อิเล็กตรอน
+          <br>
+          =
+          <strong style="color:#ff96d5;">
+            จำนวนอิเล็กตรอนในเชลล์นอกสุด
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          ตัวอย่างที่ 1: คาร์บอน
+        </h3>
+
+        <p>
+          คาร์บอนมีการจัดเรียงอิเล็กตรอนแบบเชลล์เป็น
+          <strong>2, 4</strong>
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          background:rgba(83,232,255,0.12);
+          text-align:center;
+          font-size:21px;
+        ">
+          เชลล์นอกสุดคือ L
+          <br>
+          มีอิเล็กตรอน 4 ตัว
+          <br>
+          <strong style="color:#67edff;">
+            เวเลนซ์อิเล็กตรอน = 4
+          </strong>
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          ตัวอย่างที่ 2: โซเดียม
+        </h3>
+
+        <p>
+          โซเดียมมีการจัดเรียงอิเล็กตรอนแบบเชลล์เป็น
+          <strong>2, 8, 1</strong>
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          background:rgba(155,124,255,0.14);
+          text-align:center;
+          font-size:21px;
+        ">
+          เชลล์นอกสุดคือ M
+          <br>
+          มีอิเล็กตรอน 1 ตัว
+          <br>
+          <strong style="color:#c9b8ff;">
+            เวเลนซ์อิเล็กตรอน = 1
+          </strong>
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          ตัวอย่างที่ 3: คลอรีน
+        </h3>
+
+        <p>
+          คลอรีนมีการจัดเรียงอิเล็กตรอนแบบเชลล์เป็น
+          <strong>2, 8, 7</strong>
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          background:rgba(255,184,76,0.1);
+          text-align:center;
+          font-size:21px;
+        ">
+          เชลล์นอกสุดคือ M
+          <br>
+          มีอิเล็กตรอน 7 ตัว
+          <br>
+          <strong style="color:#ffe0a6;">
+            เวเลนซ์อิเล็กตรอน = 7
+          </strong>
+        </div>
+
+        <div style="
+          margin-top:22px;
+          padding:16px;
+          border-radius:14px;
+          background:rgba(46,204,113,0.1);
+          border:1px solid rgba(46,204,113,0.4);
+        ">
+          <strong style="color:#74f5a7;">
+            วิธีหาอย่างง่าย
+          </strong>
+
+          <p style="margin-bottom:0;">
+            1. เขียนการจัดเรียงอิเล็กตรอนแบบเชลล์<br>
+            2. มองหาตัวเลขตำแหน่งสุดท้าย<br>
+            3. ตัวเลขนั้นคือจำนวนเวเลนซ์อิเล็กตรอน
+          </p>
+        </div>
+
+        <p style="
+          margin-top:22px;
+          padding:14px;
+          border-radius:12px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+        ">
+          ตัวอย่าง: 2, 8, 2 → เวเลนซ์อิเล็กตรอนเท่ากับ 2
+        </p>
+
+      </div>
+
+      <button onclick="startLevelThreeQuiz()">
+        ✨ เริ่มทำภารกิจด่านที่ 3
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          background:transparent;
+          border:1px solid #67edff;
+          color:#67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function startLevelThreeQuiz() {
+  alert(
+    "บทเรียนด่านที่ 3 พร้อมแล้ว ขั้นต่อไปจะสร้างเกมหาเวเลนซ์อิเล็กตรอน"
+  );
 }
    function showLockedMessage(levelNumber) {
   alert(
