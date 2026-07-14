@@ -1480,20 +1480,106 @@ let answerLocked = false;
   N: 0
 };
 
-const shellQuestion = {
-  element: "คาร์บอน",
-  symbol: "C",
-  atomicNumber: 6,
-  correctAnswer: {
-    K: 2,
-    L: 4,
-    M: 0,
-    N: 0
+const shellQuestionBank = [
+  {
+    element: "คาร์บอน",
+    symbol: "C",
+    atomicNumber: 6,
+    correctAnswer: {
+      K: 2,
+      L: 4,
+      M: 0,
+      N: 0
+    }
+  },
+  {
+    element: "ออกซิเจน",
+    symbol: "O",
+    atomicNumber: 8,
+    correctAnswer: {
+      K: 2,
+      L: 6,
+      M: 0,
+      N: 0
+    }
+  },
+  {
+    element: "โซเดียม",
+    symbol: "Na",
+    atomicNumber: 11,
+    correctAnswer: {
+      K: 2,
+      L: 8,
+      M: 1,
+      N: 0
+    }
+  },
+  {
+    element: "แมกนีเซียม",
+    symbol: "Mg",
+    atomicNumber: 12,
+    correctAnswer: {
+      K: 2,
+      L: 8,
+      M: 2,
+      N: 0
+    }
+  },
+  {
+    element: "คลอรีน",
+    symbol: "Cl",
+    atomicNumber: 17,
+    correctAnswer: {
+      K: 2,
+      L: 8,
+      M: 7,
+      N: 0
+    }
+  },
+  {
+    element: "แคลเซียม",
+    symbol: "Ca",
+    atomicNumber: 20,
+    correctAnswer: {
+      K: 2,
+      L: 8,
+      M: 8,
+      N: 2
+    }
   }
-};
+];
+
+let selectedShellQuestions = [];
+let currentShellQuestionIndex = 0;
+let shellScore = 0;
+let shellAnswerLocked = false;
+let shellQuestion = shellQuestionBank[0];
 
 function startLevelTwoQuiz() {
-  resetShellBuilder();
+  selectedShellQuestions = shuffleQuestions(
+    [...shellQuestionBank]
+  );
+
+  currentShellQuestionIndex = 0;
+  shellScore = 0;
+  shellAnswerLocked = false;
+
+  loadCurrentShellQuestion();
+}
+   function loadCurrentShellQuestion() {
+  shellQuestion =
+    selectedShellQuestions[currentShellQuestionIndex];
+
+  shellValues = {
+    K: 0,
+    L: 0,
+    M: 0,
+    N: 0
+  };
+
+  shellAnswerLocked = false;
+
+  showShellBuilder();
 }
 
 function resetShellBuilder() {
@@ -1503,6 +1589,8 @@ function resetShellBuilder() {
     M: 0,
     N: 0
   };
+
+  shellAnswerLocked = false;
 
   showShellBuilder();
 }
@@ -1602,6 +1690,45 @@ function showShellBuilder() {
 
   document.querySelector(".game-card").innerHTML = `
     <div class="shell-game">
+
+<div style="
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+  font-weight:bold;
+">
+  <span style="color:#67edff;">
+    ข้อ ${currentShellQuestionIndex + 1}
+    / ${selectedShellQuestions.length}
+  </span>
+
+  <span>
+    คะแนน ${shellScore}
+  </span>
+</div>
+
+<div style="
+  width:100%;
+  height:10px;
+  margin-bottom:20px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.12);
+  overflow:hidden;
+">
+  <div style="
+    width:${
+      (
+        (currentShellQuestionIndex + 1) /
+        selectedShellQuestions.length
+      ) * 100
+    }%;
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg,#53e8ff,#9b7cff);
+  "></div>
+</div>
 
       <div class="shell-topbar">
 
@@ -1735,12 +1862,15 @@ function showShellBuilder() {
   amount,
   maximum
 ) {
+  if (shellAnswerLocked) {
+    return;
+  }
+
   const currentTotal =
     shellValues.K +
     shellValues.L +
     shellValues.M +
     shellValues.N;
-
   if (
     amount > 0 &&
     currentTotal >= shellQuestion.atomicNumber
@@ -1787,7 +1917,28 @@ function showShellBuilder() {
     </p>
   `;
 }
+   function getShellAnswerText(answer) {
+  const values = [
+    answer.K,
+    answer.L,
+    answer.M,
+    answer.N
+  ];
+
+  while (
+    values.length > 1 &&
+    values[values.length - 1] === 0
+  ) {
+    values.pop();
+  }
+
+  return values.join(", ");
+}
    function checkShellAnswer() {
+  if (shellAnswerLocked) {
+    return;
+  }
+
   const feedbackBox =
     document.getElementById("shellFeedback");
 
@@ -1797,10 +1948,7 @@ function showShellBuilder() {
     shellValues.M +
     shellValues.N;
 
-  if (
-    totalElectrons !==
-    shellQuestion.atomicNumber
-  ) {
+  if (totalElectrons !== shellQuestion.atomicNumber) {
     feedbackBox.style.display = "block";
     feedbackBox.style.background =
       "rgba(255,184,76,0.12)";
@@ -1823,18 +1971,26 @@ function showShellBuilder() {
   }
 
   const isCorrect =
-    shellValues.K ===
-      shellQuestion.correctAnswer.K &&
-    shellValues.L ===
-      shellQuestion.correctAnswer.L &&
-    shellValues.M ===
-      shellQuestion.correctAnswer.M &&
-    shellValues.N ===
-      shellQuestion.correctAnswer.N;
+    shellValues.K === shellQuestion.correctAnswer.K &&
+    shellValues.L === shellQuestion.correctAnswer.L &&
+    shellValues.M === shellQuestion.correctAnswer.M &&
+    shellValues.N === shellQuestion.correctAnswer.N;
 
   feedbackBox.style.display = "block";
 
   if (isCorrect) {
+    shellAnswerLocked = true;
+    shellScore += 10;
+
+    const answerText =
+      getShellAnswerText(
+        shellQuestion.correctAnswer
+      );
+
+    const isLastQuestion =
+      currentShellQuestionIndex ===
+      selectedShellQuestions.length - 1;
+
     feedbackBox.style.background =
       "rgba(46,204,113,0.14)";
     feedbackBox.style.border =
@@ -1842,14 +1998,35 @@ function showShellBuilder() {
 
     feedbackBox.innerHTML = `
       <strong style="color:#74f5a7;">
-        ✅ ถูกต้อง!
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
       </strong>
 
-      <p style="margin-bottom:0;">
-        คาร์บอนมีอิเล็กตรอน 6 ตัว
+      <p>
+        ${shellQuestion.element}
+        มีอิเล็กตรอน
+        ${shellQuestion.atomicNumber} ตัว
         จัดเรียงแบบเชลล์เป็น
-        <strong>2, 4</strong>
+        <strong>${answerText}</strong>
       </p>
+
+      <button
+        onclick="nextShellQuestion()"
+        style="
+          margin-top:8px;
+          color:#09102c;
+          background:linear-gradient(
+            90deg,
+            #53e8ff,
+            #9b7cff
+          );
+        "
+      >
+        ${
+          isLastQuestion
+            ? "ดูสรุปผลภารกิจ"
+            : "ธาตุถัดไป →"
+        }
+      </button>
     `;
   } else {
     feedbackBox.style.background =
@@ -1863,13 +2040,173 @@ function showShellBuilder() {
       </strong>
 
       <p style="margin-bottom:0;">
-        ตรวจสอบว่าเติมเชลล์ K ให้ครบก่อน
-        แล้วจึงนำอิเล็กตรอนที่เหลือไปใส่เชลล์ L
+        เติมอิเล็กตรอนในเชลล์ด้านในก่อน
+        เริ่มจาก K แล้วจึงไป L, M และ N
+        ลองปรับคำตอบอีกครั้ง
       </p>
     `;
   }
 }
-   
+   function nextShellQuestion() {
+  if (
+    currentShellQuestionIndex >=
+    selectedShellQuestions.length - 1
+  ) {
+    showLevelTwoResult();
+    return;
+  }
+
+  currentShellQuestionIndex += 1;
+
+  loadCurrentShellQuestion();
+}
+   function showLevelTwoResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  const maxScore =
+    selectedShellQuestions.length * 10;
+
+  const percentage = Math.round(
+    (shellScore / maxScore) * 100
+  );
+
+  let resultLevel = "";
+  let resultStars = "";
+  let resultMessage = "";
+
+  if (percentage >= 90) {
+    resultLevel = "Electron Master";
+    resultStars = "⭐⭐⭐";
+    resultMessage =
+      "ยอดเยี่ยมมาก! คุณจัดเรียงอิเล็กตรอนแบบเชลล์ได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    resultLevel = "Atomic Explorer";
+    resultStars = "⭐⭐";
+    resultMessage =
+      "ทำได้ดีมาก คุณเข้าใจการเติมอิเล็กตรอนในแต่ละเชลล์แล้ว";
+  } else if (percentage >= 60) {
+    resultLevel = "Orbit Trainee";
+    resultStars = "⭐";
+    resultMessage =
+      "ผ่านภารกิจแล้ว ควรฝึกจัดเรียงธาตุเพิ่มเติม";
+  } else {
+    resultLevel = "Try Again Hero";
+    resultStars = "🔄";
+    resultMessage =
+      "ลองทบทวนบทเรียนแล้วกลับมาทำภารกิจอีกครั้ง";
+  }
+
+  const levelTwoResult = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 2,
+    score: shellScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    level: resultLevel,
+    date: new Date().toLocaleString("th-TH")
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelTwoResult",
+    JSON.stringify(levelTwoResult)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="
+        font-size:58px;
+        margin-bottom:10px;
+      ">
+        ${resultStars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 2
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${resultLevel}
+      </h2>
+
+      <p>
+        ${resultMessage}
+      </p>
+
+      <div style="
+        margin:25px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${shellScore} / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>จำนวนธาตุ:</strong>
+          ${selectedShellQuestions.length} ธาตุ
+        </p>
+      </div>
+
+      <button onclick="startLevelTwoQuiz()">
+        🔄 เล่นด่านที่ 2 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelTwoLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
   
 </script>
 
