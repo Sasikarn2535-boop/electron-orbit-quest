@@ -477,8 +477,9 @@ function createLockedLevel(levelNumber, levelTitle) {
         <button onclick="startQuiz()">
           ⚡ เริ่มทำภารกิจด่านที่ 1
         </button>
-
-        <button
+<button
+  onclick="location.reload()"
+       <button
   onclick="backToLevelMap()"
   style="
     margin-top:12px;
@@ -489,7 +490,6 @@ function createLockedLevel(levelNumber, levelTitle) {
 >
   ← กลับหน้าเลือกด่าน
 </button>
-
 function backToLevelMap() {
   const studentData = JSON.parse(
     localStorage.getItem("electronOrbitStudent")
@@ -502,8 +502,6 @@ function backToLevelMap() {
 
   showLevelMap(studentData);
 }
-
-      </div>
     `;
   }
 
