@@ -375,6 +375,105 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+    .orbital-game {
+  width: 100%;
+  text-align: left;
+}
+
+.orbital-question-card {
+  padding: 18px;
+  border: 1px solid #435887;
+  border-radius: 18px;
+  background: rgba(19, 29, 69, 0.9);
+}
+
+.orbital-element-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.orbital-area {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.subshell-row {
+  display: grid;
+  grid-template-columns: 55px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.subshell-label {
+  color: #67edff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.orbital-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.orbital-box {
+  width: 58px;
+  height: 58px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #53699f;
+  border-radius: 10px;
+  color: white;
+  background: rgba(9, 17, 48, 0.95);
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.orbital-box:hover {
+  border-color: #67edff;
+  transform: translateY(-2px);
+}
+
+.orbital-rule-card {
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 14px;
+  color: #dce5ff;
+  background: rgba(83, 232, 255, 0.08);
+  border: 1px solid rgba(83, 232, 255, 0.3);
+}
+
+.orbital-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.orbital-actions button {
+  margin: 0;
+  border-radius: 12px;
+}
+
+@media (max-width: 520px) {
+  .subshell-row {
+    grid-template-columns: 42px 1fr;
+  }
+
+  .orbital-box {
+    width: 50px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+  .orbital-element-row {
+    align-items: flex-start;
+  }
+}
 </style>
 </head>
 
@@ -589,10 +688,28 @@
   </span>
 </button>
 
-          ${createLockedLevel(
-            5,
-            "การจัดเรียงแบบออร์บิทัล"
-          )}
+         <button
+  onclick="showLevelFiveLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#14d7b5,#377dff);
+  "
+>
+  <span style="font-size:34px;">⚡</span>
+
+  <strong>ด่านที่ 5</strong>
+
+  <span style="font-size:14px;">
+    การจัดเรียงแบบออร์บิทัล
+  </span>
+</button>
 
           ${createLockedLevel(
             6,
@@ -3645,6 +3762,1072 @@ function nextAufbauQuestion() {
 
       <button
         onclick="showLevelFourLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function showLevelFiveLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelFiveLesson(studentData);
+}
+
+function showLevelFiveLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 5: การจัดเรียงอิเล็กตรอนแบบออร์บิทัล
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          ออร์บิทัลคืออะไร?
+        </h3>
+
+        <p>
+          ออร์บิทัล คือ บริเวณที่มีโอกาสพบอิเล็กตรอน
+          แต่ละออร์บิทัลบรรจุอิเล็กตรอนได้สูงสุด 2 ตัว
+          โดยมีสปินตรงข้ามกัน
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(83,232,255,0.1);
+        ">
+          <strong style="color:#67edff;">
+            1 ออร์บิทัล
+          </strong>
+          <br>
+          บรรจุสูงสุด 2 อิเล็กตรอน
+          <br>
+          เขียนแทนด้วย
+          <strong style="font-size:23px;">
+            ↑↓
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          จำนวนออร์บิทัลในแต่ละซับเชลล์
+        </h3>
+
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:12px;
+          margin:18px 0;
+        ">
+          <div style="
+            padding:15px;
+            border-radius:13px;
+            background:rgba(83,232,255,0.1);
+            text-align:center;
+          ">
+            <strong style="color:#67edff;">s</strong>
+            <p style="margin-bottom:0;">
+              1 ออร์บิทัล<br>
+              สูงสุด 2 อิเล็กตรอน
+            </p>
+          </div>
+
+          <div style="
+            padding:15px;
+            border-radius:13px;
+            background:rgba(155,124,255,0.12);
+            text-align:center;
+          ">
+            <strong style="color:#c9b8ff;">p</strong>
+            <p style="margin-bottom:0;">
+              3 ออร์บิทัล<br>
+              สูงสุด 6 อิเล็กตรอน
+            </p>
+          </div>
+        </div>
+
+        <h3 style="color:#67edff;">
+          กฎสำคัญ 3 ข้อ
+        </h3>
+
+        <div style="
+          display:grid;
+          gap:12px;
+        ">
+          <div style="
+            padding:15px;
+            border-radius:13px;
+            background:rgba(46,204,113,0.1);
+          ">
+            <strong style="color:#74f5a7;">
+              1. หลัก Aufbau
+            </strong>
+
+            <p style="margin-bottom:0;">
+              เติมอิเล็กตรอนในซับเชลล์ที่มีพลังงานต่ำก่อน
+            </p>
+          </div>
+
+          <div style="
+            padding:15px;
+            border-radius:13px;
+            background:rgba(255,101,195,0.1);
+          ">
+            <strong style="color:#ff96d5;">
+              2. หลักกีดกันของเพาลี
+            </strong>
+
+            <p style="margin-bottom:0;">
+              ออร์บิทัลหนึ่งมีอิเล็กตรอนได้ไม่เกิน 2 ตัว
+              และต้องมีสปินตรงข้ามกัน
+            </p>
+          </div>
+
+          <div style="
+            padding:15px;
+            border-radius:13px;
+            background:rgba(255,184,76,0.1);
+          ">
+            <strong style="color:#ffe0a6;">
+              3. กฎของฮุนด์
+            </strong>
+
+            <p style="margin-bottom:0;">
+              อิเล็กตรอนจะเข้าอยู่เดี่ยวในออร์บิทัล
+              ที่มีพลังงานเท่ากันก่อน แล้วจึงจับคู่
+            </p>
+          </div>
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          ตัวอย่าง: คาร์บอน
+        </h3>
+
+        <p>
+          คาร์บอนมีอิเล็กตรอน 6 ตัว
+          เขียนการจัดเรียงเป็น
+          <strong>1s² 2s² 2p²</strong>
+        </p>
+
+        <div style="
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          line-height:2;
+          background:rgba(83,232,255,0.1);
+        ">
+          1s&nbsp; [↑↓]
+          <br>
+          2s&nbsp; [↑↓]
+          <br>
+          2p&nbsp; [↑] [↑] [ ]
+        </div>
+
+      </div>
+
+      <button onclick="startLevelFiveQuiz()">
+        ⚡ เริ่มภารกิจออร์บิทัล
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const orbitalQuestionBank = [
+  {
+    element: "ฮีเลียม",
+    symbol: "He",
+    atomicNumber: 2,
+    configuration: "1s²",
+    subshells: [
+      {
+        name: "1s",
+        type: "s",
+        electrons: 2
+      }
+    ]
+  },
+  {
+    element: "ลิเทียม",
+    symbol: "Li",
+    atomicNumber: 3,
+    configuration: "1s² 2s¹",
+    subshells: [
+      {
+        name: "1s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2s",
+        type: "s",
+        electrons: 1
+      }
+    ]
+  },
+  {
+    element: "คาร์บอน",
+    symbol: "C",
+    atomicNumber: 6,
+    configuration: "1s² 2s² 2p²",
+    subshells: [
+      {
+        name: "1s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2p",
+        type: "p",
+        electrons: 2
+      }
+    ]
+  },
+  {
+    element: "ออกซิเจน",
+    symbol: "O",
+    atomicNumber: 8,
+    configuration: "1s² 2s² 2p⁴",
+    subshells: [
+      {
+        name: "1s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2p",
+        type: "p",
+        electrons: 4
+      }
+    ]
+  },
+  {
+    element: "นีออน",
+    symbol: "Ne",
+    atomicNumber: 10,
+    configuration: "1s² 2s² 2p⁶",
+    subshells: [
+      {
+        name: "1s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2p",
+        type: "p",
+        electrons: 6
+      }
+    ]
+  },
+  {
+    element: "โซเดียม",
+    symbol: "Na",
+    atomicNumber: 11,
+    configuration: "1s² 2s² 2p⁶ 3s¹",
+    subshells: [
+      {
+        name: "1s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2s",
+        type: "s",
+        electrons: 2
+      },
+      {
+        name: "2p",
+        type: "p",
+        electrons: 6
+      },
+      {
+        name: "3s",
+        type: "s",
+        electrons: 1
+      }
+    ]
+  }
+];
+
+let selectedOrbitalQuestions = [];
+let currentOrbitalQuestionIndex = 0;
+let orbitalScore = 0;
+let orbitalHearts = 3;
+let orbitalStates = {};
+let orbitalAnswerLocked = false;
+   function startLevelFiveQuiz() {
+  selectedOrbitalQuestions = shuffleQuestions(
+    [...orbitalQuestionBank]
+  );
+
+  currentOrbitalQuestionIndex = 0;
+  orbitalScore = 0;
+  orbitalHearts = 3;
+  orbitalAnswerLocked = false;
+
+  loadCurrentOrbitalQuestion();
+}
+
+function loadCurrentOrbitalQuestion() {
+  const question =
+    selectedOrbitalQuestions[
+      currentOrbitalQuestionIndex
+    ];
+
+  orbitalStates = {};
+
+  question.subshells.forEach(function (subshell) {
+    const boxCount =
+      subshell.type === "p" ? 3 : 1;
+
+    orbitalStates[subshell.name] =
+      Array(boxCount).fill("");
+  });
+
+  orbitalAnswerLocked = false;
+
+  showOrbitalQuestion();
+}
+   function showOrbitalQuestion() {
+  const question =
+    selectedOrbitalQuestions[
+      currentOrbitalQuestionIndex
+    ];
+
+  const totalQuestions =
+    selectedOrbitalQuestions.length;
+
+  const progress =
+    ((currentOrbitalQuestionIndex + 1) /
+      totalQuestions) *
+    100;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="orbital-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        margin-bottom:14px;
+        font-weight:bold;
+      ">
+        <span style="color:#67edff;">
+          ข้อ ${currentOrbitalQuestionIndex + 1}
+          / ${totalQuestions}
+        </span>
+
+        <span style="font-size:22px;">
+          ${displayOrbitalHearts()}
+        </span>
+
+        <span>
+          คะแนน ${orbitalScore}
+        </span>
+      </div>
+
+      <div style="
+        width:100%;
+        height:10px;
+        margin-bottom:20px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(
+            90deg,
+            #14d7b5,
+            #377dff
+          );
+        "></div>
+      </div>
+
+      <div class="orbital-question-card">
+
+        <div class="orbital-element-row">
+
+          <div class="element-card">
+            <div class="element-number">
+              Z = ${question.atomicNumber}
+            </div>
+
+            <div class="element-symbol">
+              ${question.symbol}
+            </div>
+
+            <div class="element-name">
+              ${question.element}
+            </div>
+          </div>
+
+          <div style="
+            flex:1;
+            text-align:left;
+          ">
+            <h2 style="
+              margin-bottom:7px;
+              line-height:1.5;
+            ">
+              จัดเรียงอิเล็กตรอนของ
+              ${question.element}
+            </h2>
+
+            <p style="margin:0;">
+              มีอิเล็กตรอนทั้งหมด
+              <strong>
+                ${question.atomicNumber} ตัว
+              </strong>
+            </p>
+          </div>
+
+        </div>
+
+        <p style="
+          color:#9ca8ca;
+          margin-bottom:8px;
+        ">
+          กดแต่ละช่องเพื่อเปลี่ยน
+          ว่าง → ↑ → ↑↓
+        </p>
+
+        <div class="orbital-area">
+          ${question.subshells
+            .map(
+              subshell =>
+                createOrbitalSubshellRow(
+                  subshell
+                )
+            )
+            .join("")}
+        </div>
+
+        <div style="
+          margin-top:18px;
+          color:${
+            countPlacedOrbitalElectrons() ===
+            question.atomicNumber
+              ? "#74f5a7"
+              : "#9ca8ca"
+          };
+          text-align:center;
+          font-weight:bold;
+        ">
+          จำนวนที่จัดแล้ว:
+          ${countPlacedOrbitalElectrons()}
+          / ${question.atomicNumber}
+        </div>
+
+        <div class="orbital-rule-card">
+          เติมออร์บิทัลพลังงานต่ำก่อน
+          และในซับเชลล์ p ต้องเติมเดี่ยวก่อนจับคู่
+        </div>
+
+        <div
+          id="orbitalFeedback"
+          style="
+            display:none;
+            margin-top:18px;
+            padding:16px;
+            border-radius:14px;
+            line-height:1.6;
+          "
+        ></div>
+
+      </div>
+
+      <div class="orbital-actions">
+
+        <button
+          onclick="showOrbitalHint()"
+          style="
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkOrbitalAnswer()"
+          style="
+            color:white;
+            background:linear-gradient(
+              90deg,
+              #20c66c,
+              #35dd79
+            );
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <button
+        onclick="resetOrbitalQuestion()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        🔄 เริ่มจัดใหม่
+      </button>
+
+      <button
+        onclick="showLevelFiveLessonFromMap()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+    </div>
+  `;
+}
+   function createOrbitalSubshellRow(subshell) {
+  const states =
+    orbitalStates[subshell.name];
+
+  return `
+    <div class="subshell-row">
+
+      <div class="subshell-label">
+        ${subshell.name}
+      </div>
+
+      <div class="orbital-boxes">
+        ${states
+          .map(
+            (state, boxIndex) => `
+              <button
+                class="orbital-box"
+                onclick="
+                  cycleOrbitalState(
+                    '${subshell.name}',
+                    ${boxIndex}
+                  )
+                "
+              >
+                ${state || "&nbsp;"}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+
+    </div>
+  `;
+}
+   function cycleOrbitalState(
+  subshellName,
+  boxIndex
+) {
+  if (orbitalAnswerLocked) {
+    return;
+  }
+
+  const currentState =
+    orbitalStates[subshellName][boxIndex];
+
+  if (currentState === "") {
+    orbitalStates[subshellName][boxIndex] =
+      "↑";
+  } else if (currentState === "↑") {
+    orbitalStates[subshellName][boxIndex] =
+      "↑↓";
+  } else {
+    orbitalStates[subshellName][boxIndex] =
+      "";
+  }
+
+  showOrbitalQuestion();
+}
+
+function resetOrbitalQuestion() {
+  if (orbitalAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedOrbitalQuestions[
+      currentOrbitalQuestionIndex
+    ];
+
+  question.subshells.forEach(function (subshell) {
+    const boxCount =
+      subshell.type === "p" ? 3 : 1;
+
+    orbitalStates[subshell.name] =
+      Array(boxCount).fill("");
+  });
+
+  showOrbitalQuestion();
+}
+   function getOrbitalStateElectronCount(state) {
+  if (state === "↑↓") {
+    return 2;
+  }
+
+  if (state === "↑") {
+    return 1;
+  }
+
+  return 0;
+}
+
+function countPlacedOrbitalElectrons() {
+  let total = 0;
+
+  Object.values(orbitalStates)
+    .forEach(function (states) {
+      states.forEach(function (state) {
+        total +=
+          getOrbitalStateElectronCount(state);
+      });
+    });
+
+  return total;
+}
+
+function displayOrbitalHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result +=
+      i < orbitalHearts ? "❤️" : "🖤";
+  }
+
+  return result;
+}
+   function validateOrbitalSubshell(
+  subshell,
+  states
+) {
+  const counts = states.map(
+    getOrbitalStateElectronCount
+  );
+
+  const total =
+    counts.reduce(
+      (sum, value) => sum + value,
+      0
+    );
+
+  if (total !== subshell.electrons) {
+    return false;
+  }
+
+  if (subshell.type === "s") {
+    return counts[0] === subshell.electrons;
+  }
+
+  if (subshell.type === "p") {
+    const pairCount =
+      counts.filter(value => value === 2).length;
+
+    const singleCount =
+      counts.filter(value => value === 1).length;
+
+    const expectedPairs =
+      Math.max(0, subshell.electrons - 3);
+
+    const expectedSingles =
+      subshell.electrons -
+      expectedPairs * 2;
+
+    return (
+      pairCount === expectedPairs &&
+      singleCount === expectedSingles
+    );
+  }
+
+  return false;
+}
+
+function isOrbitalAnswerCorrect(question) {
+  return question.subshells.every(
+    function (subshell) {
+      return validateOrbitalSubshell(
+        subshell,
+        orbitalStates[subshell.name]
+      );
+    }
+  );
+}
+   function showOrbitalHint() {
+  const question =
+    selectedOrbitalQuestions[
+      currentOrbitalQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "orbitalFeedback"
+    );
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  feedback.innerHTML = `
+    <strong style="color:#ffe27e;">
+      💡 คำใบ้
+    </strong>
+
+    <p style="margin-bottom:0;">
+      การจัดเรียงแบบซับเชลล์คือ
+      <strong>${question.configuration}</strong>
+      และใน p ต้องเติม ↑ แยกกันก่อนจับคู่
+    </p>
+  `;
+}
+
+function checkOrbitalAnswer() {
+  if (orbitalAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedOrbitalQuestions[
+      currentOrbitalQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "orbitalFeedback"
+    );
+
+  const placedElectrons =
+    countPlacedOrbitalElectrons();
+
+  if (
+    placedElectrons !==
+    question.atomicNumber
+  ) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ จำนวนอิเล็กตรอนยังไม่ครบ
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ต้องจัดทั้งหมด
+        ${question.atomicNumber} ตัว
+        ตอนนี้จัดแล้ว ${placedElectrons} ตัว
+      </p>
+    `;
+
+    return;
+  }
+
+  const isCorrect =
+    isOrbitalAnswerCorrect(question);
+
+  orbitalAnswerLocked = true;
+
+  if (isCorrect) {
+    orbitalScore += 10;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(46,204,113,0.14)";
+    feedback.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
+      </strong>
+
+      <p>
+        ${question.element}
+        มีการจัดเรียงอิเล็กตรอนเป็น
+        <strong>${question.configuration}</strong>
+      </p>
+
+      <button
+        onclick="nextOrbitalQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          currentOrbitalQuestionIndex ===
+          selectedOrbitalQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  } else {
+    orbitalHearts -= 1;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,82,112,0.13)";
+    feedback.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ การจัดเรียงยังไม่ถูกต้อง
+        เสียหัวใจ 1 ดวง
+      </strong>
+
+      <p>
+        คำตอบอยู่ในรูป
+        <strong>${question.configuration}</strong>
+      </p>
+
+      <p>
+        ตรวจสอบหลัก Aufbau, Pauli
+        และ Hund อีกครั้ง
+      </p>
+
+      <button
+        onclick="nextOrbitalQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          orbitalHearts <= 0 ||
+          currentOrbitalQuestionIndex ===
+          selectedOrbitalQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  }
+}
+   function nextOrbitalQuestion() {
+  if (
+    orbitalHearts <= 0 ||
+    currentOrbitalQuestionIndex >=
+      selectedOrbitalQuestions.length - 1
+  ) {
+    showLevelFiveResult();
+    return;
+  }
+
+  currentOrbitalQuestionIndex += 1;
+
+  loadCurrentOrbitalQuestion();
+}
+
+function showLevelFiveResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedOrbitalQuestions.length * 10;
+
+  const percentage = Math.round(
+    (orbitalScore / maxScore) * 100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+  let message =
+    "ทบทวนหลัก Aufbau, Pauli และ Hund แล้วลองใหม่อีกครั้ง";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+    message =
+      "ยอดเยี่ยมมาก! คุณจัดเรียงอิเล็กตรอนในออร์บิทัลได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+    message =
+      "ทำได้ดีมาก คุณเข้าใจกฎการเติมออร์บิทัลแล้ว";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+    message =
+      "ผ่านภารกิจแล้ว ลองฝึกการเติม p ออร์บิทัลเพิ่มเติม";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 5,
+    score: orbitalScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    hearts: orbitalHearts,
+    level: level,
+    date: new Date().toLocaleString("th-TH")
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelFiveResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 5
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${orbitalScore} / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayOrbitalHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelFiveQuiz()">
+        🔄 เล่นด่านที่ 5 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelFiveLessonFromMap()"
         style="
           margin-top:12px;
           color:#dce5ff;
