@@ -12224,30 +12224,36 @@ function showFinalBossIntro(studentData) {
         </h3>
 
         <p>
-          ⚔️ ตอบถูกโดยไม่ใช้คำใบ้:
-          ได้ 10 คะแนน และโจมตี 10 HP
-        </p>
+  ⚔️ ตอบถูกโดยไม่ใช้คำใบ้:
+  ได้ 10 คะแนน และโจมตี 10 HP
+</p>
 
-        <p>
-          💡 ตอบถูกหลังใช้คำใบ้:
-          ได้ 5 คะแนน และโจมตี 5 HP
-        </p>
+<p>
+  💡 ตอบถูกหลังใช้คำใบ้:
+  ได้ 5 คะแนน และโจมตี 5 HP
+</p>
 
-        <p>
-          ❤️ ผู้เล่นมีหัวใจ 5 ดวง
-        </p>
+<p>
+  ❤️ ผู้เล่นมีหัวใจ 5 ดวง
+</p>
 
-        <p>
-          💥 ตอบผิดเสียหัวใจ 1 ดวง
-        </p>
+<p>
+  💥 ตอบผิดเสียหัวใจ 1 ดวง
+</p>
 
-        <p>
-          👾 Boss มีพลังทั้งหมด 240 HP
-        </p>
+<p>
+  👾 Boss มีพลังทั้งหมด 240 HP
+</p>
 
-        <p>
-          🧠 มีคำถามทั้งหมด 30 ข้อ
-        </p>
+<p>
+  🧠 ผู้เล่นต้องทำภารกิจให้ครบทั้ง 30 ข้อ
+  แม้พลังของ Boss จะเหลือ 0 HP แล้ว
+</p>
+
+<p>
+  💔 หากหัวใจหมดก่อนครบ 30 ข้อ
+  ระบบจะเริ่มใหม่ตั้งแต่ข้อ 1
+</p>
 
         <div style="
           margin-top:18px;
@@ -12744,13 +12750,13 @@ function showFinalBossHint() {
       style="margin-top:16px;"
     >
       ${
-        finalBossHearts <= 0 ||
-        finalBossHP <= 0 ||
-        currentFinalBossQuestionIndex ===
-          selectedFinalBossQuestions.length - 1
-          ? "ดูผลการต่อสู้"
-          : "โจมตีต่อไป →"
-      }
+  finalBossHearts <= 0
+    ? "❤️ หัวใจหมด เริ่มใหม่ข้อ 1"
+    : currentFinalBossQuestionIndex ===
+        selectedFinalBossQuestions.length - 1
+      ? "ดูผลการต่อสู้"
+      : "โจมตีต่อไป →"
+}
     </button>
   `;
 
@@ -12773,11 +12779,27 @@ function showFinalBossHint() {
   }
 }
    function nextFinalBossQuestion() {
+  /*
+    ถ้าหัวใจหมดก่อนทำครบ 30 ข้อ
+    ให้เริ่มการต่อสู้ใหม่ตั้งแต่ข้อ 1
+  */
+  if (finalBossHearts <= 0) {
+    alert(
+      "💔 หัวใจหมดแล้ว\n" +
+      "ระบบจะเริ่มภารกิจใหม่ตั้งแต่ข้อ 1"
+    );
+
+    startFinalBoss();
+    return;
+  }
+
+  /*
+    แสดงผลเมื่อทำครบทุกข้อเท่านั้น
+    ไม่ตรวจสอบ HP ของ Boss ในส่วนนี้
+  */
   if (
-    finalBossHearts <= 0 ||
-    finalBossHP <= 0 ||
     currentFinalBossQuestionIndex >=
-      selectedFinalBossQuestions.length - 1
+    selectedFinalBossQuestions.length - 1
   ) {
     showFinalBossResult();
     return;
@@ -13022,8 +13044,14 @@ function retryPendingFinalBossScores() {
     (finalBossScore / maxScore) * 100
   );
 
-  const bossDefeated =
-    finalBossHP <= 0;
+ const completedAllQuestions =
+  currentFinalBossQuestionIndex ===
+  selectedFinalBossQuestions.length - 1;
+
+const bossDefeated =
+  completedAllQuestions &&
+  finalBossHP <= 0 &&
+  finalBossHearts > 0;
 
   let title = "";
   let trophy = "";
