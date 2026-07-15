@@ -838,6 +838,200 @@
     height: 210px;
   }
 }
+    .ionization-game {
+  width: 100%;
+  text-align: left;
+}
+
+.ionization-question-card {
+  padding: 20px;
+  border: 1px solid #4e6093;
+  border-radius: 18px;
+  background: rgba(17, 27, 67, 0.94);
+}
+
+.ionization-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.ionization-choice-button {
+  min-height: 150px;
+  margin: 0;
+  padding: 18px 12px;
+  border: 2px solid #53689e;
+  border-radius: 16px;
+  color: white;
+  background: rgba(10, 19, 52, 0.96);
+  transition: 0.2s ease;
+}
+
+.ionization-choice-button:hover {
+  border-color: #ffb563;
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(255, 181, 99, 0.25);
+}
+
+.ionization-choice-button.selected {
+  border-color: #ff6c9f;
+  background: rgba(255, 79, 129, 0.16);
+  box-shadow: 0 0 18px rgba(255, 79, 129, 0.3);
+}
+
+.ionization-choice-symbol {
+  color: #ffbb6c;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.ionization-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.ionization-actions button {
+  margin: 0;
+}
+
+.ionization-comparison-area {
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.ionization-visual-card {
+  min-width: 0;
+  padding: 16px 8px;
+  border: 1px solid #4c6097;
+  border-radius: 16px;
+  text-align: center;
+  background: rgba(7, 14, 42, 0.88);
+}
+
+.ionization-atom-stage {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  max-width: 100%;
+  margin: 10px auto;
+}
+
+.ionization-shell {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1.5px solid rgba(255, 183, 92, 0.68);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ionization-nucleus {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    #fff5a7,
+    #ff5f73
+  );
+  box-shadow: 0 0 18px rgba(255, 95, 115, 0.85);
+  z-index: 5;
+}
+
+.ionization-electron {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #67edff;
+  box-shadow: 0 0 9px rgba(103, 237, 255, 0.95);
+  transform: translate(-50%, -50%);
+  z-index: 6;
+}
+
+.ionization-outer-electron {
+  background: #ffea72;
+  box-shadow: 0 0 12px rgba(255, 234, 114, 1);
+}
+
+.ionization-force-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 3px;
+  transform-origin: left center;
+  z-index: 4;
+}
+
+.ionization-force-strong {
+  background: linear-gradient(
+    90deg,
+    #ffea72,
+    #ff517e
+  );
+  box-shadow: 0 0 8px rgba(255, 81, 126, 0.8);
+}
+
+.ionization-force-weak {
+  background: linear-gradient(
+    90deg,
+    #8aa0c8,
+    #67edff
+  );
+  opacity: 0.65;
+}
+
+.ionization-energy-label {
+  margin-top: 9px;
+  padding: 10px;
+  border-radius: 11px;
+  font-weight: bold;
+}
+
+.ionization-comparison-sign {
+  text-align: center;
+  color: #ffe17c;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.ionization-trend-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(255, 181, 99, 0.4);
+  border-radius: 14px;
+  background: rgba(255, 159, 67, 0.08);
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  .ionization-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ionization-comparison-area {
+    grid-template-columns: 1fr;
+  }
+
+  .ionization-comparison-sign {
+    transform: rotate(90deg);
+  }
+
+  .ionization-atom-stage {
+    width: 210px;
+    height: 210px;
+  }
+}
 </style>
 </head>
 
@@ -1145,10 +1339,29 @@
 </button>
 
 
-          ${createLockedLevel(
-            9,
-            "ขนาดไอออน"
-          )}
+        <button
+  onclick="showLevelNineLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#ff9f43,#ff4f81);
+  "
+>
+  <span style="font-size:34px;">⚡</span>
+
+  <strong>ด่านที่ 9</strong>
+
+  <span style="font-size:14px;">
+    พลังงานไอออไนเซชัน
+  </span>
+</button>
+
 
           ${createLockedLevel(
             10,
@@ -8423,6 +8636,1319 @@ function showAtomicRadiusHint() {
     </div>
   `;
 }
+   function showLevelNineLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert(
+      "ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่"
+    );
+
+    location.reload();
+    return;
+  }
+
+  showLevelNineLesson(studentData);
+}
+
+function showLevelNineLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 9: พลังงานไอออไนเซชัน
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#ffbb6c;">
+          พลังงานไอออไนเซชันคืออะไร?
+        </h3>
+
+        <p>
+          พลังงานไอออไนเซชัน คือ
+          พลังงานที่ใช้ในการนำอิเล็กตรอน
+          ออกจากอะตอมในสถานะแก๊ส
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(255,159,67,0.11);
+          border:1px solid rgba(255,159,67,0.45);
+          font-size:19px;
+        ">
+          อะตอมยึดอิเล็กตรอนไว้แน่น
+          <br>
+          →
+          <strong style="
+            color:#ffbb6c;
+            font-size:21px;
+          ">
+            พลังงานไอออไนเซชันสูง
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          แนวโน้มในคาบเดียวกัน
+        </h3>
+
+        <p>
+          จากซ้ายไปขวาในคาบเดียวกัน
+          ประจุนิวเคลียสเพิ่มขึ้น
+          ขณะที่จำนวนเชลล์เท่าเดิม
+          นิวเคลียสจึงดึงอิเล็กตรอนชั้นนอกได้แรงขึ้น
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(255,79,129,0.11);
+        ">
+          ซ้าย
+          <strong style="color:#ff98ba;">
+            พลังงานต่ำ
+          </strong>
+
+          &nbsp; → &nbsp;
+
+          ขวา
+          <strong style="color:#ff98ba;">
+            พลังงานสูง
+          </strong>
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          แนวโน้มในหมู่เดียวกัน
+        </h3>
+
+        <p>
+          จากบนลงล่าง จำนวนเชลล์เพิ่มขึ้น
+          อิเล็กตรอนชั้นนอกอยู่ไกลจากนิวเคลียสมากขึ้น
+          และมีผลกำบังมากขึ้น
+          จึงนำอิเล็กตรอนออกได้ง่ายขึ้น
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(103,237,255,0.1);
+        ">
+          บน
+          <strong style="color:#67edff;">
+            พลังงานสูง
+          </strong>
+
+          &nbsp; ↓ &nbsp;
+
+          ล่าง
+          <strong style="color:#67edff;">
+            พลังงานต่ำ
+          </strong>
+        </div>
+
+        <div style="
+          margin-top:22px;
+          padding:16px;
+          border-radius:14px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+          border:1px solid rgba(255,184,76,0.4);
+        ">
+          <strong>สรุปการจำ:</strong><br>
+          พลังงานไอออไนเซชันโดยทั่วไปเพิ่มขึ้น
+          เมื่อเคลื่อนไปทางขวาและขึ้นด้านบนของตารางธาตุ
+        </div>
+
+      </div>
+
+      <button onclick="startLevelNineQuiz()">
+        ⚡ เริ่มภารกิจพลังงานไอออไนเซชัน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const ionizationQuestionBank = [
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "Na",
+      name: "โซเดียม",
+      atomicNumber: 11,
+      shells: [2, 8, 1],
+      period: 3,
+      group: 1,
+      visualRadius: 98,
+      forceLevel: "weak"
+    },
+
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      visualRadius: 73,
+      forceLevel: "strong"
+    },
+
+    answer: "Cl",
+    trend: "period",
+
+    explanation:
+      "Na และ Cl อยู่ในคาบที่ 3 เหมือนกัน แต่ Cl มีจำนวนโปรตอนมากกว่า จึงดึงอิเล็กตรอนชั้นนอกไว้แน่นกว่า และต้องใช้พลังงานมากกว่าในการนำอิเล็กตรอนออก"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "Mg",
+      name: "แมกนีเซียม",
+      atomicNumber: 12,
+      shells: [2, 8, 2],
+      period: 3,
+      group: 2,
+      visualRadius: 93,
+      forceLevel: "weak"
+    },
+
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      visualRadius: 73,
+      forceLevel: "strong"
+    },
+
+    answer: "Cl",
+    trend: "period",
+
+    explanation:
+      "Cl อยู่ทางขวาของ Mg ในคาบเดียวกัน มีแรงดึงดูดระหว่างนิวเคลียสกับอิเล็กตรอนชั้นนอกมากกว่า จึงมีพลังงานไอออไนเซชันสูงกว่า"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "Li",
+      name: "ลิเทียม",
+      atomicNumber: 3,
+      shells: [2, 1],
+      period: 2,
+      group: 1,
+      visualRadius: 67,
+      forceLevel: "strong"
+    },
+
+    elementB: {
+      symbol: "K",
+      name: "โพแทสเซียม",
+      atomicNumber: 19,
+      shells: [2, 8, 8, 1],
+      period: 4,
+      group: 1,
+      visualRadius: 105,
+      forceLevel: "weak"
+    },
+
+    answer: "Li",
+    trend: "group",
+
+    explanation:
+      "Li และ K อยู่ในหมู่ที่ 1 เหมือนกัน แต่ Li มีจำนวนเชลล์น้อยกว่า อิเล็กตรอนชั้นนอกจึงอยู่ใกล้นิวเคลียสมากกว่าและนำออกได้ยากกว่า"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "F",
+      name: "ฟลูออรีน",
+      atomicNumber: 9,
+      shells: [2, 7],
+      period: 2,
+      group: 17,
+      visualRadius: 59,
+      forceLevel: "strong"
+    },
+
+    elementB: {
+      symbol: "Br",
+      name: "โบรมีน",
+      atomicNumber: 35,
+      shells: [2, 8, 18, 7],
+      period: 4,
+      group: 17,
+      visualRadius: 91,
+      forceLevel: "weak"
+    },
+
+    answer: "F",
+    trend: "group",
+
+    explanation:
+      "F อยู่เหนือ Br ในหมู่เดียวกันและมีจำนวนเชลล์น้อยกว่า อิเล็กตรอนชั้นนอกจึงถูกนิวเคลียสดึงไว้แน่นกว่า"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "Be",
+      name: "เบริลเลียม",
+      atomicNumber: 4,
+      shells: [2, 2],
+      period: 2,
+      group: 2,
+      visualRadius: 65,
+      forceLevel: "strong"
+    },
+
+    elementB: {
+      symbol: "Ca",
+      name: "แคลเซียม",
+      atomicNumber: 20,
+      shells: [2, 8, 8, 2],
+      period: 4,
+      group: 2,
+      visualRadius: 101,
+      forceLevel: "weak"
+    },
+
+    answer: "Be",
+    trend: "group",
+
+    explanation:
+      "Be และ Ca อยู่ในหมู่ที่ 2 แต่ Be มีจำนวนเชลล์น้อยกว่า จึงยึดอิเล็กตรอนชั้นนอกไว้แน่นกว่า"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "Al",
+      name: "อะลูมิเนียม",
+      atomicNumber: 13,
+      shells: [2, 8, 3],
+      period: 3,
+      group: 13,
+      visualRadius: 88,
+      forceLevel: "weak"
+    },
+
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      visualRadius: 73,
+      forceLevel: "strong"
+    },
+
+    answer: "Cl",
+    trend: "period",
+
+    explanation:
+      "Cl อยู่ทางขวาของ Al ในคาบเดียวกัน มีประจุนิวเคลียสมากกว่าและมีขนาดอะตอมเล็กกว่า จึงนำอิเล็กตรอนออกได้ยากกว่า"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "C",
+      name: "คาร์บอน",
+      atomicNumber: 6,
+      shells: [2, 4],
+      period: 2,
+      group: 14,
+      visualRadius: 62,
+      forceLevel: "strong"
+    },
+
+    elementB: {
+      symbol: "Si",
+      name: "ซิลิคอน",
+      atomicNumber: 14,
+      shells: [2, 8, 4],
+      period: 3,
+      group: 14,
+      visualRadius: 82,
+      forceLevel: "weak"
+    },
+
+    answer: "C",
+    trend: "group",
+
+    explanation:
+      "C อยู่เหนือ Si ในหมู่เดียวกัน มีจำนวนเชลล์น้อยกว่า อิเล็กตรอนชั้นนอกอยู่ใกล้นิวเคลียสมากกว่า จึงมีพลังงานไอออไนเซชันสูงกว่า"
+  },
+
+  {
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า?",
+
+    elementA: {
+      symbol: "Na",
+      name: "โซเดียม",
+      atomicNumber: 11,
+      shells: [2, 8, 1],
+      period: 3,
+      group: 1,
+      visualRadius: 98,
+      forceLevel: "weak"
+    },
+
+    elementB: {
+      symbol: "Mg",
+      name: "แมกนีเซียม",
+      atomicNumber: 12,
+      shells: [2, 8, 2],
+      period: 3,
+      group: 2,
+      visualRadius: 93,
+      forceLevel: "strong"
+    },
+
+    answer: "Mg",
+    trend: "period",
+
+    explanation:
+      "Na และ Mg อยู่ในคาบเดียวกัน โดย Mg มีประจุนิวเคลียสมากกว่า จึงดึงอิเล็กตรอนชั้นนอกไว้แน่นกว่า Na"
+  }
+];
+
+let selectedIonizationQuestions = [];
+let currentIonizationQuestionIndex = 0;
+let ionizationScore = 0;
+let ionizationHearts = 3;
+let selectedIonizationAnswer = "";
+let ionizationAnswerLocked = false;
+   function startLevelNineQuiz() {
+  selectedIonizationQuestions =
+    shuffleQuestions(
+      [...ionizationQuestionBank]
+    );
+
+  currentIonizationQuestionIndex = 0;
+  ionizationScore = 0;
+  ionizationHearts = 3;
+  selectedIonizationAnswer = "";
+  ionizationAnswerLocked = false;
+
+  showIonizationQuestion();
+}
+   function showIonizationQuestion() {
+  const question =
+    selectedIonizationQuestions[
+      currentIonizationQuestionIndex
+    ];
+
+  const progress =
+    ((currentIonizationQuestionIndex + 1) /
+      selectedIonizationQuestions.length) *
+    100;
+
+  selectedIonizationAnswer = "";
+  ionizationAnswerLocked = false;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="ionization-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        margin-bottom:14px;
+        font-weight:bold;
+      ">
+        <span style="color:#ffbb6c;">
+          ข้อ ${currentIonizationQuestionIndex + 1}
+          / ${selectedIonizationQuestions.length}
+        </span>
+
+        <span style="font-size:21px;">
+          ${displayIonizationHearts()}
+        </span>
+
+        <span>
+          คะแนน ${ionizationScore}
+        </span>
+      </div>
+
+      <div style="
+        height:10px;
+        margin-bottom:20px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(
+            90deg,
+            #ff9f43,
+            #ff4f81
+          );
+        "></div>
+      </div>
+
+      <div class="ionization-question-card">
+
+        <div style="
+          text-align:center;
+          color:#aeb9da;
+        ">
+          เปรียบเทียบแรงยึดเหนี่ยวอิเล็กตรอน
+        </div>
+
+        <h2 style="
+          text-align:center;
+          line-height:1.5;
+          margin-bottom:6px;
+        ">
+          ${question.question}
+        </h2>
+
+        <p style="
+          text-align:center;
+          color:#9ca8ca;
+        ">
+          เลือกธาตุที่นำอิเล็กตรอนชั้นนอกออกได้ยากกว่า
+        </p>
+
+        <div class="ionization-choice-grid">
+
+          ${createIonizationChoice(
+            question.elementA
+          )}
+
+          ${createIonizationChoice(
+            question.elementB
+          )}
+
+        </div>
+
+        <div
+          id="ionizationFeedback"
+          style="
+            display:none;
+            margin-top:18px;
+            padding:16px;
+            border-radius:14px;
+            line-height:1.6;
+          "
+        ></div>
+
+      </div>
+
+      <div class="ionization-actions">
+
+        <button
+          onclick="showIonizationHint()"
+          style="
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkIonizationAnswer()"
+          style="
+            color:white;
+            background:linear-gradient(
+              90deg,
+              #20c66c,
+              #35dd79
+            );
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <button
+        onclick="showLevelNineLessonFromMap()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:10px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function createIonizationChoice(element) {
+  return `
+    <button
+      class="ionization-choice-button"
+      data-symbol="${element.symbol}"
+      onclick="
+        selectIonizationAnswer(
+          '${element.symbol}',
+          this
+        )
+      "
+    >
+      <div style="
+        color:#9ca8ca;
+        font-size:13px;
+      ">
+        เลขอะตอม ${element.atomicNumber}
+      </div>
+
+      <div class="ionization-choice-symbol">
+        ${element.symbol}
+      </div>
+
+      <div style="
+        margin-top:5px;
+        color:#dce5ff;
+      ">
+        ${element.name}
+      </div>
+
+      <div style="
+        margin-top:10px;
+        color:#aeb9da;
+        font-size:14px;
+      ">
+        คาบ ${element.period}
+        | หมู่ ${element.group}
+      </div>
+
+      <div style="
+        margin-top:9px;
+        color:#ffe0a6;
+      ">
+        ${element.shells.join(", ")}
+      </div>
+    </button>
+  `;
+}
+
+function selectIonizationAnswer(
+  symbol,
+  button
+) {
+  if (ionizationAnswerLocked) {
+    return;
+  }
+
+  selectedIonizationAnswer = symbol;
+
+  document
+    .querySelectorAll(
+      ".ionization-choice-button"
+    )
+    .forEach(function (choiceButton) {
+      choiceButton.classList.remove(
+        "selected"
+      );
+    });
+
+  button.classList.add("selected");
+}
+   function createIonizationVisual(
+  element,
+  isHigher
+) {
+  const stageSize = 230;
+  const center = stageSize / 2;
+  const maximumShellRadius =
+    element.visualRadius;
+
+  let shellHtml = "";
+  let electronHtml = "";
+
+  let outerElectronPosition = null;
+
+  element.shells.forEach(
+    function (electronCount, shellIndex) {
+      const shellRadius =
+        maximumShellRadius *
+        ((shellIndex + 1) /
+          element.shells.length);
+
+      const diameter =
+        shellRadius * 2;
+
+      shellHtml += `
+        <div
+          class="ionization-shell"
+          style="
+            width:${diameter}px;
+            height:${diameter}px;
+          "
+        ></div>
+      `;
+
+      for (
+        let electronIndex = 0;
+        electronIndex < electronCount;
+        electronIndex++
+      ) {
+        const angle =
+          -90 +
+          (360 / electronCount) *
+          electronIndex;
+
+        const radians =
+          angle * Math.PI / 180;
+
+        const x =
+          center +
+          shellRadius *
+          Math.cos(radians);
+
+        const y =
+          center +
+          shellRadius *
+          Math.sin(radians);
+
+        const isOuterElectron =
+          shellIndex ===
+            element.shells.length - 1 &&
+          electronIndex === 0;
+
+        if (isOuterElectron) {
+          outerElectronPosition = {
+            x,
+            y
+          };
+        }
+
+        electronHtml += `
+          <div
+            class="
+              ionization-electron
+              ${
+                isOuterElectron
+                  ? "ionization-outer-electron"
+                  : ""
+              }
+            "
+            style="
+              left:${x}px;
+              top:${y}px;
+            "
+          ></div>
+        `;
+      }
+    }
+  );
+
+  let forceLineHtml = "";
+
+  if (outerElectronPosition) {
+    const dx =
+      outerElectronPosition.x - center;
+
+    const dy =
+      outerElectronPosition.y - center;
+
+    const distance =
+      Math.sqrt(dx * dx + dy * dy);
+
+    const angle =
+      Math.atan2(dy, dx) *
+      180 / Math.PI;
+
+    forceLineHtml = `
+      <div
+        class="
+          ionization-force-line
+          ${
+            isHigher
+              ? "ionization-force-strong"
+              : "ionization-force-weak"
+          }
+        "
+        style="
+          width:${distance}px;
+          transform:
+            rotate(${angle}deg);
+        "
+      ></div>
+    `;
+  }
+
+  return `
+    <div class="ionization-visual-card">
+
+      <div style="
+        color:#ffbb6c;
+        font-size:30px;
+        font-weight:bold;
+      ">
+        ${element.symbol}
+      </div>
+
+      <div style="color:#dce5ff;">
+        ${element.name}
+      </div>
+
+      <div style="
+        margin-top:6px;
+        color:#ffe0a6;
+      ">
+        ${element.shells.join(", ")}
+      </div>
+
+      <div class="ionization-atom-stage">
+
+        ${shellHtml}
+
+        ${forceLineHtml}
+
+        <div class="ionization-nucleus"></div>
+
+        ${electronHtml}
+
+      </div>
+
+      <div style="color:#aeb9da;">
+        จำนวนเชลล์:
+        <strong>
+          ${element.shells.length}
+        </strong>
+      </div>
+
+      <div
+        class="ionization-energy-label"
+        style="
+          color:${
+            isHigher
+              ? "#74f5a7"
+              : "#ffe0a6"
+          };
+          background:${
+            isHigher
+              ? "rgba(46,204,113,0.12)"
+              : "rgba(255,184,76,0.1)"
+          };
+        "
+      >
+        ${
+          isHigher
+            ? "ยึดอิเล็กตรอนแน่นกว่า"
+            : "นำอิเล็กตรอนออกง่ายกว่า"
+        }
+      </div>
+
+    </div>
+  `;
+}
+   function displayIonizationHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result +=
+      i < ionizationHearts
+        ? "❤️"
+        : "🖤";
+  }
+
+  return result;
+}
+
+function showIonizationHint() {
+  const question =
+    selectedIonizationQuestions[
+      currentIonizationQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "ionizationFeedback"
+    );
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  if (question.trend === "period") {
+    feedback.innerHTML = `
+      <strong style="color:#ffe27e;">
+        💡 คำใบ้
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ธาตุทั้งสองอยู่ในคาบเดียวกัน
+        โดยทั่วไปธาตุที่อยู่ทางขวามากกว่า
+        จะดึงอิเล็กตรอนไว้แน่นกว่า
+      </p>
+    `;
+  } else {
+    feedback.innerHTML = `
+      <strong style="color:#ffe27e;">
+        💡 คำใบ้
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ธาตุทั้งสองอยู่ในหมู่เดียวกัน
+        ธาตุที่มีจำนวนเชลล์น้อยกว่า
+        จะมีอิเล็กตรอนชั้นนอกอยู่ใกล้นิวเคลียสมากกว่า
+      </p>
+    `;
+  }
+}
+   function checkIonizationAnswer() {
+  if (ionizationAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedIonizationQuestions[
+      currentIonizationQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "ionizationFeedback"
+    );
+
+  if (!selectedIonizationAnswer) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ กรุณาเลือกธาตุก่อนตรวจคำตอบ
+      </strong>
+    `;
+
+    return;
+  }
+
+  ionizationAnswerLocked = true;
+
+  const isCorrect =
+    selectedIonizationAnswer ===
+    question.answer;
+
+  if (isCorrect) {
+    ionizationScore += 10;
+  } else {
+    ionizationHearts -= 1;
+  }
+
+  const higherElement =
+    question.elementA.symbol ===
+    question.answer
+      ? question.elementA
+      : question.elementB;
+
+  const lowerElement =
+    question.elementA.symbol ===
+    question.answer
+      ? question.elementB
+      : question.elementA;
+
+  document
+    .querySelectorAll(
+      ".ionization-choice-button"
+    )
+    .forEach(function (button) {
+      button.disabled = true;
+
+      const symbol =
+        button.dataset.symbol;
+
+      if (symbol === question.answer) {
+        button.style.borderColor =
+          "#2ecc71";
+
+        button.style.background =
+          "rgba(46,204,113,0.18)";
+      } else if (
+        symbol === selectedIonizationAnswer
+      ) {
+        button.style.borderColor =
+          "#ff5270";
+
+        button.style.background =
+          "rgba(255,82,112,0.16)";
+      }
+    });
+
+  feedback.style.display = "block";
+
+  feedback.style.background =
+    isCorrect
+      ? "rgba(46,204,113,0.12)"
+      : "rgba(255,82,112,0.12)";
+
+  feedback.style.border =
+    isCorrect
+      ? "1px solid rgba(46,204,113,0.55)"
+      : "1px solid rgba(255,82,112,0.55)";
+
+  feedback.innerHTML = `
+    <div style="text-align:center;">
+
+      <strong style="
+        color:${
+          isCorrect
+            ? "#74f5a7"
+            : "#ff91a5"
+        };
+        font-size:20px;
+      ">
+        ${
+          isCorrect
+            ? "✅ ถูกต้อง! ได้รับ 10 คะแนน"
+            : "❌ ยังไม่ถูกต้อง เสียหัวใจ 1 ดวง"
+        }
+      </strong>
+
+      <p>
+        ธาตุที่มีพลังงานไอออไนเซชันสูงกว่าคือ
+        <strong style="color:#ffbb6c;">
+          ${question.answer}
+        </strong>
+      </p>
+
+    </div>
+
+    <div style="
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,0.15);
+    ">
+
+      <h3 style="
+        color:#ffbb6c;
+        text-align:center;
+      ">
+        เปรียบเทียบแรงยึดเหนี่ยวอิเล็กตรอน
+      </h3>
+
+      <div class="ionization-comparison-area">
+
+        ${createIonizationVisual(
+          higherElement,
+          true
+        )}
+
+        <div class="ionization-comparison-sign">
+          &gt;
+        </div>
+
+        ${createIonizationVisual(
+          lowerElement,
+          false
+        )}
+
+      </div>
+
+      <div style="
+        margin-top:15px;
+        text-align:center;
+        color:#ffe0a6;
+        font-size:19px;
+        font-weight:bold;
+      ">
+        IE ของ ${higherElement.symbol}
+        &gt;
+        IE ของ ${lowerElement.symbol}
+      </div>
+
+      <div class="ionization-trend-panel">
+        <strong style="color:#ffbb6c;">
+          เหตุผล
+        </strong>
+
+        <p style="margin-bottom:0;">
+          ${question.explanation}
+        </p>
+      </div>
+
+      <div style="
+        margin-top:15px;
+        padding:14px;
+        border-radius:13px;
+        background:rgba(103,237,255,0.08);
+      ">
+        <strong style="color:#67edff;">
+          การจัดเรียงอิเล็กตรอน
+        </strong>
+
+        <p style="margin-bottom:0;">
+          ${question.elementA.symbol}
+          :
+          ${question.elementA.shells.join(", ")}
+          <br>
+
+          ${question.elementB.symbol}
+          :
+          ${question.elementB.shells.join(", ")}
+        </p>
+      </div>
+
+      <button
+        onclick="nextIonizationQuestion()"
+        style="margin-top:16px;"
+      >
+        ${
+          ionizationHearts <= 0 ||
+          currentIonizationQuestionIndex ===
+          selectedIonizationQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+
+    </div>
+  `;
+}
+   function nextIonizationQuestion() {
+  if (
+    ionizationHearts <= 0 ||
+    currentIonizationQuestionIndex >=
+      selectedIonizationQuestions.length - 1
+  ) {
+    showLevelNineResult();
+    return;
+  }
+
+  currentIonizationQuestionIndex += 1;
+
+  showIonizationQuestion();
+}
+   function showLevelNineResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedIonizationQuestions.length *
+    10;
+
+  const percentage = Math.round(
+    (ionizationScore / maxScore) * 100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+  let message =
+    "ทบทวนแรงดึงดูดระหว่างนิวเคลียสกับอิเล็กตรอนแล้วลองใหม่อีกครั้ง";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+    message =
+      "ยอดเยี่ยมมาก! คุณเปรียบเทียบพลังงานไอออไนเซชันได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+    message =
+      "ทำได้ดีมาก คุณเข้าใจแนวโน้มพลังงานไอออไนเซชันแล้ว";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+    message =
+      "ผ่านภารกิจแล้ว ลองฝึกเปรียบเทียบจำนวนเชลล์และแรงดึงดูดเพิ่มเติม";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 9,
+    score: ionizationScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    hearts: ionizationHearts,
+    level: level,
+    date: new Date().toLocaleString(
+      "th-TH"
+    )
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelNineResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 9
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${ionizationScore}
+          / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayIonizationHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelNineQuiz()">
+        🔄 เล่นด่านที่ 9 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelNineLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   
    
 </script>
 
