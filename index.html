@@ -1491,13 +1491,20 @@
     const studentName =
       document.getElementById("studentName").value.trim();
 
-    const studentClass =
-      document.getElementById("studentClass").value;
+  const studentClass =
+  document.getElementById("studentClass").value;
 
-    const studentNumber =
-      document.getElementById("studentNumber").value;
+const studentRoom =
+  document.getElementById("studentRoom").value;
 
-    if (!studentName || !studentClass || !studentNumber) {
+const studentNumber =
+  document.getElementById("studentNumber").value;
+
+   if (
+  !studentName ||
+  !studentClass ||  !studentRoom ||
+  !studentNumber
+) {
       errorMessage.style.display = "block";
       return;
     }
@@ -1505,11 +1512,11 @@
     errorMessage.style.display = "none";
 
     const studentData = {
-      name: studentName,
-      className: studentClass,
-      number: studentNumber
-    };
-
+  name: studentName,
+  className: studentClass,
+  room: studentRoom,
+  number: studentNumber
+};
     localStorage.setItem(
       "electronOrbitStudent",
       JSON.stringify(studentData)
@@ -2409,14 +2416,20 @@ let answerLocked = false;
         </p>
 
         <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+       <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -3199,15 +3212,20 @@ function showLevelThreeResult() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+  <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -4142,15 +4160,20 @@ function showShellBuilder() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+    <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -5860,16 +5883,20 @@ function showLevelFiveResult() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+   <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
 
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
         <p>
           <strong>คะแนน:</strong>
           ${orbitalScore} / ${maxScore}
@@ -6828,9 +6855,10 @@ function showLevelSixResult() {
   }
 
   const resultData = {
-    name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+   name: studentData.name,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 6,
     score: cationScore,
     maxScore: maxScore,
@@ -6879,15 +6907,20 @@ function showLevelSixResult() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+      <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -7846,15 +7879,20 @@ function showLevelSevenResult() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+       <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -9011,14 +9049,19 @@ function showAtomicRadiusHint() {
         </p>
 
         <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -10322,16 +10365,20 @@ function showIonizationHint() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+      <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
 
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
         <p>
           <strong>คะแนน:</strong>
           ${ionizationScore}
@@ -11497,15 +11544,20 @@ function showElectronegativityHint() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+    <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
@@ -12800,6 +12852,14 @@ function showFinalBossHint() {
     "className",
     resultData.className
   );
+    
+   formData.append(
+
+  "room",
+
+  resultData.room
+
+);
 
   formData.append(
     "number",
@@ -13087,15 +13147,20 @@ function retryPendingFinalBossScores() {
           ${studentData.name}
         </p>
 
-        <p>
-          <strong>ชั้น:</strong>
-          ${studentData.className}
-        </p>
+      <p>
+  <strong>ชั้น:</strong>
+  ${studentData.className}
+</p>
 
-        <p>
-          <strong>เลขที่:</strong>
-          ${studentData.number}
-        </p>
+<p>
+  <strong>ห้อง:</strong>
+  ${studentData.room}
+</p>
+
+<p>
+  <strong>เลขที่:</strong>
+  ${studentData.number}
+</p>
 
         <p>
           <strong>คะแนน:</strong>
