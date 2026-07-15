@@ -663,6 +663,181 @@
     font-size: 14px;
   }
 }
+    .atomic-radius-game {
+  width: 100%;
+  text-align: left;
+}
+
+.atomic-radius-question-card {
+  padding: 20px;
+  border: 1px solid #465b90;
+  border-radius: 18px;
+  background: rgba(17, 27, 67, 0.94);
+}
+
+.atomic-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.atomic-choice-button {
+  min-height: 145px;
+  margin: 0;
+  padding: 18px 12px;
+  border: 2px solid #52689f;
+  border-radius: 16px;
+  color: white;
+  background: rgba(11, 20, 53, 0.96);
+  transition: 0.2s ease;
+}
+
+.atomic-choice-button:hover {
+  border-color: #67edff;
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(103, 237, 255, 0.25);
+}
+
+.atomic-choice-button.selected {
+  border-color: #ff79c9;
+  background: rgba(255, 77, 171, 0.16);
+  box-shadow: 0 0 18px rgba(255, 77, 171, 0.3);
+}
+
+.atomic-choice-symbol {
+  color: #67edff;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.atomic-choice-name {
+  margin-top: 5px;
+  color: #dce5ff;
+}
+
+.atomic-choice-position {
+  margin-top: 10px;
+  color: #aeb9da;
+  font-size: 14px;
+}
+
+.atomic-radius-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.atomic-radius-actions button {
+  margin: 0;
+}
+
+.atomic-comparison-area {
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.atomic-visual-card {
+  min-width: 0;
+  padding: 16px 8px;
+  border: 1px solid #4c6097;
+  border-radius: 16px;
+  text-align: center;
+  background: rgba(7, 14, 42, 0.88);
+}
+
+.atomic-visual-stage {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  max-width: 100%;
+  margin: 10px auto;
+}
+
+.radius-atom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radius-shell {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1.5px solid rgba(103, 237, 255, 0.65);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radius-nucleus {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,#fff59b,#ff6e75);
+  box-shadow: 0 0 18px rgba(255, 116, 109, 0.8);
+  z-index: 4;
+}
+
+.radius-electron {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #67edff;
+  box-shadow: 0 0 9px rgba(103, 237, 255, 0.95);
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.atomic-size-label {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.atomic-comparison-sign {
+  text-align: center;
+  color: #ffe17c;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.atomic-trend-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(103, 237, 255, 0.35);
+  border-radius: 14px;
+  background: rgba(103, 237, 255, 0.08);
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  .atomic-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .atomic-comparison-area {
+    grid-template-columns: 1fr;
+  }
+
+  .atomic-comparison-sign {
+    transform: rotate(90deg);
+  }
+
+  .atomic-visual-stage {
+    width: 210px;
+    height: 210px;
+  }
+}
 </style>
 </head>
 
@@ -946,10 +1121,29 @@
   </span>
 </button>
 
-          ${createLockedLevel(
-            8,
-            "แนวโน้มขนาดอะตอม"
-          )}
+          <button
+  onclick="showLevelEightLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#00c9ff,#7d4cff);
+  "
+>
+  <span style="font-size:34px;">📏</span>
+
+  <strong>ด่านที่ 8</strong>
+
+  <span style="font-size:14px;">
+    แนวโน้มขนาดอะตอม
+  </span>
+</button>
+
 
           ${createLockedLevel(
             9,
@@ -7039,6 +7233,1171 @@ function showLevelSevenResult() {
 
       <button
         onclick="showLevelSevenLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function showLevelEightLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelEightLesson(studentData);
+}
+
+function showLevelEightLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 8: แนวโน้มขนาดอะตอม
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          ขนาดอะตอมคืออะไร?
+        </h3>
+
+        <p>
+          ขนาดอะตอมพิจารณาจากระยะห่างโดยประมาณ
+          ระหว่างนิวเคลียสกับอิเล็กตรอนในเชลล์นอกสุด
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(103,237,255,0.1);
+          border:1px solid rgba(103,237,255,0.4);
+        ">
+          จำนวนเชลล์มากขึ้น
+          <br>
+          →
+          <strong style="
+            color:#67edff;
+            font-size:21px;
+          ">
+            ขนาดอะตอมใหญ่ขึ้น
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          แนวโน้มในคาบเดียวกัน
+        </h3>
+
+        <p>
+          เมื่อเคลื่อนที่จากซ้ายไปขวาในคาบเดียวกัน
+          จำนวนโปรตอนเพิ่มขึ้น
+          แต่มียังจำนวนเชลล์เท่าเดิม
+          นิวเคลียสจึงดึงอิเล็กตรอนได้แรงขึ้น
+          ทำให้ขนาดอะตอมลดลง
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(255,101,195,0.11);
+        ">
+          ซ้าย
+          <strong style="color:#ff96d5;">
+            อะตอมใหญ่
+          </strong>
+
+          &nbsp; → &nbsp;
+
+          ขวา
+          <strong style="color:#ff96d5;">
+            อะตอมเล็ก
+          </strong>
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          แนวโน้มในหมู่เดียวกัน
+        </h3>
+
+        <p>
+          เมื่อเคลื่อนที่จากบนลงล่าง
+          จำนวนระดับพลังงานหรือจำนวนเชลล์เพิ่มขึ้น
+          อิเล็กตรอนชั้นนอกจึงอยู่ห่างจากนิวเคลียสมากขึ้น
+          ทำให้ขนาดอะตอมเพิ่มขึ้น
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(155,124,255,0.13);
+        ">
+          บน
+          <strong style="color:#c9b8ff;">
+            อะตอมเล็ก
+          </strong>
+
+          &nbsp; ↓ &nbsp;
+
+          ล่าง
+          <strong style="color:#c9b8ff;">
+            อะตอมใหญ่
+          </strong>
+        </div>
+
+        <div style="
+          margin-top:22px;
+          padding:16px;
+          border-radius:14px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+          border:1px solid rgba(255,184,76,0.4);
+        ">
+          <strong>สรุปการจำ:</strong><br>
+          ขนาดอะตอมเพิ่มขึ้นเมื่อเคลื่อนไปทางซ้าย
+          และเคลื่อนลงด้านล่างของตารางธาตุ
+        </div>
+
+      </div>
+
+      <button onclick="startLevelEightQuiz()">
+        📏 เริ่มภารกิจเปรียบเทียบขนาดอะตอม
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const atomicRadiusQuestionBank = [
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "Na",
+      name: "โซเดียม",
+      atomicNumber: 11,
+      shells: [2, 8, 1],
+      period: 3,
+      group: 1,
+      visualRadius: 98
+    },
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      visualRadius: 73
+    },
+    answer: "Na",
+    trend: "period",
+    explanation:
+      "Na และ Cl อยู่ในคาบที่ 3 เหมือนกัน แต่ Cl มีจำนวนโปรตอนมากกว่า จึงดึงอิเล็กตรอนเข้าหานิวเคลียสได้มากกว่า ทำให้ Cl มีขนาดเล็กกว่า Na"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "Mg",
+      name: "แมกนีเซียม",
+      atomicNumber: 12,
+      shells: [2, 8, 2],
+      period: 3,
+      group: 2,
+      visualRadius: 93
+    },
+    elementB: {
+      symbol: "S",
+      name: "กำมะถัน",
+      atomicNumber: 16,
+      shells: [2, 8, 6],
+      period: 3,
+      group: 16,
+      visualRadius: 77
+    },
+    answer: "Mg",
+    trend: "period",
+    explanation:
+      "Mg อยู่ทางซ้ายของ S ในคาบเดียวกัน ขนาดอะตอมจึงใหญ่กว่า"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "Li",
+      name: "ลิเทียม",
+      atomicNumber: 3,
+      shells: [2, 1],
+      period: 2,
+      group: 1,
+      visualRadius: 67
+    },
+    elementB: {
+      symbol: "K",
+      name: "โพแทสเซียม",
+      atomicNumber: 19,
+      shells: [2, 8, 8, 1],
+      period: 4,
+      group: 1,
+      visualRadius: 105
+    },
+    answer: "K",
+    trend: "group",
+    explanation:
+      "Li และ K อยู่ในหมู่ที่ 1 เหมือนกัน แต่ K มีจำนวนเชลล์มากกว่า จึงมีขนาดอะตอมใหญ่กว่า"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "F",
+      name: "ฟลูออรีน",
+      atomicNumber: 9,
+      shells: [2, 7],
+      period: 2,
+      group: 17,
+      visualRadius: 59
+    },
+    elementB: {
+      symbol: "Br",
+      name: "โบรมีน",
+      atomicNumber: 35,
+      shells: [2, 8, 18, 7],
+      period: 4,
+      group: 17,
+      visualRadius: 91
+    },
+    answer: "Br",
+    trend: "group",
+    explanation:
+      "F และ Br อยู่ในหมู่ที่ 17 เหมือนกัน แต่ Br มีจำนวนเชลล์มากกว่า จึงมีขนาดอะตอมใหญ่กว่า"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "Be",
+      name: "เบริลเลียม",
+      atomicNumber: 4,
+      shells: [2, 2],
+      period: 2,
+      group: 2,
+      visualRadius: 65
+    },
+    elementB: {
+      symbol: "Ca",
+      name: "แคลเซียม",
+      atomicNumber: 20,
+      shells: [2, 8, 8, 2],
+      period: 4,
+      group: 2,
+      visualRadius: 101
+    },
+    answer: "Ca",
+    trend: "group",
+    explanation:
+      "Be และ Ca อยู่ในหมู่ที่ 2 เหมือนกัน แต่ Ca อยู่ต่ำกว่าและมีจำนวนเชลล์มากกว่า จึงมีขนาดอะตอมใหญ่กว่า"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "Al",
+      name: "อะลูมิเนียม",
+      atomicNumber: 13,
+      shells: [2, 8, 3],
+      period: 3,
+      group: 13,
+      visualRadius: 88
+    },
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      visualRadius: 73
+    },
+    answer: "Al",
+    trend: "period",
+    explanation:
+      "Al และ Cl อยู่ในคาบที่ 3 เหมือนกัน โดย Al อยู่ทางซ้ายกว่า จึงมีขนาดอะตอมใหญ่กว่า"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "C",
+      name: "คาร์บอน",
+      atomicNumber: 6,
+      shells: [2, 4],
+      period: 2,
+      group: 14,
+      visualRadius: 62
+    },
+    elementB: {
+      symbol: "Si",
+      name: "ซิลิคอน",
+      atomicNumber: 14,
+      shells: [2, 8, 4],
+      period: 3,
+      group: 14,
+      visualRadius: 82
+    },
+    answer: "Si",
+    trend: "group",
+    explanation:
+      "C และ Si อยู่ในหมู่ที่ 14 เหมือนกัน แต่ Si มีจำนวนเชลล์มากกว่า จึงมีขนาดอะตอมใหญ่กว่า"
+  },
+  {
+    question: "ธาตุใดมีขนาดอะตอมใหญ่กว่า?",
+    elementA: {
+      symbol: "Na",
+      name: "โซเดียม",
+      atomicNumber: 11,
+      shells: [2, 8, 1],
+      period: 3,
+      group: 1,
+      visualRadius: 98
+    },
+    elementB: {
+      symbol: "Mg",
+      name: "แมกนีเซียม",
+      atomicNumber: 12,
+      shells: [2, 8, 2],
+      period: 3,
+      group: 2,
+      visualRadius: 93
+    },
+    answer: "Na",
+    trend: "period",
+    explanation:
+      "Na และ Mg อยู่ในคาบเดียวกัน โดย Na อยู่ทางซ้ายกว่า จึงมีขนาดอะตอมใหญ่กว่า"
+  }
+];
+
+let selectedAtomicRadiusQuestions = [];
+let currentAtomicRadiusQuestionIndex = 0;
+let atomicRadiusScore = 0;
+let atomicRadiusHearts = 3;
+let selectedAtomicRadiusAnswer = "";
+let atomicRadiusAnswerLocked = false;
+
+   function startLevelEightQuiz() {
+  selectedAtomicRadiusQuestions =
+    shuffleQuestions(
+      [...atomicRadiusQuestionBank]
+    );
+
+  currentAtomicRadiusQuestionIndex = 0;
+  atomicRadiusScore = 0;
+  atomicRadiusHearts = 3;
+  selectedAtomicRadiusAnswer = "";
+  atomicRadiusAnswerLocked = false;
+
+  showAtomicRadiusQuestion();
+}
+   function showAtomicRadiusQuestion() {
+  const question =
+    selectedAtomicRadiusQuestions[
+      currentAtomicRadiusQuestionIndex
+    ];
+
+  const progress =
+    ((currentAtomicRadiusQuestionIndex + 1) /
+      selectedAtomicRadiusQuestions.length) *
+    100;
+
+  selectedAtomicRadiusAnswer = "";
+  atomicRadiusAnswerLocked = false;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="atomic-radius-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        margin-bottom:14px;
+        font-weight:bold;
+      ">
+        <span style="color:#67edff;">
+          ข้อ ${currentAtomicRadiusQuestionIndex + 1}
+          / ${selectedAtomicRadiusQuestions.length}
+        </span>
+
+        <span style="font-size:21px;">
+          ${displayAtomicRadiusHearts()}
+        </span>
+
+        <span>
+          คะแนน ${atomicRadiusScore}
+        </span>
+      </div>
+
+      <div style="
+        height:10px;
+        margin-bottom:20px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(
+            90deg,
+            #00c9ff,
+            #7d4cff
+          );
+        "></div>
+      </div>
+
+      <div class="atomic-radius-question-card">
+
+        <div style="
+          text-align:center;
+          color:#aeb9da;
+        ">
+          เปรียบเทียบแนวโน้มในตารางธาตุ
+        </div>
+
+        <h2 style="
+          text-align:center;
+          line-height:1.5;
+          margin-bottom:6px;
+        ">
+          ${question.question}
+        </h2>
+
+        <p style="
+          text-align:center;
+          color:#9ca8ca;
+        ">
+          เลือกธาตุหนึ่งชนิด แล้วกดตรวจคำตอบ
+        </p>
+
+        <div class="atomic-choice-grid">
+
+          ${createAtomicRadiusChoice(
+            question.elementA
+          )}
+
+          ${createAtomicRadiusChoice(
+            question.elementB
+          )}
+
+        </div>
+
+        <div
+          id="atomicRadiusFeedback"
+          style="
+            display:none;
+            margin-top:18px;
+            padding:16px;
+            border-radius:14px;
+            line-height:1.6;
+          "
+        ></div>
+
+      </div>
+
+      <div class="atomic-radius-actions">
+
+        <button
+          onclick="showAtomicRadiusHint()"
+          style="
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkAtomicRadiusAnswer()"
+          style="
+            color:white;
+            background:linear-gradient(
+              90deg,
+              #20c66c,
+              #35dd79
+            );
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <button
+        onclick="showLevelEightLessonFromMap()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:10px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function createAtomicRadiusChoice(element) {
+  return `
+    <button
+      class="atomic-choice-button"
+      data-symbol="${element.symbol}"
+      onclick="
+        selectAtomicRadiusAnswer(
+          '${element.symbol}',
+          this
+        )
+      "
+    >
+      <div style="
+        color:#9ca8ca;
+        font-size:13px;
+      ">
+        เลขอะตอม ${element.atomicNumber}
+      </div>
+
+      <div class="atomic-choice-symbol">
+        ${element.symbol}
+      </div>
+
+      <div class="atomic-choice-name">
+        ${element.name}
+      </div>
+
+      <div class="atomic-choice-position">
+        คาบ ${element.period}
+        | หมู่ ${element.group}
+      </div>
+
+      <div style="
+        margin-top:9px;
+        color:#ffe0a6;
+      ">
+        ${element.shells.join(", ")}
+      </div>
+    </button>
+  `;
+}
+
+function selectAtomicRadiusAnswer(
+  symbol,
+  button
+) {
+  if (atomicRadiusAnswerLocked) {
+    return;
+  }
+
+  selectedAtomicRadiusAnswer = symbol;
+
+  document
+    .querySelectorAll(
+      ".atomic-choice-button"
+    )
+    .forEach(function (choiceButton) {
+      choiceButton.classList.remove(
+        "selected"
+      );
+    });
+
+  button.classList.add("selected");
+}
+   function createAtomicRadiusVisual(element) {
+  const stageSize = 230;
+  const center = stageSize / 2;
+
+  const maximumShellRadius =
+    element.visualRadius;
+
+  let shellHtml = "";
+  let electronHtml = "";
+
+  element.shells.forEach(
+    function (electronCount, shellIndex) {
+      const shellRadius =
+        maximumShellRadius *
+        ((shellIndex + 1) /
+          element.shells.length);
+
+      const shellDiameter =
+        shellRadius * 2;
+
+      shellHtml += `
+        <div
+          class="radius-shell"
+          style="
+            width:${shellDiameter}px;
+            height:${shellDiameter}px;
+          "
+        ></div>
+      `;
+
+      for (
+        let electronIndex = 0;
+        electronIndex < electronCount;
+        electronIndex++
+      ) {
+        const angle =
+          -90 +
+          (360 / electronCount) *
+          electronIndex;
+
+        const radians =
+          angle * Math.PI / 180;
+
+        const x =
+          center +
+          shellRadius *
+          Math.cos(radians);
+
+        const y =
+          center +
+          shellRadius *
+          Math.sin(radians);
+
+        electronHtml += `
+          <div
+            class="radius-electron"
+            style="
+              left:${x}px;
+              top:${y}px;
+            "
+          ></div>
+        `;
+      }
+    }
+  );
+
+  return `
+    <div class="atomic-visual-card">
+
+      <div style="
+        color:#67edff;
+        font-size:30px;
+        font-weight:bold;
+      ">
+        ${element.symbol}
+      </div>
+
+      <div style="color:#dce5ff;">
+        ${element.name}
+      </div>
+
+      <div style="
+        margin-top:6px;
+        color:#ffe0a6;
+      ">
+        ${element.shells.join(", ")}
+      </div>
+
+      <div class="atomic-visual-stage">
+
+        <div
+          style="
+            position:absolute;
+            left:50%;
+            top:50%;
+            width:${stageSize}px;
+            height:${stageSize}px;
+            transform:translate(-50%,-50%);
+          "
+        >
+          ${shellHtml}
+
+          <div class="radius-nucleus"></div>
+
+          ${electronHtml}
+        </div>
+
+      </div>
+
+      <div style="color:#aeb9da;">
+        จำนวนเชลล์:
+        <strong>${element.shells.length}</strong>
+      </div>
+
+    </div>
+  `;
+}
+   function displayAtomicRadiusHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result +=
+      i < atomicRadiusHearts
+        ? "❤️"
+        : "🖤";
+  }
+
+  return result;
+}
+
+function showAtomicRadiusHint() {
+  const question =
+    selectedAtomicRadiusQuestions[
+      currentAtomicRadiusQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "atomicRadiusFeedback"
+    );
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  if (question.trend === "period") {
+    feedback.innerHTML = `
+      <strong style="color:#ffe27e;">
+        💡 คำใบ้
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ธาตุทั้งสองอยู่ในคาบเดียวกัน
+        ให้ดูว่าธาตุใดอยู่ทางซ้ายกว่า
+        เพราะขนาดอะตอมลดลงจากซ้ายไปขวา
+      </p>
+    `;
+  } else {
+    feedback.innerHTML = `
+      <strong style="color:#ffe27e;">
+        💡 คำใบ้
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ธาตุทั้งสองอยู่ในหมู่เดียวกัน
+        ให้เปรียบเทียบจำนวนเชลล์
+        ธาตุที่มีเชลล์มากกว่าจะมีขนาดใหญ่กว่า
+      </p>
+    `;
+  }
+}
+   function checkAtomicRadiusAnswer() {
+  if (atomicRadiusAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedAtomicRadiusQuestions[
+      currentAtomicRadiusQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "atomicRadiusFeedback"
+    );
+
+  if (!selectedAtomicRadiusAnswer) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ กรุณาเลือกธาตุก่อนตรวจคำตอบ
+      </strong>
+    `;
+
+    return;
+  }
+
+  atomicRadiusAnswerLocked = true;
+
+  const isCorrect =
+    selectedAtomicRadiusAnswer ===
+    question.answer;
+
+  if (isCorrect) {
+    atomicRadiusScore += 10;
+  } else {
+    atomicRadiusHearts -= 1;
+  }
+
+  const largerElement =
+    question.elementA.symbol ===
+    question.answer
+      ? question.elementA
+      : question.elementB;
+
+  const smallerElement =
+    question.elementA.symbol ===
+    question.answer
+      ? question.elementB
+      : question.elementA;
+
+  document
+    .querySelectorAll(
+      ".atomic-choice-button"
+    )
+    .forEach(function (button) {
+      button.disabled = true;
+
+      const symbol =
+        button.dataset.symbol;
+
+      if (symbol === question.answer) {
+        button.style.borderColor =
+          "#2ecc71";
+
+        button.style.background =
+          "rgba(46,204,113,0.18)";
+      } else if (
+        symbol ===
+        selectedAtomicRadiusAnswer
+      ) {
+        button.style.borderColor =
+          "#ff5270";
+
+        button.style.background =
+          "rgba(255,82,112,0.16)";
+      }
+    });
+
+  feedback.style.display = "block";
+
+  feedback.style.background =
+    isCorrect
+      ? "rgba(46,204,113,0.12)"
+      : "rgba(255,82,112,0.12)";
+
+  feedback.style.border =
+    isCorrect
+      ? "1px solid rgba(46,204,113,0.55)"
+      : "1px solid rgba(255,82,112,0.55)";
+
+  feedback.innerHTML = `
+    <div style="text-align:center;">
+
+      <strong style="
+        color:${
+          isCorrect
+            ? "#74f5a7"
+            : "#ff91a5"
+        };
+        font-size:20px;
+      ">
+        ${
+          isCorrect
+            ? "✅ ถูกต้อง! ได้รับ 10 คะแนน"
+            : "❌ ยังไม่ถูกต้อง เสียหัวใจ 1 ดวง"
+        }
+      </strong>
+
+      <p>
+        คำตอบที่ถูกต้องคือ
+        <strong style="color:#67edff;">
+          ${question.answer}
+        </strong>
+      </p>
+
+    </div>
+
+    <div style="
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,0.15);
+    ">
+
+      <h3 style="
+        color:#67edff;
+        text-align:center;
+      ">
+        เปรียบเทียบภาพขนาดอะตอม
+      </h3>
+
+      <div class="atomic-comparison-area">
+
+        ${createAtomicRadiusVisual(
+          largerElement
+        )}
+
+        <div class="atomic-comparison-sign">
+          &gt;
+        </div>
+
+        ${createAtomicRadiusVisual(
+          smallerElement
+        )}
+
+      </div>
+
+      <div style="
+        margin-top:15px;
+        text-align:center;
+        color:#ffe0a6;
+        font-size:20px;
+        font-weight:bold;
+      ">
+        ${largerElement.symbol}
+        &gt;
+        ${smallerElement.symbol}
+      </div>
+
+      <div class="atomic-trend-panel">
+        <strong style="color:#67edff;">
+          เหตุผล
+        </strong>
+
+        <p style="margin-bottom:0;">
+          ${question.explanation}
+        </p>
+      </div>
+
+      <div style="
+        margin-top:15px;
+        padding:14px;
+        border-radius:13px;
+        background:rgba(155,124,255,0.12);
+      ">
+        <strong style="color:#c9b8ff;">
+          การจัดเรียงอิเล็กตรอน
+        </strong>
+
+        <p style="margin-bottom:0;">
+          ${question.elementA.symbol}
+          :
+          ${question.elementA.shells.join(", ")}
+          <br>
+
+          ${question.elementB.symbol}
+          :
+          ${question.elementB.shells.join(", ")}
+        </p>
+      </div>
+
+      <button
+        onclick="nextAtomicRadiusQuestion()"
+        style="margin-top:16px;"
+      >
+        ${
+          atomicRadiusHearts <= 0 ||
+          currentAtomicRadiusQuestionIndex ===
+          selectedAtomicRadiusQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+
+    </div>
+  `;
+}
+   function nextAtomicRadiusQuestion() {
+  if (
+    atomicRadiusHearts <= 0 ||
+    currentAtomicRadiusQuestionIndex >=
+      selectedAtomicRadiusQuestions.length - 1
+  ) {
+    showLevelEightResult();
+    return;
+  }
+
+  currentAtomicRadiusQuestionIndex += 1;
+
+  showAtomicRadiusQuestion();
+}
+   function showLevelEightResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedAtomicRadiusQuestions.length *
+    10;
+
+  const percentage = Math.round(
+    (atomicRadiusScore / maxScore) * 100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+  let message =
+    "ทบทวนแนวโน้มขนาดอะตอมแล้วลองใหม่อีกครั้ง";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+    message =
+      "ยอดเยี่ยมมาก! คุณเปรียบเทียบขนาดอะตอมได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+    message =
+      "ทำได้ดีมาก คุณเข้าใจแนวโน้มในคาบและในหมู่แล้ว";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+    message =
+      "ผ่านภารกิจแล้ว ลองฝึกเปรียบเทียบจำนวนเชลล์เพิ่มเติม";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 8,
+    score: atomicRadiusScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    hearts: atomicRadiusHearts,
+    level: level,
+    date: new Date().toLocaleString(
+      "th-TH"
+    )
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelEightResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 8
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${atomicRadiusScore}
+          / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayAtomicRadiusHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelEightQuiz()">
+        🔄 เล่นด่านที่ 8 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelEightLessonFromMap()"
         style="
           margin-top:12px;
           color:#dce5ff;
