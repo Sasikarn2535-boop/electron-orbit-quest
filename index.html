@@ -13091,52 +13091,36 @@ const bossDefeated =
       "พลังของ Boss ยังเหลืออยู่ ทบทวนบทเรียนแล้วกลับมาต่อสู้อีกครั้ง";
   }
 
-  const resultData = {
-    attemptId:
-      Date.now() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .slice(2, 9),
+const resultData = {
+  attemptId:
+    Date.now() +
+    "-" +
+    Math.random().toString(36).slice(2, 9),
 
-    name: studentData.name,
-className: studentData.className,
-room: studentData.room,
-number: studentData.number,
+  name: studentData.name,
+  className: studentData.className,
+  room: studentData.room,
+  number: studentData.number,
 
-    score: finalBossScore,
-    maxScore: maxScore,
-    percentage: percentage,
+  score: finalBossScore,
+  maxScore: maxScore,
+  percentage: percentage,
 
-    totalQuestions:
-      selectedFinalBossQuestions.length,
+  totalQuestions:
+    selectedFinalBossQuestions.length,
 
-    completedQuestions:
-      currentFinalBossQuestionIndex + 1,
+  completedQuestions:
+    currentFinalBossQuestionIndex + 1,
 
-    hintsUsed:
-      finalBossHintsUsed,
+  hintsUsed: finalBossHintsUsed,
+  hintPenalty: finalBossHintsUsed * 5,
+  hearts: finalBossHearts,
+  bossHP: finalBossHP,
+  bossDefeated: bossDefeated,
+  title: title,
 
-    hintPenalty:
-      finalBossHintsUsed * 5,
-
-    hearts:
-      finalBossHearts,
-
-    bossHP:
-      finalBossHP,
-
-    bossDefeated:
-      bossDefeated,
-
-    title:
-      title,
-
-    date:
-      new Date().toLocaleString(
-        "th-TH"
-      )
-  };
+  date: new Date().toLocaleString("th-TH")
+};
 
   localStorage.setItem(
     "electronOrbitFinalBossResult",
