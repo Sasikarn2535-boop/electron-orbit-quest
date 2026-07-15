@@ -474,6 +474,101 @@
     align-items: flex-start;
   }
 }
+    .cation-game {
+  width: 100%;
+  text-align: left;
+}
+
+.cation-status-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid #4e6296;
+  border-radius: 18px;
+  background: rgba(19, 29, 69, 0.92);
+}
+
+.cation-symbol-card {
+  padding: 12px 8px;
+  border: 2px solid #ffae55;
+  border-radius: 15px;
+  text-align: center;
+  background: rgba(57, 40, 35, 0.8);
+  box-shadow: 0 0 18px rgba(255, 174, 85, 0.35);
+}
+
+.cation-symbol {
+  color: #ffd083;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.cation-charge {
+  margin-top: 6px;
+  color: #ff9d75;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.cation-electron-dot {
+  cursor: pointer;
+}
+
+.cation-electron-dot:hover {
+  width: 15px;
+  height: 15px;
+  background: #ffca67;
+  box-shadow: 0 0 15px rgba(255, 202, 103, 0.95);
+}
+
+.cation-shell-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.cation-shell-box {
+  padding: 11px 5px;
+  border: 1px solid rgba(92, 124, 194, 0.45);
+  border-radius: 12px;
+  text-align: center;
+  background: rgba(26, 37, 79, 0.9);
+}
+
+.cation-shell-box strong {
+  color: #67edff;
+}
+
+.cation-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.cation-action-grid button {
+  margin: 0;
+  border-radius: 12px;
+}
+
+@media (max-width: 520px) {
+  .cation-status-card {
+    grid-template-columns: 82px 1fr;
+    gap: 12px;
+  }
+
+  .cation-shell-summary {
+    gap: 5px;
+  }
+
+  .cation-shell-box {
+    padding: 9px 3px;
+    font-size: 14px;
+  }
+}
 </style>
 </head>
 
@@ -711,10 +806,28 @@
   </span>
 </button>
 
-          ${createLockedLevel(
-            6,
-            "แคตไอออน"
-          )}
+          <button
+  onclick="showLevelSixLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#ffb347,#ff6b6b);
+  "
+>
+  <span style="font-size:34px;">➕</span>
+
+  <strong>ด่านที่ 6</strong>
+
+  <span style="font-size:14px;">
+    การเกิดแคตไอออน
+  </span>
+</button>
 
           ${createLockedLevel(
             7,
@@ -4853,6 +4966,1026 @@ function showLevelFiveResult() {
     </div>
   `;
 }
+   function showLevelSixLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelSixLesson(studentData);
+}
+
+function showLevelSixLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="color:#67edff;font-weight:bold;">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 6: การเกิดแคตไอออน
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          แคตไอออนคืออะไร?
+        </h3>
+
+        <p>
+          แคตไอออน คือ ไอออนที่มีประจุบวก
+          เกิดจากอะตอม
+          <strong>เสียอิเล็กตรอน</strong>
+          ออกจากเชลล์นอกสุด
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(255,174,85,0.12);
+          border:1px solid rgba(255,174,85,0.45);
+          font-size:20px;
+        ">
+          อะตอมเสียอิเล็กตรอน
+          <br>
+          →
+          <strong style="color:#ffd083;">
+            เกิดประจุบวก
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          ความสัมพันธ์ของประจุ
+        </h3>
+
+        <p>
+          เสียอิเล็กตรอน 1 ตัว → ประจุ +1<br>
+          เสียอิเล็กตรอน 2 ตัว → ประจุ +2<br>
+          เสียอิเล็กตรอน 3 ตัว → ประจุ +3
+        </p>
+
+        <div style="
+          display:grid;
+          gap:12px;
+          margin-top:18px;
+        ">
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(83,232,255,0.1);
+          ">
+            <strong style="color:#67edff;">
+              โซเดียม
+            </strong>
+
+            <p style="margin-bottom:0;">
+              Na : 2, 8, 1<br>
+              เสีย 1 e⁻ → Na⁺ : 2, 8
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(155,124,255,0.12);
+          ">
+            <strong style="color:#c9b8ff;">
+              แมกนีเซียม
+            </strong>
+
+            <p style="margin-bottom:0;">
+              Mg : 2, 8, 2<br>
+              เสีย 2 e⁻ → Mg²⁺ : 2, 8
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(255,101,195,0.1);
+          ">
+            <strong style="color:#ff96d5;">
+              อะลูมิเนียม
+            </strong>
+
+            <p style="margin-bottom:0;">
+              Al : 2, 8, 3<br>
+              เสีย 3 e⁻ → Al³⁺ : 2, 8
+            </p>
+          </div>
+
+        </div>
+
+        <p style="
+          margin-top:20px;
+          padding:14px;
+          border-radius:12px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+        ">
+          ต้องนำอิเล็กตรอนออกจากเชลล์นอกสุดก่อนเสมอ
+        </p>
+
+      </div>
+
+      <button onclick="startLevelSixQuiz()">
+        ➕ เริ่มภารกิจสร้างแคตไอออน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const cationQuestionBank = [
+  {
+    element: "โซเดียม",
+    symbol: "Na",
+    atomicNumber: 11,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 1,
+      N: 0
+    },
+    removeCount: 1,
+    charge: 1,
+    ionSymbol: "Na⁺"
+  },
+  {
+    element: "แมกนีเซียม",
+    symbol: "Mg",
+    atomicNumber: 12,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 2,
+      N: 0
+    },
+    removeCount: 2,
+    charge: 2,
+    ionSymbol: "Mg²⁺"
+  },
+  {
+    element: "อะลูมิเนียม",
+    symbol: "Al",
+    atomicNumber: 13,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 3,
+      N: 0
+    },
+    removeCount: 3,
+    charge: 3,
+    ionSymbol: "Al³⁺"
+  },
+  {
+    element: "โพแทสเซียม",
+    symbol: "K",
+    atomicNumber: 19,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 8,
+      N: 1
+    },
+    removeCount: 1,
+    charge: 1,
+    ionSymbol: "K⁺"
+  },
+  {
+    element: "แคลเซียม",
+    symbol: "Ca",
+    atomicNumber: 20,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 8,
+      N: 2
+    },
+    removeCount: 2,
+    charge: 2,
+    ionSymbol: "Ca²⁺"
+  }
+];
+
+let selectedCationQuestions = [];
+let currentCationQuestionIndex = 0;
+let cationScore = 0;
+let cationHearts = 3;
+let cationShellValues = {};
+let cationRemovedElectrons = 0;
+let cationAnswerLocked = false;
+   function startLevelSixQuiz() {
+  selectedCationQuestions = shuffleQuestions(
+    [...cationQuestionBank]
+  );
+
+  currentCationQuestionIndex = 0;
+  cationScore = 0;
+  cationHearts = 3;
+  cationAnswerLocked = false;
+
+  loadCurrentCationQuestion();
+}
+
+function loadCurrentCationQuestion() {
+  const question =
+    selectedCationQuestions[
+      currentCationQuestionIndex
+    ];
+
+  cationShellValues = {
+    K: question.initialShells.K,
+    L: question.initialShells.L,
+    M: question.initialShells.M,
+    N: question.initialShells.N
+  };
+
+  cationRemovedElectrons = 0;
+  cationAnswerLocked = false;
+
+  showCationQuestion();
+}
+   function getOutermostCationShell() {
+  const shellOrder = ["N", "M", "L", "K"];
+
+  return shellOrder.find(
+    shellName =>
+      cationShellValues[shellName] > 0
+  );
+}
+
+function getCationShellText(shellValues) {
+  const values = [
+    shellValues.K,
+    shellValues.L,
+    shellValues.M,
+    shellValues.N
+  ];
+
+  while (
+    values.length > 1 &&
+    values[values.length - 1] === 0
+  ) {
+    values.pop();
+  }
+
+  return values.join(", ");
+}
+   function createCationElectronDots(
+  shellName,
+  electronCount,
+  radius
+) {
+  if (electronCount <= 0) {
+    return "";
+  }
+
+  let dots = "";
+
+  for (let i = 0; i < electronCount; i++) {
+    const angle =
+      -90 + (360 / electronCount) * i;
+
+    const radians =
+      angle * (Math.PI / 180);
+
+    const center = 150;
+
+    const x =
+      center + radius * Math.cos(radians);
+
+    const y =
+      center + radius * Math.sin(radians);
+
+    dots += `
+      <button
+        class="
+          electron-dot
+          cation-electron-dot
+        "
+        onclick="
+          removeCationElectron(
+            '${shellName}'
+          )
+        "
+        title="
+          คลิกเพื่อนำอิเล็กตรอนออกจากเชลล์ ${shellName}
+        "
+        style="
+          left:${x}px;
+          top:${y}px;
+          margin:0;
+          padding:0;
+          border:none;
+        "
+      ></button>
+    `;
+  }
+
+  return dots;
+}
+   function showCationQuestion() {
+  const question =
+    selectedCationQuestions[
+      currentCationQuestionIndex
+    ];
+
+  const progress =
+    ((currentCationQuestionIndex + 1) /
+      selectedCationQuestions.length) *
+    100;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="cation-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        margin-bottom:14px;
+        font-weight:bold;
+      ">
+        <span style="color:#67edff;">
+          ข้อ ${currentCationQuestionIndex + 1}
+          / ${selectedCationQuestions.length}
+        </span>
+
+        <span style="font-size:21px;">
+          ${displayCationHearts()}
+        </span>
+
+        <span>
+          คะแนน ${cationScore}
+        </span>
+      </div>
+
+      <div style="
+        height:10px;
+        margin-bottom:20px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(
+            90deg,
+            #ffb347,
+            #ff6b6b
+          );
+        "></div>
+      </div>
+
+      <div class="cation-status-card">
+
+        <div class="cation-symbol-card">
+          <div style="
+            color:#9ba7c9;
+            font-size:13px;
+          ">
+            Z = ${question.atomicNumber}
+          </div>
+
+          <div class="cation-symbol">
+            ${question.symbol}
+          </div>
+
+          <div style="color:#dce5ff;">
+            ${question.element}
+          </div>
+
+          <div class="cation-charge">
+            ประจุ ${
+              cationRemovedElectrons === 0
+                ? "0"
+                : "+" + cationRemovedElectrons
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 style="
+            margin-bottom:7px;
+            line-height:1.5;
+          ">
+            สร้าง ${question.ionSymbol}
+          </h2>
+
+          <p style="margin:0;">
+            คลิกอิเล็กตรอนในเชลล์นอกสุด
+            เพื่อนำออก
+            <strong style="color:#ffd083;">
+              ${question.removeCount} ตัว
+            </strong>
+          </p>
+
+          <p style="
+            margin:8px 0 0;
+            color:#ffba8c;
+            font-weight:bold;
+          ">
+            นำออกแล้ว:
+            ${cationRemovedElectrons}
+            / ${question.removeCount}
+          </p>
+        </div>
+
+      </div>
+
+      <div class="atom-model">
+
+        <div class="atom-ring ring-n"></div>
+        <div class="atom-ring ring-m"></div>
+        <div class="atom-ring ring-l"></div>
+        <div class="atom-ring ring-k"></div>
+
+        <div class="atom-nucleus"></div>
+
+        ${createCationElectronDots(
+          "K",
+          cationShellValues.K,
+          41
+        )}
+
+        ${createCationElectronDots(
+          "L",
+          cationShellValues.L,
+          70
+        )}
+
+        ${createCationElectronDots(
+          "M",
+          cationShellValues.M,
+          100
+        )}
+
+        ${createCationElectronDots(
+          "N",
+          cationShellValues.N,
+          130
+        )}
+
+      </div>
+
+      <div class="cation-shell-summary">
+
+        ${["K", "L", "M", "N"]
+          .map(
+            shellName => `
+              <div class="cation-shell-box">
+                <strong>${shellName}</strong>
+                <div style="
+                  margin-top:6px;
+                  font-size:22px;
+                  font-weight:bold;
+                ">
+                  ${cationShellValues[shellName]}
+                </div>
+              </div>
+            `
+          )
+          .join("")}
+
+      </div>
+
+      <div style="
+        margin-top:14px;
+        padding:14px;
+        border-radius:13px;
+        text-align:center;
+        background:rgba(255,174,85,0.1);
+      ">
+        การจัดเรียงปัจจุบัน:
+        <strong style="color:#ffd083;">
+          ${getCationShellText(
+            cationShellValues
+          )}
+        </strong>
+      </div>
+
+      <div
+        id="cationFeedback"
+        style="
+          display:none;
+          margin-top:18px;
+          padding:16px;
+          border-radius:14px;
+          line-height:1.6;
+        "
+      ></div>
+
+      <div class="cation-action-grid">
+
+        <button
+          onclick="showCationHint()"
+          style="
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkCationAnswer()"
+          style="
+            color:white;
+            background:linear-gradient(
+              90deg,
+              #20c66c,
+              #35dd79
+            );
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <button
+        onclick="resetCationQuestion()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        🔄 เริ่มข้อนี้ใหม่
+      </button>
+
+      <button
+        onclick="showLevelSixLessonFromMap()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+    </div>
+  `;
+}
+   function removeCationElectron(shellName) {
+  if (cationAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedCationQuestions[
+      currentCationQuestionIndex
+    ];
+
+  if (
+    cationRemovedElectrons >=
+    question.removeCount
+  ) {
+    alert(
+      "นำอิเล็กตรอนออกครบจำนวนที่กำหนดแล้ว"
+    );
+    return;
+  }
+
+  const outermostShell =
+    getOutermostCationShell();
+
+  if (shellName !== outermostShell) {
+    alert(
+      "ต้องนำอิเล็กตรอนออกจากเชลล์นอกสุดก่อน\n" +
+      "เชลล์นอกสุดขณะนี้คือ " +
+      outermostShell
+    );
+    return;
+  }
+
+  if (cationShellValues[shellName] <= 0) {
+    return;
+  }
+
+  cationShellValues[shellName] -= 1;
+  cationRemovedElectrons += 1;
+
+  showCationQuestion();
+}
+
+function resetCationQuestion() {
+  if (cationAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedCationQuestions[
+      currentCationQuestionIndex
+    ];
+
+  cationShellValues = {
+    K: question.initialShells.K,
+    L: question.initialShells.L,
+    M: question.initialShells.M,
+    N: question.initialShells.N
+  };
+
+  cationRemovedElectrons = 0;
+
+  showCationQuestion();
+}
+   function displayCationHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result +=
+      i < cationHearts ? "❤️" : "🖤";
+  }
+
+  return result;
+}
+
+function showCationHint() {
+  const question =
+    selectedCationQuestions[
+      currentCationQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "cationFeedback"
+    );
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  feedback.innerHTML = `
+    <strong style="color:#ffe27e;">
+      💡 คำใบ้
+    </strong>
+
+    <p style="margin-bottom:0;">
+      ${question.ionSymbol}
+      ต้องเสียอิเล็กตรอน
+      ${question.removeCount} ตัว
+      โดยนำออกจากเชลล์นอกสุด
+    </p>
+  `;
+}
+   function checkCationAnswer() {
+  if (cationAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedCationQuestions[
+      currentCationQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "cationFeedback"
+    );
+
+  if (
+    cationRemovedElectrons !==
+    question.removeCount
+  ) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ นำอิเล็กตรอนออกยังไม่ครบ
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ต้องนำออก
+        ${question.removeCount} ตัว
+        ขณะนี้นำออกแล้ว
+        ${cationRemovedElectrons} ตัว
+      </p>
+    `;
+
+    return;
+  }
+
+  const expectedShells = {
+    ...question.initialShells
+  };
+
+  let remainingToRemove =
+    question.removeCount;
+
+  ["N", "M", "L", "K"].forEach(
+    function (shellName) {
+      if (remainingToRemove <= 0) {
+        return;
+      }
+
+      const removedFromShell =
+        Math.min(
+          expectedShells[shellName],
+          remainingToRemove
+        );
+
+      expectedShells[shellName] -=
+        removedFromShell;
+
+      remainingToRemove -=
+        removedFromShell;
+    }
+  );
+
+  const isCorrect =
+    ["K", "L", "M", "N"].every(
+      shellName =>
+        cationShellValues[shellName] ===
+        expectedShells[shellName]
+    );
+
+  cationAnswerLocked = true;
+
+  if (isCorrect) {
+    cationScore += 10;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(46,204,113,0.14)";
+    feedback.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
+      </strong>
+
+      <p>
+        ${question.symbol}
+        เสียอิเล็กตรอน
+        ${question.removeCount} ตัว
+        จึงเกิดเป็น
+        <strong>${question.ionSymbol}</strong>
+      </p>
+
+      <p>
+        การจัดเรียงอิเล็กตรอนใหม่คือ
+        <strong>
+          ${getCationShellText(
+            cationShellValues
+          )}
+        </strong>
+      </p>
+
+      <button
+        onclick="nextCationQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          currentCationQuestionIndex ===
+          selectedCationQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  } else {
+    cationHearts -= 1;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,82,112,0.13)";
+    feedback.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ การสร้างไอออนยังไม่ถูกต้อง
+        เสียหัวใจ 1 ดวง
+      </strong>
+
+      <p>
+        ต้องนำอิเล็กตรอนออกจากเชลล์นอกสุดก่อน
+      </p>
+
+      <button
+        onclick="nextCationQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          cationHearts <= 0 ||
+          currentCationQuestionIndex ===
+          selectedCationQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  }
+}
+   function nextCationQuestion() {
+  if (
+    cationHearts <= 0 ||
+    currentCationQuestionIndex >=
+      selectedCationQuestions.length - 1
+  ) {
+    showLevelSixResult();
+    return;
+  }
+
+  currentCationQuestionIndex += 1;
+
+  loadCurrentCationQuestion();
+}
+
+function showLevelSixResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedCationQuestions.length * 10;
+
+  const percentage = Math.round(
+    (cationScore / maxScore) * 100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+  let message =
+    "ทบทวนการเสียอิเล็กตรอนจากเชลล์นอกสุดแล้วลองใหม่อีกครั้ง";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+    message =
+      "ยอดเยี่ยมมาก! คุณสร้างแคตไอออนได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+    message =
+      "ทำได้ดีมาก คุณเข้าใจการเกิดไอออนบวกแล้ว";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+    message =
+      "ผ่านภารกิจแล้ว ลองฝึกเรื่องค่าประจุเพิ่มเติม";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 6,
+    score: cationScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    hearts: cationHearts,
+    level: level,
+    date: new Date().toLocaleString(
+      "th-TH"
+    )
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelSixResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 6
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${cationScore} / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayCationHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelSixQuiz()">
+        🔄 เล่นด่านที่ 6 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelSixLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   
 </script>
 
 </body>
