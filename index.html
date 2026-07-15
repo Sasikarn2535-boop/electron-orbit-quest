@@ -12755,37 +12755,24 @@ function showFinalBossHint() {
     JSON.stringify(existingRecords)
   );
 }
-   function sendFinalBossScoreToGoogleSheets(
-  resultData
-) {
- if (
-  !FINAL_BOSS_SCORE_API ||
-  FINAL_BOSS_SCORE_API.includes("https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec") ||
-  !FINAL_BOSS_SCORE_API.endsWith("https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec")
-) {
-  console.warn(
-    "https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec"
-  );
+  function sendFinalBossScoreToGoogleSheets(resultData) {
+  const isValidApiUrl =
+    typeof FINAL_BOSS_SCORE_API === "string" &&
+    FINAL_BOSS_SCORE_API.startsWith(
+      "https://script.google.com/macros/s/"
+    ) &&
+    FINAL_BOSS_SCORE_API.endsWith("/exec");
 
-  savePendingFinalBossScore(
-    resultData
-  );
-
-  return;
-}
+  if (!isValidApiUrl) {
     console.warn(
-      "ยังไม่ได้กำหนด URL Google Apps Script"
+      "URL Google Apps Script ไม่ถูกต้อง"
     );
 
-    savePendingFinalBossScore(
-      resultData
-    );
-
+    savePendingFinalBossScore(resultData);
     return;
   }
 
-  const formData =
-    new URLSearchParams();
+  const formData = new URLSearchParams();
 
   formData.append(
     "token",
@@ -12844,7 +12831,7 @@ function showFinalBossHint() {
 
   formData.append(
     "hintPenalty",
-    resultData.hintsUsed * 5
+    resultData.hintPenalty
   );
 
   formData.append(
@@ -12877,28 +12864,25 @@ function showFinalBossHint() {
     navigator.userAgent
   );
 
-  fetch(
-    FINAL_BOSS_SCORE_API,
-    {
-      method: "POST",
-      mode: "no-cors",
-      keepalive: true,
-      headers: {
-        "Content-Type":
-          "application/x-www-form-urlencoded;charset=UTF-8"
-      },
-      body: formData.toString()
-    }
-  ).catch(function (error) {
-    console.error(
-      "ส่งคะแนนไม่สำเร็จ",
-      error
-    );
+  fetch(FINAL_BOSS_SCORE_API, {
+    method: "POST",
+    mode: "no-cors",
+    keepalive: true,
+    body: formData
+  })
+    .then(function () {
+      console.log(
+        "ส่งผลคะแนนไป Google Sheets แล้ว"
+      );
+    })
+    .catch(function (error) {
+      console.error(
+        "ส่งคะแนนไม่สำเร็จ",
+        error
+      );
 
-    savePendingFinalBossScore(
-      resultData
-    );
-  });
+      savePendingFinalBossScore(resultData);
+    });
 }
    function savePendingFinalBossScore(
   resultData
@@ -12941,14 +12925,20 @@ function retryPendingFinalBossScores() {
     return;
   }
 
-  pendingScores.forEach(
+  const scoresToRetry = [
+    ...pendingScores
+  ];
+
+  localStorage.removeItem(storageKey);
+
+  scoresToRetry.forEach(
     function (resultData) {
       sendFinalBossScoreToGoogleSheets(
         resultData
       );
     }
   );
-
+}
   localStorage.removeItem(storageKey);
 }
    function showFinalBossResult() {
