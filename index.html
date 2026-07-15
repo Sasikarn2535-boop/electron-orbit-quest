@@ -1775,30 +1775,51 @@
 
         </div>
 
-        <div style="
-          margin-top:18px;
-          padding:20px;
-          border:1px solid rgba(255,184,76,0.6);
-          border-radius:18px;
-          background:rgba(255,184,76,0.08);
-        ">
-          <div style="font-size:32px;">👑</div>
+        <button
+  onclick="showFinalBossIntroFromMap()"
+  style="
+    width:100%;
+    margin-top:18px;
+    min-height:145px;
+    border:2px solid #ffdb6e;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    color:white;
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(255,70,112,0.35),
+        rgba(41,17,85,0.95)
+      );
+    box-shadow:
+      0 0 24px rgba(255,80,120,0.42),
+      inset 0 0 24px rgba(255,219,110,0.12);
+  "
+>
+  <span style="font-size:45px;">👾</span>
 
-          <h3 style="
-            margin:8px 0;
-            color:#ffd783;
-          ">
-            Final Boss
-          </h3>
+  <strong style="
+    color:#ffe27e;
+    font-size:21px;
+  ">
+    FINAL BOSS
+  </strong>
 
-          <p style="
-            margin:0;
-            color:#d2d8ff;
-            font-size:14px;
-          ">
-            ปลดล็อกเมื่อผ่านทุกด่าน
-          </p>
-        </div>
+  <span style="font-size:15px;">
+    ผู้พิทักษ์แกนอะตอม
+  </span>
+
+  <span style="
+    color:#ffb3ca;
+    font-size:13px;
+  ">
+    ภารกิจสรุปรวมด่านที่ 1–10
+  </span>
+</button>
 
         <button
           onclick="location.reload()"
@@ -1947,51 +1968,6 @@ function backToLevelMap() {
 
   showLevelMap(studentData);
 }
-   <button
-  onclick="showFinalBossIntroFromMap()"
-  style="
-    grid-column:1 / -1;
-    margin:8px 0 0;
-    min-height:145px;
-    border:2px solid #ffdb6e;
-    border-radius:20px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-    color:white;
-    background:
-      radial-gradient(
-        circle at center,
-        rgba(255,70,112,0.35),
-        rgba(41,17,85,0.95)
-      );
-    box-shadow:
-      0 0 24px rgba(255,80,120,0.42),
-      inset 0 0 24px rgba(255,219,110,0.12);
-  "
->
-  <span style="font-size:45px;">👾</span>
-
-  <strong style="
-    color:#ffe27e;
-    font-size:21px;
-  ">
-    FINAL BOSS
-  </strong>
-
-  <span style="font-size:15px;">
-    ผู้พิทักษ์แกนอะตอม
-  </span>
-
-  <span style="
-    color:#ffb3ca;
-    font-size:13px;
-  ">
-    ภารกิจสรุปรวมด่านที่ 1–10
-  </span>
-</button>
 
 const levelOneQuestions = [
   {
@@ -11574,7 +11550,7 @@ function showElectronegativityHint() {
   `;
 }
    const FINAL_BOSS_SCORE_API =
-  "https://script.google.com/macros/s/AKfycbxuRxIgnGIf7PbWMKNaRvCx2eRqowKF2f7SuRwMYYOA/dev;
+  "https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec";
 
 const FINAL_BOSS_API_TOKEN =
   "electron-orbit-quest-2569";
@@ -12782,12 +12758,21 @@ function showFinalBossHint() {
    function sendFinalBossScoreToGoogleSheets(
   resultData
 ) {
-  if (
-    !FINAL_BOSS_SCORE_API ||
-    FINAL_BOSS_SCORE_API.includes(
-      "https://script.google.com/macros/s/AKfycbybNpXUjemsku5iUAVfc_2bnTCvZqFiHBix87BLwnI/dev"
-    )
-  ) {
+ if (
+  !FINAL_BOSS_SCORE_API ||
+  FINAL_BOSS_SCORE_API.includes("https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec") ||
+  !FINAL_BOSS_SCORE_API.endsWith("https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec")
+) {
+  console.warn(
+    "https://script.google.com/macros/s/AKfycbzVx5JOovaWsdhn-zB2Jx-KFPe2lQ2ZoyiVlWY5T6AFzYbdXfWxxK0tF5S9W205eTqVLw/exec"
+  );
+
+  savePendingFinalBossScore(
+    resultData
+  );
+
+  return;
+}
     console.warn(
       "ยังไม่ได้กำหนด URL Google Apps Script"
     );
