@@ -569,6 +569,100 @@
     font-size: 14px;
   }
 }
+    .anion-game {
+  width: 100%;
+  text-align: left;
+}
+
+.anion-status-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid #53649a;
+  border-radius: 18px;
+  background: rgba(19, 29, 69, 0.92);
+}
+
+.anion-symbol-card {
+  padding: 12px 8px;
+  border: 2px solid #65d8ff;
+  border-radius: 15px;
+  text-align: center;
+  background: rgba(22, 48, 75, 0.85);
+  box-shadow: 0 0 18px rgba(101, 216, 255, 0.35);
+}
+
+.anion-symbol {
+  color: #75e2ff;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.anion-charge {
+  margin-top: 6px;
+  color: #b6a2ff;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.anion-shell-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.anion-shell-box {
+  padding: 11px 5px;
+  border: 1px solid rgba(92, 124, 194, 0.45);
+  border-radius: 12px;
+  text-align: center;
+  background: rgba(26, 37, 79, 0.9);
+}
+
+.anion-shell-box strong {
+  color: #67edff;
+}
+
+.anion-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.anion-action-grid button {
+  margin: 0;
+  border-radius: 12px;
+}
+
+.receive-electron-button {
+  margin-top: 14px;
+  color: white;
+  background: linear-gradient(
+    90deg,
+    #368cff,
+    #855cff
+  );
+}
+
+@media (max-width: 520px) {
+  .anion-status-card {
+    grid-template-columns: 82px 1fr;
+    gap: 12px;
+  }
+
+  .anion-shell-summary {
+    gap: 5px;
+  }
+
+  .anion-shell-box {
+    padding: 9px 3px;
+    font-size: 14px;
+  }
+}
 </style>
 </head>
 
@@ -829,10 +923,28 @@
   </span>
 </button>
 
-          ${createLockedLevel(
-            7,
-            "แอนไอออน"
-          )}
+          <button
+  onclick="showLevelSevenLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#37d5ff,#7857ff);
+  "
+>
+  <span style="font-size:34px;">➖</span>
+
+  <strong>ด่านที่ 7</strong>
+
+  <span style="font-size:14px;">
+    การเกิดแอนไอออน
+  </span>
+</button>
 
           ${createLockedLevel(
             8,
@@ -5960,6 +6072,973 @@ function showLevelSixResult() {
 
       <button
         onclick="showLevelSixLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function showLevelSevenLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelSevenLesson(studentData);
+}
+
+function showLevelSevenLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="color:#67edff;font-weight:bold;">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 7: การเกิดแอนไอออน
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#67edff;">
+          แอนไอออนคืออะไร?
+        </h3>
+
+        <p>
+          แอนไอออน คือ ไอออนที่มีประจุลบ
+          เกิดจากอะตอม
+          <strong>รับอิเล็กตรอนเพิ่ม</strong>
+          เข้าสู่เชลล์นอกสุด
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(83,232,255,0.11);
+          border:1px solid rgba(83,232,255,0.45);
+          font-size:20px;
+        ">
+          อะตอมรับอิเล็กตรอน
+          <br>
+          →
+          <strong style="color:#75e2ff;">
+            เกิดประจุลบ
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          ความสัมพันธ์ของประจุ
+        </h3>
+
+        <p>
+          รับอิเล็กตรอน 1 ตัว → ประจุ −1<br>
+          รับอิเล็กตรอน 2 ตัว → ประจุ −2<br>
+          รับอิเล็กตรอน 3 ตัว → ประจุ −3
+        </p>
+
+        <div style="
+          display:grid;
+          gap:12px;
+          margin-top:18px;
+        ">
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(83,232,255,0.1);
+          ">
+            <strong style="color:#67edff;">
+              ฟลูออรีน
+            </strong>
+
+            <p style="margin-bottom:0;">
+              F : 2, 7<br>
+              รับ 1 e⁻ → F⁻ : 2, 8
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(155,124,255,0.12);
+          ">
+            <strong style="color:#c9b8ff;">
+              ออกซิเจน
+            </strong>
+
+            <p style="margin-bottom:0;">
+              O : 2, 6<br>
+              รับ 2 e⁻ → O²⁻ : 2, 8
+            </p>
+          </div>
+
+          <div style="
+            padding:16px;
+            border-radius:14px;
+            background:rgba(255,101,195,0.1);
+          ">
+            <strong style="color:#ff96d5;">
+              ไนโตรเจน
+            </strong>
+
+            <p style="margin-bottom:0;">
+              N : 2, 5<br>
+              รับ 3 e⁻ → N³⁻ : 2, 8
+            </p>
+          </div>
+
+        </div>
+
+        <p style="
+          margin-top:20px;
+          padding:14px;
+          border-radius:12px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+        ">
+          อิเล็กตรอนที่รับเข้ามาจะอยู่ในเชลล์นอกสุด
+          เพื่อให้เชลล์นั้นมีความเสถียรมากขึ้น
+        </p>
+
+      </div>
+
+      <button onclick="startLevelSevenQuiz()">
+        ➖ เริ่มภารกิจสร้างแอนไอออน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const anionQuestionBank = [
+  {
+    element: "ฟลูออรีน",
+    symbol: "F",
+    atomicNumber: 9,
+    initialShells: {
+      K: 2,
+      L: 7,
+      M: 0,
+      N: 0
+    },
+    addCount: 1,
+    charge: 1,
+    ionSymbol: "F⁻"
+  },
+  {
+    element: "ออกซิเจน",
+    symbol: "O",
+    atomicNumber: 8,
+    initialShells: {
+      K: 2,
+      L: 6,
+      M: 0,
+      N: 0
+    },
+    addCount: 2,
+    charge: 2,
+    ionSymbol: "O²⁻"
+  },
+  {
+    element: "ไนโตรเจน",
+    symbol: "N",
+    atomicNumber: 7,
+    initialShells: {
+      K: 2,
+      L: 5,
+      M: 0,
+      N: 0
+    },
+    addCount: 3,
+    charge: 3,
+    ionSymbol: "N³⁻"
+  },
+  {
+    element: "คลอรีน",
+    symbol: "Cl",
+    atomicNumber: 17,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 7,
+      N: 0
+    },
+    addCount: 1,
+    charge: 1,
+    ionSymbol: "Cl⁻"
+  },
+  {
+    element: "กำมะถัน",
+    symbol: "S",
+    atomicNumber: 16,
+    initialShells: {
+      K: 2,
+      L: 8,
+      M: 6,
+      N: 0
+    },
+    addCount: 2,
+    charge: 2,
+    ionSymbol: "S²⁻"
+  }
+];
+
+let selectedAnionQuestions = [];
+let currentAnionQuestionIndex = 0;
+let anionScore = 0;
+let anionHearts = 3;
+let anionShellValues = {};
+let anionAddedElectrons = 0;
+let anionAnswerLocked = false;
+   function startLevelSevenQuiz() {
+  selectedAnionQuestions = shuffleQuestions(
+    [...anionQuestionBank]
+  );
+
+  currentAnionQuestionIndex = 0;
+  anionScore = 0;
+  anionHearts = 3;
+  anionAnswerLocked = false;
+
+  loadCurrentAnionQuestion();
+}
+
+function loadCurrentAnionQuestion() {
+  const question =
+    selectedAnionQuestions[
+      currentAnionQuestionIndex
+    ];
+
+  anionShellValues = {
+    K: question.initialShells.K,
+    L: question.initialShells.L,
+    M: question.initialShells.M,
+    N: question.initialShells.N
+  };
+
+  anionAddedElectrons = 0;
+  anionAnswerLocked = false;
+
+  showAnionQuestion();
+}
+   function getOutermostAnionShell() {
+  const shellOrder = ["N", "M", "L", "K"];
+
+  return shellOrder.find(
+    shellName =>
+      anionShellValues[shellName] > 0
+  );
+}
+
+function getAnionShellText(shellValues) {
+  const values = [
+    shellValues.K,
+    shellValues.L,
+    shellValues.M,
+    shellValues.N
+  ];
+
+  while (
+    values.length > 1 &&
+    values[values.length - 1] === 0
+  ) {
+    values.pop();
+  }
+
+  return values.join(", ");
+}
+   function showAnionQuestion() {
+  const question =
+    selectedAnionQuestions[
+      currentAnionQuestionIndex
+    ];
+
+  const progress =
+    ((currentAnionQuestionIndex + 1) /
+      selectedAnionQuestions.length) *
+    100;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="anion-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        margin-bottom:14px;
+        font-weight:bold;
+      ">
+        <span style="color:#67edff;">
+          ข้อ ${currentAnionQuestionIndex + 1}
+          / ${selectedAnionQuestions.length}
+        </span>
+
+        <span style="font-size:21px;">
+          ${displayAnionHearts()}
+        </span>
+
+        <span>
+          คะแนน ${anionScore}
+        </span>
+      </div>
+
+      <div style="
+        height:10px;
+        margin-bottom:20px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(
+            90deg,
+            #37d5ff,
+            #7857ff
+          );
+        "></div>
+      </div>
+
+      <div class="anion-status-card">
+
+        <div class="anion-symbol-card">
+          <div style="
+            color:#9ba7c9;
+            font-size:13px;
+          ">
+            Z = ${question.atomicNumber}
+          </div>
+
+          <div class="anion-symbol">
+            ${question.symbol}
+          </div>
+
+          <div style="color:#dce5ff;">
+            ${question.element}
+          </div>
+
+          <div class="anion-charge">
+            ประจุ ${
+              anionAddedElectrons === 0
+                ? "0"
+                : "−" + anionAddedElectrons
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 style="
+            margin-bottom:7px;
+            line-height:1.5;
+          ">
+            สร้าง ${question.ionSymbol}
+          </h2>
+
+          <p style="margin:0;">
+            กดปุ่มรับอิเล็กตรอน
+            เพื่อเพิ่มเข้าสู่เชลล์นอกสุด
+            <strong style="color:#75e2ff;">
+              ${question.addCount} ตัว
+            </strong>
+          </p>
+
+          <p style="
+            margin:8px 0 0;
+            color:#b6a2ff;
+            font-weight:bold;
+          ">
+            รับแล้ว:
+            ${anionAddedElectrons}
+            / ${question.addCount}
+          </p>
+        </div>
+
+      </div>
+
+      <div class="atom-model">
+
+        <div class="atom-ring ring-n"></div>
+        <div class="atom-ring ring-m"></div>
+        <div class="atom-ring ring-l"></div>
+        <div class="atom-ring ring-k"></div>
+
+        <div class="atom-nucleus"></div>
+
+        ${createElectronDots(
+          "K",
+          anionShellValues.K,
+          41
+        )}
+
+        ${createElectronDots(
+          "L",
+          anionShellValues.L,
+          70
+        )}
+
+        ${createElectronDots(
+          "M",
+          anionShellValues.M,
+          100
+        )}
+
+        ${createElectronDots(
+          "N",
+          anionShellValues.N,
+          130
+        )}
+
+      </div>
+
+      <div class="anion-shell-summary">
+
+        ${["K", "L", "M", "N"]
+          .map(
+            shellName => `
+              <div class="anion-shell-box">
+                <strong>${shellName}</strong>
+
+                <div style="
+                  margin-top:6px;
+                  font-size:22px;
+                  font-weight:bold;
+                ">
+                  ${anionShellValues[shellName]}
+                </div>
+              </div>
+            `
+          )
+          .join("")}
+
+      </div>
+
+      <div style="
+        margin-top:14px;
+        padding:14px;
+        border-radius:13px;
+        text-align:center;
+        background:rgba(83,232,255,0.09);
+      ">
+        การจัดเรียงปัจจุบัน:
+        <strong style="color:#75e2ff;">
+          ${getAnionShellText(
+            anionShellValues
+          )}
+        </strong>
+      </div>
+
+      <button
+        class="receive-electron-button"
+        onclick="addAnionElectron()"
+      >
+        ➕ รับอิเล็กตรอน 1 ตัว
+      </button>
+
+      <div
+        id="anionFeedback"
+        style="
+          display:none;
+          margin-top:18px;
+          padding:16px;
+          border-radius:14px;
+          line-height:1.6;
+        "
+      ></div>
+
+      <div class="anion-action-grid">
+
+        <button
+          onclick="showAnionHint()"
+          style="
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkAnionAnswer()"
+          style="
+            color:white;
+            background:linear-gradient(
+              90deg,
+              #20c66c,
+              #35dd79
+            );
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <button
+        onclick="resetAnionQuestion()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        🔄 เริ่มข้อนี้ใหม่
+      </button>
+
+      <button
+        onclick="showLevelSevenLessonFromMap()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+    </div>
+  `;
+}
+   function addAnionElectron() {
+  if (anionAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedAnionQuestions[
+      currentAnionQuestionIndex
+    ];
+
+  if (
+    anionAddedElectrons >=
+    question.addCount
+  ) {
+    alert(
+      "รับอิเล็กตรอนครบจำนวนที่กำหนดแล้ว"
+    );
+
+    return;
+  }
+
+  const outermostShell =
+    getOutermostAnionShell();
+
+  const shellCapacity = {
+    K: 2,
+    L: 8,
+    M: 8,
+    N: 2
+  };
+
+  if (
+    anionShellValues[outermostShell] >=
+    shellCapacity[outermostShell]
+  ) {
+    alert(
+      "เชลล์นอกสุดเต็มแล้ว"
+    );
+
+    return;
+  }
+
+  anionShellValues[outermostShell] += 1;
+  anionAddedElectrons += 1;
+
+  showAnionQuestion();
+}
+
+function resetAnionQuestion() {
+  if (anionAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedAnionQuestions[
+      currentAnionQuestionIndex
+    ];
+
+  anionShellValues = {
+    K: question.initialShells.K,
+    L: question.initialShells.L,
+    M: question.initialShells.M,
+    N: question.initialShells.N
+  };
+
+  anionAddedElectrons = 0;
+
+  showAnionQuestion();
+}
+   function displayAnionHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result +=
+      i < anionHearts ? "❤️" : "🖤";
+  }
+
+  return result;
+}
+
+function showAnionHint() {
+  const question =
+    selectedAnionQuestions[
+      currentAnionQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "anionFeedback"
+    );
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  feedback.innerHTML = `
+    <strong style="color:#ffe27e;">
+      💡 คำใบ้
+    </strong>
+
+    <p style="margin-bottom:0;">
+      ${question.ionSymbol}
+      ต้องรับอิเล็กตรอน
+      ${question.addCount} ตัว
+      เข้าสู่เชลล์นอกสุด
+    </p>
+  `;
+}
+   function checkAnionAnswer() {
+  if (anionAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedAnionQuestions[
+      currentAnionQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "anionFeedback"
+    );
+
+  if (
+    anionAddedElectrons !==
+    question.addCount
+  ) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ รับอิเล็กตรอนยังไม่ครบ
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ต้องรับ
+        ${question.addCount} ตัว
+        ขณะนี้รับแล้ว
+        ${anionAddedElectrons} ตัว
+      </p>
+    `;
+
+    return;
+  }
+
+  const expectedShells = {
+    ...question.initialShells
+  };
+
+  const outermostShell =
+    ["N", "M", "L", "K"].find(
+      shellName =>
+        expectedShells[shellName] > 0
+    );
+
+  expectedShells[outermostShell] +=
+    question.addCount;
+
+  const isCorrect =
+    ["K", "L", "M", "N"].every(
+      shellName =>
+        anionShellValues[shellName] ===
+        expectedShells[shellName]
+    );
+
+  anionAnswerLocked = true;
+
+  if (isCorrect) {
+    anionScore += 10;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(46,204,113,0.14)";
+    feedback.style.border =
+      "1px solid rgba(46,204,113,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#74f5a7;">
+        ✅ ถูกต้อง! ได้รับ 10 คะแนน
+      </strong>
+
+      <p>
+        ${question.symbol}
+        รับอิเล็กตรอน
+        ${question.addCount} ตัว
+        จึงเกิดเป็น
+        <strong>${question.ionSymbol}</strong>
+      </p>
+
+      <p>
+        การจัดเรียงอิเล็กตรอนใหม่คือ
+        <strong>
+          ${getAnionShellText(
+            anionShellValues
+          )}
+        </strong>
+      </p>
+
+      <button
+        onclick="nextAnionQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          currentAnionQuestionIndex ===
+          selectedAnionQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  } else {
+    anionHearts -= 1;
+
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,82,112,0.13)";
+    feedback.style.border =
+      "1px solid rgba(255,82,112,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ff91a5;">
+        ❌ การสร้างแอนไอออนยังไม่ถูกต้อง
+        เสียหัวใจ 1 ดวง
+      </strong>
+
+      <p>
+        ต้องเพิ่มอิเล็กตรอนเข้าสู่เชลล์นอกสุด
+      </p>
+
+      <button
+        onclick="nextAnionQuestion()"
+        style="margin-top:8px;"
+      >
+        ${
+          anionHearts <= 0 ||
+          currentAnionQuestionIndex ===
+          selectedAnionQuestions.length - 1
+            ? "ดูผลภารกิจ"
+            : "ข้อต่อไป →"
+        }
+      </button>
+    `;
+  }
+}
+   function nextAnionQuestion() {
+  if (
+    anionHearts <= 0 ||
+    currentAnionQuestionIndex >=
+      selectedAnionQuestions.length - 1
+  ) {
+    showLevelSevenResult();
+    return;
+  }
+
+  currentAnionQuestionIndex += 1;
+
+  loadCurrentAnionQuestion();
+}
+
+function showLevelSevenResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedAnionQuestions.length * 10;
+
+  const percentage = Math.round(
+    (anionScore / maxScore) * 100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+  let message =
+    "ทบทวนการรับอิเล็กตรอนเข้าสู่เชลล์นอกสุดแล้วลองใหม่อีกครั้ง";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+    message =
+      "ยอดเยี่ยมมาก! คุณสร้างแอนไอออนได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+    message =
+      "ทำได้ดีมาก คุณเข้าใจการเกิดไอออนลบแล้ว";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+    message =
+      "ผ่านภารกิจแล้ว ลองฝึกเรื่องประจุลบเพิ่มเติม";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 7,
+    score: anionScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    hearts: anionHearts,
+    level: level,
+    date: new Date().toLocaleString(
+      "th-TH"
+    )
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelSevenResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 7
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${anionScore} / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayAnionHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelSevenQuiz()">
+        🔄 เล่นด่านที่ 7 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelSevenLessonFromMap()"
         style="
           margin-top:12px;
           color:#dce5ff;
