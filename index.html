@@ -1216,6 +1216,209 @@
     margin: 0 auto;
   }
 }
+    .final-boss-game {
+  width: 100%;
+  text-align: left;
+}
+
+.boss-arena {
+  padding: 20px;
+  border: 2px solid rgba(255, 102, 145, 0.55);
+  border-radius: 20px;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(120, 50, 150, 0.35),
+      rgba(8, 14, 43, 0.96)
+    );
+  box-shadow:
+    0 0 25px rgba(255, 79, 129, 0.2);
+}
+
+.boss-character {
+  position: relative;
+  width: 145px;
+  height: 145px;
+  margin: 5px auto 15px;
+  border: 3px solid #ff6d9e;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 72px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 96, 130, 0.42),
+      rgba(74, 31, 119, 0.92)
+    );
+  box-shadow:
+    0 0 30px rgba(255, 76, 130, 0.55);
+  animation: bossFloat 2.2s ease-in-out infinite;
+}
+
+@keyframes bossFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.boss-health-container {
+  margin: 12px 0 20px;
+}
+
+.boss-health-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+  color: #ffd8e3;
+  font-weight: bold;
+}
+
+.boss-health-bar {
+  height: 18px;
+  border: 2px solid #70466e;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(4, 8, 29, 0.9);
+}
+
+.boss-health-fill {
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      #ff344f,
+      #ff729d,
+      #ffd15c
+    );
+  transition: width 0.4s ease;
+}
+
+.boss-phase-badge {
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 7px 15px;
+  border: 1px solid #ffe071;
+  border-radius: 999px;
+  color: #ffe071;
+  background: rgba(255, 209, 92, 0.1);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.boss-question-card {
+  padding: 20px;
+  border: 1px solid #4b5d91;
+  border-radius: 18px;
+  background: rgba(15, 24, 62, 0.95);
+}
+
+.boss-topic-label {
+  color: #9daace;
+  font-size: 14px;
+  text-align: center;
+}
+
+.boss-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  margin-top: 18px;
+}
+
+.boss-choice-button {
+  min-height: 76px;
+  margin: 0;
+  padding: 14px 10px;
+  border: 2px solid #53689c;
+  border-radius: 14px;
+  color: white;
+  background: rgba(10, 19, 52, 0.96);
+  font-size: 17px;
+  transition: 0.18s ease;
+}
+
+.boss-choice-button:hover {
+  border-color: #ffe071;
+  transform: translateY(-2px);
+}
+
+.boss-choice-button.selected {
+  border-color: #d28cff;
+  background: rgba(153, 91, 255, 0.2);
+  box-shadow: 0 0 15px rgba(170, 100, 255, 0.25);
+}
+
+.boss-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-bottom: 15px;
+}
+
+.boss-status-box {
+  padding: 10px 5px;
+  border: 1px solid #435684;
+  border-radius: 12px;
+  text-align: center;
+  background: rgba(13, 22, 55, 0.92);
+}
+
+.boss-feedback {
+  display: none;
+  margin-top: 18px;
+  padding: 17px;
+  border-radius: 14px;
+  line-height: 1.65;
+}
+
+.boss-attack-message {
+  margin-top: 12px;
+  color: #ffe071;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.boss-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.boss-action-grid button {
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .boss-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .boss-character {
+    width: 120px;
+    height: 120px;
+    font-size: 60px;
+  }
+
+  .boss-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .boss-action-grid {
+    grid-template-columns: 1fr;
+  }
+}
+    
 </style>
 </head>
 
@@ -1744,6 +1947,51 @@ function backToLevelMap() {
 
   showLevelMap(studentData);
 }
+   <button
+  onclick="showFinalBossIntroFromMap()"
+  style="
+    grid-column:1 / -1;
+    margin:8px 0 0;
+    min-height:145px;
+    border:2px solid #ffdb6e;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    color:white;
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(255,70,112,0.35),
+        rgba(41,17,85,0.95)
+      );
+    box-shadow:
+      0 0 24px rgba(255,80,120,0.42),
+      inset 0 0 24px rgba(255,219,110,0.12);
+  "
+>
+  <span style="font-size:45px;">👾</span>
+
+  <strong style="
+    color:#ffe27e;
+    font-size:21px;
+  ">
+    FINAL BOSS
+  </strong>
+
+  <span style="font-size:15px;">
+    ผู้พิทักษ์แกนอะตอม
+  </span>
+
+  <span style="
+    color:#ffb3ca;
+    font-size:13px;
+  ">
+    ภารกิจสรุปรวมด่านที่ 1–10
+  </span>
+</button>
 
 const levelOneQuestions = [
   {
@@ -11325,7 +11573,1630 @@ function showElectronegativityHint() {
     </div>
   `;
 }
-      
+   const FINAL_BOSS_SCORE_API =
+  "https://script.google.com/macros/s/AKfycbxuRxIgnGIf7PbWMKNaRvCx2eRqowKF2f7SuRwMYYOA/dev;
+
+const FINAL_BOSS_API_TOKEN =
+  "electron-orbit-quest-2569";
+      const finalBossQuestionBank = [
+  {
+    phase: 1,
+    topic: "เลขอะตอมและจำนวนอิเล็กตรอน",
+    question:
+      "อะตอมเป็นกลางของธาตุที่มีเลขอะตอม 12 มีอิเล็กตรอนกี่ตัว?",
+    choices: [
+      "10 ตัว",
+      "12 ตัว",
+      "14 ตัว",
+      "24 ตัว"
+    ],
+    answer: "12 ตัว",
+    explanation:
+      "อะตอมเป็นกลางมีจำนวนโปรตอนเท่ากับจำนวนอิเล็กตรอน เลขอะตอม 12 จึงมีอิเล็กตรอน 12 ตัว"
+  },
+  {
+    phase: 1,
+    topic: "การจัดเรียงอิเล็กตรอนแบบเชลล์",
+    question:
+      "การจัดเรียงอิเล็กตรอนแบบเชลล์ของโซเดียม เลขอะตอม 11 คือข้อใด?",
+    choices: [
+      "2, 8, 1",
+      "2, 7, 2",
+      "2, 8, 2",
+      "2, 9"
+    ],
+    answer: "2, 8, 1",
+    explanation:
+      "โซเดียมมีอิเล็กตรอน 11 ตัว จัดเรียงเป็น K = 2, L = 8 และ M = 1"
+  },
+  {
+    phase: 1,
+    topic: "เวเลนซ์อิเล็กตรอน",
+    question:
+      "ธาตุที่มีการจัดเรียงอิเล็กตรอน 2, 8, 6 มีเวเลนซ์อิเล็กตรอนกี่ตัว?",
+    choices: [
+      "2 ตัว",
+      "6 ตัว",
+      "8 ตัว",
+      "16 ตัว"
+    ],
+    answer: "6 ตัว",
+    explanation:
+      "เชลล์นอกสุดมีอิเล็กตรอน 6 ตัว จึงมีเวเลนซ์อิเล็กตรอนเท่ากับ 6"
+  },
+  {
+    phase: 1,
+    topic: "หลัก Aufbau",
+    question:
+      "ซับเชลล์ใดได้รับการเติมอิเล็กตรอนต่อจาก 3p?",
+    choices: [
+      "3d",
+      "4s",
+      "4p",
+      "5s"
+    ],
+    answer: "4s",
+    explanation:
+      "ลำดับการเติมคือ 1s → 2s → 2p → 3s → 3p → 4s → 3d"
+  },
+  {
+    phase: 1,
+    topic: "การจัดเรียงแบบออร์บิทัล",
+    question:
+      "การเติมอิเล็กตรอนใน 2p² ที่ถูกต้องตามกฎของฮุนด์คือข้อใด?",
+    choices: [
+      "[↑↓] [ ] [ ]",
+      "[↑] [↑] [ ]",
+      "[↓] [ ] [↓]",
+      "[↑↓] [↑] [ ]"
+    ],
+    answer: "[↑] [↑] [ ]",
+    explanation:
+      "อิเล็กตรอนต้องเข้าอยู่เดี่ยวในออร์บิทัลที่มีพลังงานเท่ากันก่อนจับคู่"
+  },
+  {
+    phase: 1,
+    topic: "อนุภาคมูลฐาน",
+    question:
+      "อนุภาคใดเป็นตัวกำหนดเลขอะตอมของธาตุ?",
+    choices: [
+      "โปรตอน",
+      "นิวตรอน",
+      "อิเล็กตรอน",
+      "โปรตอนและนิวตรอน"
+    ],
+    answer: "โปรตอน",
+    explanation:
+      "เลขอะตอมเท่ากับจำนวนโปรตอนภายในนิวเคลียส"
+  },
+  {
+    phase: 1,
+    topic: "เลขมวล",
+    question:
+      "อะตอมมีโปรตอน 11 ตัว และนิวตรอน 12 ตัว มีเลขมวลเท่าใด?",
+    choices: [
+      "11",
+      "12",
+      "23",
+      "24"
+    ],
+    answer: "23",
+    explanation:
+      "เลขมวลเท่ากับจำนวนโปรตอนบวกจำนวนนิวตรอน ดังนั้น 11 + 12 = 23"
+  },
+  {
+    phase: 1,
+    topic: "การจัดเรียงอิเล็กตรอน",
+    question:
+      "ธาตุที่มีการจัดเรียงอิเล็กตรอน 2, 8, 2 มีเลขอะตอมเท่าใด?",
+    choices: [
+      "10",
+      "11",
+      "12",
+      "14"
+    ],
+    answer: "12",
+    explanation:
+      "จำนวนอิเล็กตรอนทั้งหมดเท่ากับ 2 + 8 + 2 = 12"
+  },
+  {
+    phase: 1,
+    topic: "เวเลนซ์อิเล็กตรอน",
+    question:
+      "ธาตุที่มีการจัดเรียง 2, 8, 7 อยู่ในหมู่ใด?",
+    choices: [
+      "หมู่ 1",
+      "หมู่ 2",
+      "หมู่ 16",
+      "หมู่ 17"
+    ],
+    answer: "หมู่ 17",
+    explanation:
+      "ธาตุหมู่หลักที่มีเวเลนซ์อิเล็กตรอน 7 ตัวอยู่ในหมู่ 17"
+  },
+  {
+    phase: 1,
+    topic: "หลักกีดกันของเพาลี",
+    question:
+      "ออร์บิทัลหนึ่งบรรจุอิเล็กตรอนได้สูงสุดกี่ตัว?",
+    choices: [
+      "1 ตัว",
+      "2 ตัว",
+      "3 ตัว",
+      "6 ตัว"
+    ],
+    answer: "2 ตัว",
+    explanation:
+      "หนึ่งออร์บิทัลบรรจุอิเล็กตรอนได้สูงสุด 2 ตัว และต้องมีสปินตรงข้ามกัน"
+  },
+
+  {
+    phase: 2,
+    topic: "การเกิดแคตไอออน",
+    question:
+      "Mg มีการจัดเรียง 2, 8, 2 ต้องเสียอิเล็กตรอนกี่ตัวเพื่อเกิด Mg²⁺?",
+    choices: [
+      "1 ตัว",
+      "2 ตัว",
+      "3 ตัว",
+      "8 ตัว"
+    ],
+    answer: "2 ตัว",
+    explanation:
+      "Mg เสียอิเล็กตรอนชั้นนอก 2 ตัว จึงมีประจุ +2 และเหลือการจัดเรียง 2, 8"
+  },
+  {
+    phase: 2,
+    topic: "การเกิดแอนไอออน",
+    question:
+      "ออกซิเจนมีการจัดเรียง 2, 6 ต้องรับอิเล็กตรอนกี่ตัวเพื่อเกิด O²⁻?",
+    choices: [
+      "1 ตัว",
+      "2 ตัว",
+      "3 ตัว",
+      "6 ตัว"
+    ],
+    answer: "2 ตัว",
+    explanation:
+      "ออกซิเจนรับอิเล็กตรอน 2 ตัว ทำให้เชลล์นอกสุดครบ 8 และเกิดประจุ −2"
+  },
+  {
+    phase: 2,
+    topic: "ประจุของไอออน",
+    question:
+      "อะตอมหนึ่งเสียอิเล็กตรอน 3 ตัว จะเกิดไอออนที่มีประจุเท่าใด?",
+    choices: [
+      "−3",
+      "−1",
+      "+1",
+      "+3"
+    ],
+    answer: "+3",
+    explanation:
+      "การเสียอิเล็กตรอนทำให้จำนวนโปรตอนมากกว่าอิเล็กตรอน 3 หน่วย จึงมีประจุ +3"
+  },
+  {
+    phase: 2,
+    topic: "เปรียบเทียบอะตอมและไอออน",
+    question:
+      "อนุภาคใดมีจำนวนอิเล็กตรอนเท่ากับ 10 ตัว?",
+    choices: [
+      "Na",
+      "Na⁺",
+      "Mg",
+      "Al"
+    ],
+    answer: "Na⁺",
+    explanation:
+      "Na มีเลขอะตอม 11 เมื่อเสียอิเล็กตรอน 1 ตัวเป็น Na⁺ จะเหลืออิเล็กตรอน 10 ตัว"
+  },
+  {
+    phase: 2,
+    topic: "ความเสถียรของไอออน",
+    question:
+      "Cl ที่มีการจัดเรียง 2, 8, 7 มีแนวโน้มเปลี่ยนแปลงอย่างไร?",
+    choices: [
+      "เสีย 1 อิเล็กตรอน",
+      "รับ 1 อิเล็กตรอน",
+      "เสีย 7 อิเล็กตรอน",
+      "ไม่รับและไม่เสีย"
+    ],
+    answer: "รับ 1 อิเล็กตรอน",
+    explanation:
+      "Cl รับอิเล็กตรอน 1 ตัวแล้วมีการจัดเรียง 2, 8, 8 ซึ่งมีเชลล์นอกสุดครบ 8"
+  },
+  {
+    phase: 2,
+    topic: "การเกิดแคตไอออน",
+    question:
+      "Al ที่มีการจัดเรียง 2, 8, 3 จะเกิดไอออนชนิดใดได้ง่าย?",
+    choices: [
+      "Al⁺",
+      "Al²⁺",
+      "Al³⁺",
+      "Al³⁻"
+    ],
+    answer: "Al³⁺",
+    explanation:
+      "Al เสียเวเลนซ์อิเล็กตรอน 3 ตัว จึงเกิดเป็น Al³⁺"
+  },
+  {
+    phase: 2,
+    topic: "การเกิดแอนไอออน",
+    question:
+      "ธาตุที่มีการจัดเรียง 2, 8, 7 มีแนวโน้มเกิดไอออนใด?",
+    choices: [
+      "X⁺",
+      "X²⁺",
+      "X⁻",
+      "X²⁻"
+    ],
+    answer: "X⁻",
+    explanation:
+      "อะตอมรับอิเล็กตรอน 1 ตัวเพื่อให้เชลล์นอกสุดครบ 8 จึงมีประจุ −1"
+  },
+  {
+    phase: 2,
+    topic: "จำนวนอิเล็กตรอนของไอออน",
+    question:
+      "Mg²⁺ มีจำนวนอิเล็กตรอนกี่ตัว เมื่อ Mg มีเลขอะตอม 12?",
+    choices: [
+      "10 ตัว",
+      "12 ตัว",
+      "14 ตัว",
+      "24 ตัว"
+    ],
+    answer: "10 ตัว",
+    explanation:
+      "Mg เสียอิเล็กตรอน 2 ตัว จึงเหลือ 12 − 2 = 10 ตัว"
+  },
+  {
+    phase: 2,
+    topic: "จำนวนอิเล็กตรอนของไอออน",
+    question:
+      "Cl⁻ มีจำนวนอิเล็กตรอนกี่ตัว เมื่อ Cl มีเลขอะตอม 17?",
+    choices: [
+      "16 ตัว",
+      "17 ตัว",
+      "18 ตัว",
+      "19 ตัว"
+    ],
+    answer: "18 ตัว",
+    explanation:
+      "Cl รับอิเล็กตรอนเพิ่ม 1 ตัว จึงมีอิเล็กตรอน 17 + 1 = 18 ตัว"
+  },
+  {
+    phase: 2,
+    topic: "เปรียบเทียบขนาดอนุภาค",
+    question:
+      "อนุภาคใดมีขนาดเล็กกว่า ระหว่าง Na และ Na⁺?",
+    choices: [
+      "Na",
+      "Na⁺",
+      "เท่ากัน",
+      "เปรียบเทียบไม่ได้"
+    ],
+    answer: "Na⁺",
+    explanation:
+      "Na⁺ สูญเสียอิเล็กตรอนชั้นนอก ทำให้จำนวนเชลล์ลดลงและมีขนาดเล็กกว่า Na"
+  },
+
+  {
+    phase: 3,
+    topic: "แนวโน้มขนาดอะตอม",
+    question:
+      "ธาตุใดมีขนาดอะตอมใหญ่กว่า ระหว่าง Na และ Cl?",
+    choices: [
+      "Na",
+      "Cl",
+      "เท่ากัน",
+      "เปรียบเทียบไม่ได้"
+    ],
+    answer: "Na",
+    explanation:
+      "Na และ Cl อยู่ในคาบเดียวกัน ขนาดอะตอมลดลงจากซ้ายไปขวา ดังนั้น Na ใหญ่กว่า"
+  },
+  {
+    phase: 3,
+    topic: "แนวโน้มขนาดอะตอมในหมู่",
+    question:
+      "เรียงขนาดอะตอมจากเล็กไปใหญ่ได้ถูกต้องข้อใด?",
+    choices: [
+      "K < Na < Li",
+      "Li < Na < K",
+      "Na < Li < K",
+      "Li < K < Na"
+    ],
+    answer: "Li < Na < K",
+    explanation:
+      "ธาตุในหมู่เดียวกันมีขนาดอะตอมเพิ่มขึ้นจากบนลงล่าง"
+  },
+  {
+    phase: 3,
+    topic: "พลังงานไอออไนเซชัน",
+    question:
+      "ธาตุใดมีพลังงานไอออไนเซชันสูงกว่า ระหว่าง Li และ K?",
+    choices: [
+      "Li",
+      "K",
+      "เท่ากัน",
+      "ไม่มีข้อถูก"
+    ],
+    answer: "Li",
+    explanation:
+      "Li มีจำนวนเชลล์น้อยกว่า อิเล็กตรอนชั้นนอกอยู่ใกล้นิวเคลียสกว่า จึงนำออกได้ยากกว่า"
+  },
+  {
+    phase: 3,
+    topic: "อิเล็กโทรเนกาติวิตี",
+    question:
+      "ธาตุใดมีค่าอิเล็กโทรเนกาติวิตีสูงที่สุด?",
+    choices: [
+      "Na",
+      "Mg",
+      "Cl",
+      "F"
+    ],
+    answer: "F",
+    explanation:
+      "ฟลูออรีนมีความสามารถในการดึงอิเล็กตรอนคู่ร่วมพันธะสูงที่สุด"
+  },
+  {
+    phase: 3,
+    topic: "สรุปแนวโน้มสมบัติธาตุ",
+    question:
+      "เมื่อเคลื่อนจากซ้ายไปขวาในคาบเดียวกัน แนวโน้มทั่วไปข้อใดถูกต้อง?",
+    choices: [
+      "ขนาดอะตอมเพิ่มขึ้น",
+      "พลังงานไอออไนเซชันลดลง",
+      "อิเล็กโทรเนกาติวิตีเพิ่มขึ้น",
+      "จำนวนเชลล์เพิ่มขึ้น"
+    ],
+    answer: "อิเล็กโทรเนกาติวิตีเพิ่มขึ้น",
+    explanation:
+      "จากซ้ายไปขวา ขนาดอะตอมโดยทั่วไปลดลง ส่วนพลังงานไอออไนเซชันและอิเล็กโทรเนกาติวิตีเพิ่มขึ้น"
+  },
+  {
+    phase: 3,
+    topic: "แนวโน้มขนาดอะตอม",
+    question:
+      "ธาตุใดมีขนาดอะตอมใหญ่ที่สุด?",
+    choices: [
+      "Li",
+      "Na",
+      "K",
+      "F"
+    ],
+    answer: "K",
+    explanation:
+      "K อยู่ต่ำกว่า Li และ Na ในหมู่เดียวกัน มีจำนวนเชลล์มากกว่า จึงมีขนาดใหญ่ที่สุด"
+  },
+  {
+    phase: 3,
+    topic: "พลังงานไอออไนเซชัน",
+    question:
+      "ธาตุใดนำอิเล็กตรอนชั้นนอกออกได้ง่ายกว่า?",
+    choices: [
+      "Li",
+      "Na",
+      "F",
+      "Cl"
+    ],
+    answer: "Na",
+    explanation:
+      "Na มีจำนวนเชลล์มากกว่า Li และมีพลังงานไอออไนเซชันต่ำกว่า จึงเสียอิเล็กตรอนได้ง่ายกว่า"
+  },
+  {
+    phase: 3,
+    topic: "อิเล็กโทรเนกาติวิตี",
+    question:
+      "เรียงค่าอิเล็กโทรเนกาติวิตีจากต่ำไปสูงได้ถูกต้องข้อใด?",
+    choices: [
+      "Cl < Mg < Na",
+      "Na < Mg < Cl",
+      "Mg < Na < Cl",
+      "Cl < Na < Mg"
+    ],
+    answer: "Na < Mg < Cl",
+    explanation:
+      "ในคาบเดียวกัน ค่าอิเล็กโทรเนกาติวิตีโดยทั่วไปเพิ่มขึ้นจากซ้ายไปขวา"
+  },
+  {
+    phase: 3,
+    topic: "พลังงานไอออไนเซชัน",
+    question:
+      "แนวโน้มพลังงานไอออไนเซชันในหมู่เดียวกันเป็นอย่างไร?",
+    choices: [
+      "เพิ่มขึ้นจากบนลงล่าง",
+      "ลดลงจากบนลงล่าง",
+      "คงที่ตลอดทั้งหมู่",
+      "ไม่มีแนวโน้ม"
+    ],
+    answer: "ลดลงจากบนลงล่าง",
+    explanation:
+      "จากบนลงล่างจำนวนเชลล์และผลกำบังเพิ่มขึ้น ทำให้นำอิเล็กตรอนออกได้ง่ายขึ้น"
+  },
+  {
+    phase: 3,
+    topic: "สรุปแนวโน้มสมบัติธาตุ",
+    question:
+      "ธาตุใดมีทั้งขนาดอะตอมเล็กและค่าอิเล็กโทรเนกาติวิตีสูง?",
+    choices: [
+      "Na",
+      "K",
+      "Mg",
+      "F"
+    ],
+    answer: "F",
+    explanation:
+      "F อยู่บริเวณด้านขวาบนของตารางธาตุ จึงมีขนาดเล็กและมีค่าอิเล็กโทรเนกาติวิตีสูงมาก"
+  }
+];
+   let selectedFinalBossQuestions = [];
+let currentFinalBossQuestionIndex = 0;
+
+let finalBossScore = 0;
+let finalBossHearts = 5;
+
+let finalBossMaxHP = 300;
+let finalBossHP = 300;
+
+let selectedFinalBossAnswer = "";
+let finalBossAnswerLocked = false;
+
+let finalBossHintUsed = false;
+let finalBossHintsUsed = 0;
+   function getFinalBossHint(question) {
+  const hints = {
+    "เลขอะตอมและจำนวนอิเล็กตรอน":
+      "อะตอมเป็นกลางมีจำนวนโปรตอนเท่ากับจำนวนอิเล็กตรอน",
+
+    "อนุภาคมูลฐาน":
+      "เลขอะตอมสัมพันธ์กับอนุภาคประจุบวกที่อยู่ในนิวเคลียส",
+
+    "เลขมวล":
+      "เลขมวล = จำนวนโปรตอน + จำนวนนิวตรอน",
+
+    "การจัดเรียงอิเล็กตรอนแบบเชลล์":
+      "เติมเชลล์ K ก่อน แล้วจึงเติมเชลล์ L และ M",
+
+    "การจัดเรียงอิเล็กตรอน":
+      "นำจำนวนอิเล็กตรอนในทุกเชลล์มารวมกัน",
+
+    "เวเลนซ์อิเล็กตรอน":
+      "พิจารณาอิเล็กตรอนในเชลล์นอกสุด",
+
+    "หลัก Aufbau":
+      "หลังจาก 3p ต้องเติม 4s ก่อน 3d",
+
+    "การจัดเรียงแบบออร์บิทัล":
+      "ออร์บิทัลพลังงานเท่ากันต้องเติมเดี่ยวก่อนจับคู่",
+
+    "หลักกีดกันของเพาลี":
+      "อิเล็กตรอนในออร์บิทัลเดียวกันต้องมีสปินตรงข้ามกัน",
+
+    "การเกิดแคตไอออน":
+      "แคตไอออนเกิดจากการเสียอิเล็กตรอน",
+
+    "การเกิดแอนไอออน":
+      "แอนไอออนเกิดจากการรับอิเล็กตรอน",
+
+    "ประจุของไอออน":
+      "เสียอิเล็กตรอนทำให้เกิดประจุบวก",
+
+    "จำนวนอิเล็กตรอนของไอออน":
+      "ประจุบวกให้นำไปลบจากเลขอะตอม ส่วนประจุลบให้นำไปบวก",
+
+    "เปรียบเทียบอะตอมและไอออน":
+      "ตรวจสอบว่าอนุภาคได้รับหรือสูญเสียอิเล็กตรอนกี่ตัว",
+
+    "เปรียบเทียบขนาดอนุภาค":
+      "แคตไอออนมักมีขนาดเล็กกว่าอะตอมเดิม",
+
+    "ความเสถียรของไอออน":
+      "พิจารณาว่าต้องรับหรือเสียกี่ตัวเพื่อให้เชลล์นอกสุดครบ 8",
+
+    "แนวโน้มขนาดอะตอม":
+      "ขนาดอะตอมเพิ่มขึ้นเมื่อเคลื่อนไปทางซ้ายและลงด้านล่าง",
+
+    "แนวโน้มขนาดอะตอมในหมู่":
+      "ธาตุที่อยู่ต่ำกว่าจะมีจำนวนเชลล์มากกว่า",
+
+    "พลังงานไอออไนเซชัน":
+      "พลังงานไอออไนเซชันเพิ่มขึ้นไปทางขวาและด้านบน",
+
+    "อิเล็กโทรเนกาติวิตี":
+      "ค่าอิเล็กโทรเนกาติวิตีเพิ่มขึ้นไปทางขวาและด้านบน",
+
+    "สรุปแนวโน้มสมบัติธาตุ":
+      "ด้านขวาบนมีขนาดเล็ก แต่พลังงานไอออไนเซชันและอิเล็กโทรเนกาติวิตีสูง"
+  };
+
+  return (
+    hints[question.topic] ||
+    "พิจารณาการจัดเรียงอิเล็กตรอน จำนวนเชลล์ และตำแหน่งในตารางธาตุ"
+  );
+}
+   function showFinalBossIntroFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  if (!studentData) {
+    alert(
+      "ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่"
+    );
+
+    location.reload();
+    return;
+  }
+
+  showFinalBossIntro(studentData);
+}
+
+function showFinalBossIntro(studentData) {
+  document.querySelector(
+    ".game-card"
+  ).innerHTML = `
+    <div style="text-align:center;">
+
+      <p style="
+        color:#67edff;
+        font-weight:bold;
+      ">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <div style="
+        margin:18px auto;
+        font-size:85px;
+        filter:drop-shadow(
+          0 0 20px rgba(255,80,130,0.8)
+        );
+      ">
+        👾
+      </div>
+
+      <h1 style="
+        color:#ffe071;
+        font-size:42px;
+        margin-bottom:6px;
+      ">
+        FINAL BOSS
+      </h1>
+
+      <h2 style="color:#ff91b6;">
+        ผู้พิทักษ์แกนอะตอม
+      </h2>
+
+      <div style="
+        margin-top:22px;
+        padding:22px;
+        border:1px solid #76517d;
+        border-radius:18px;
+        background:rgba(35,18,67,0.82);
+        text-align:left;
+      ">
+
+        <h3 style="
+          color:#ffe071;
+          text-align:center;
+        ">
+          กฎการต่อสู้
+        </h3>
+
+        <p>
+          ⚔️ ตอบถูกโดยไม่ใช้คำใบ้:
+          ได้ 10 คะแนน และโจมตี 10 HP
+        </p>
+
+        <p>
+          💡 ตอบถูกหลังใช้คำใบ้:
+          ได้ 5 คะแนน และโจมตี 5 HP
+        </p>
+
+        <p>
+          ❤️ ผู้เล่นมีหัวใจ 5 ดวง
+        </p>
+
+        <p>
+          💥 ตอบผิดเสียหัวใจ 1 ดวง
+        </p>
+
+        <p>
+          👾 Boss มีพลังทั้งหมด 300 HP
+        </p>
+
+        <p>
+          🧠 มีคำถามทั้งหมด 30 ข้อ
+        </p>
+
+        <div style="
+          margin-top:18px;
+          padding:14px;
+          border-radius:13px;
+          background:rgba(255,209,92,0.1);
+          color:#ffe8a6;
+        ">
+          เฟส 1: โครงสร้างอะตอม 10 ข้อ<br>
+          เฟส 2: การเกิดไอออน 10 ข้อ<br>
+          เฟส 3: แนวโน้มสมบัติธาตุ 10 ข้อ
+        </div>
+
+      </div>
+
+      <button onclick="startFinalBoss()">
+        ⚔️ เริ่มการต่อสู้
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function startFinalBoss() {
+  const phaseOne = shuffleQuestions(
+    finalBossQuestionBank.filter(
+      question => question.phase === 1
+    )
+  );
+
+  const phaseTwo = shuffleQuestions(
+    finalBossQuestionBank.filter(
+      question => question.phase === 2
+    )
+  );
+
+  const phaseThree = shuffleQuestions(
+    finalBossQuestionBank.filter(
+      question => question.phase === 3
+    )
+  );
+
+  selectedFinalBossQuestions = [
+    ...phaseOne,
+    ...phaseTwo,
+    ...phaseThree
+  ];
+
+  currentFinalBossQuestionIndex = 0;
+
+  finalBossScore = 0;
+  finalBossHearts = 5;
+
+  finalBossMaxHP =
+    selectedFinalBossQuestions.length * 10;
+
+  finalBossHP = finalBossMaxHP;
+
+  selectedFinalBossAnswer = "";
+  finalBossAnswerLocked = false;
+
+  finalBossHintUsed = false;
+  finalBossHintsUsed = 0;
+
+  showFinalBossQuestion();
+}
+
+function getFinalBossPhaseName(phase) {
+  if (phase === 1) {
+    return "เฟส 1: โครงสร้างอะตอม";
+  }
+
+  if (phase === 2) {
+    return "เฟส 2: การเกิดไอออน";
+  }
+
+  return "เฟส 3: แนวโน้มสมบัติธาตุ";
+}
+
+function displayFinalBossHearts() {
+  let hearts = "";
+
+  for (let i = 0; i < 5; i++) {
+    hearts +=
+      i < finalBossHearts
+        ? "❤️"
+        : "🖤";
+  }
+
+  return hearts;
+}
+   function showFinalBossQuestion() {
+  const question =
+    selectedFinalBossQuestions[
+      currentFinalBossQuestionIndex
+    ];
+
+  selectedFinalBossAnswer = "";
+  finalBossAnswerLocked = false;
+  finalBossHintUsed = false;
+
+  const bossHealthPercent = Math.max(
+    0,
+    (finalBossHP / finalBossMaxHP) * 100
+  );
+
+  document.querySelector(
+    ".game-card"
+  ).innerHTML = `
+    <div class="final-boss-game">
+
+      <div class="boss-status-grid">
+
+        <div class="boss-status-box">
+          <div style="color:#9daace;">
+            ข้อ
+          </div>
+
+          <strong style="color:#67edff;">
+            ${currentFinalBossQuestionIndex + 1}
+            / ${selectedFinalBossQuestions.length}
+          </strong>
+        </div>
+
+        <div class="boss-status-box">
+          <div style="color:#9daace;">
+            หัวใจ
+          </div>
+
+          <div style="font-size:18px;">
+            ${displayFinalBossHearts()}
+          </div>
+        </div>
+
+        <div class="boss-status-box">
+          <div style="color:#9daace;">
+            คะแนน
+          </div>
+
+          <strong style="color:#ffe071;">
+            ${finalBossScore}
+          </strong>
+        </div>
+
+      </div>
+
+      <div class="boss-arena">
+
+        <div class="boss-phase-badge">
+          ${getFinalBossPhaseName(
+            question.phase
+          )}
+        </div>
+
+        <div class="boss-character">
+          👾
+        </div>
+
+        <div class="boss-health-container">
+
+          <div class="boss-health-label">
+            <span>
+              ผู้พิทักษ์แกนอะตอม
+            </span>
+
+            <span>
+              ${finalBossHP}
+              / ${finalBossMaxHP} HP
+            </span>
+          </div>
+
+          <div class="boss-health-bar">
+            <div
+              class="boss-health-fill"
+              style="
+                width:${bossHealthPercent}%;
+              "
+            ></div>
+          </div>
+
+        </div>
+
+        <div class="boss-question-card">
+
+          <div class="boss-topic-label">
+            ${question.topic}
+          </div>
+
+          <h2 style="
+            margin:10px 0 6px;
+            text-align:center;
+            line-height:1.55;
+          ">
+            ${question.question}
+          </h2>
+
+          <div class="boss-choice-grid">
+
+            ${question.choices
+              .map(
+                choice => `
+                  <button
+                    class="boss-choice-button"
+                    data-answer="${choice}"
+                    onclick="
+                      selectFinalBossAnswer(
+                        this.dataset.answer,
+                        this
+                      )
+                    "
+                  >
+                    ${choice}
+                  </button>
+                `
+              )
+              .join("")}
+
+          </div>
+
+          <div
+            id="finalBossFeedback"
+            class="boss-feedback"
+          ></div>
+
+        </div>
+
+        <div class="boss-action-grid">
+
+          <button
+            id="finalBossHintButton"
+            onclick="showFinalBossHint()"
+            style="
+              border:1px solid #f2c652;
+              color:#ffe27e;
+              background:rgba(83,61,14,0.48);
+            "
+          >
+            💡 ใช้คำใบ้ −5 คะแนน
+          </button>
+
+          <button
+            id="finalBossCheckButton"
+            onclick="checkFinalBossAnswer()"
+            style="
+              color:white;
+              background:linear-gradient(
+                90deg,
+                #ff415e,
+                #a74cff
+              );
+            "
+          >
+            ⚔️ โจมตีด้วยคำตอบ
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+   function selectFinalBossAnswer(
+  answer,
+  button
+) {
+  if (finalBossAnswerLocked) {
+    return;
+  }
+
+  selectedFinalBossAnswer = answer;
+
+  document
+    .querySelectorAll(
+      ".boss-choice-button"
+    )
+    .forEach(function (choiceButton) {
+      choiceButton.classList.remove(
+        "selected"
+      );
+    });
+
+  button.classList.add("selected");
+}
+
+function showFinalBossHint() {
+  if (
+    finalBossAnswerLocked ||
+    finalBossHintUsed
+  ) {
+    return;
+  }
+
+  const question =
+    selectedFinalBossQuestions[
+      currentFinalBossQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "finalBossFeedback"
+    );
+
+  finalBossHintUsed = true;
+  finalBossHintsUsed += 1;
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.13)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  feedback.innerHTML = `
+    <strong style="color:#ffe27e;">
+      💡 คำใบ้
+    </strong>
+
+    <p style="margin-bottom:5px;">
+      ${getFinalBossHint(question)}
+    </p>
+
+    <p style="
+      margin-bottom:0;
+      color:#ffb7c8;
+      font-weight:bold;
+    ">
+      คะแนนเต็มของข้อนี้เหลือ 5 คะแนน
+      และโจมตี Boss ได้ 5 HP
+    </p>
+  `;
+
+  const hintButton =
+    document.getElementById(
+      "finalBossHintButton"
+    );
+
+  if (hintButton) {
+    hintButton.disabled = true;
+    hintButton.textContent =
+      "💡 ใช้คำใบ้แล้ว −5 คะแนน";
+    hintButton.style.opacity = "0.65";
+  }
+}
+   function checkFinalBossAnswer() {
+  if (finalBossAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedFinalBossQuestions[
+      currentFinalBossQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "finalBossFeedback"
+    );
+
+  if (!selectedFinalBossAnswer) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.13)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ เลือกคำตอบก่อนโจมตี Boss
+      </strong>
+    `;
+
+    return;
+  }
+
+  finalBossAnswerLocked = true;
+
+  const isCorrect =
+    selectedFinalBossAnswer ===
+    question.answer;
+
+  const earnedPoints =
+    finalBossHintUsed ? 5 : 10;
+
+  if (isCorrect) {
+    finalBossScore += earnedPoints;
+
+    finalBossHP = Math.max(
+      0,
+      finalBossHP - earnedPoints
+    );
+  } else {
+    finalBossHearts -= 1;
+  }
+
+  document
+    .querySelectorAll(
+      ".boss-choice-button"
+    )
+    .forEach(function (button) {
+      button.disabled = true;
+
+      const buttonAnswer =
+        button.dataset.answer;
+
+      if (
+        buttonAnswer === question.answer
+      ) {
+        button.style.borderColor =
+          "#2ecc71";
+
+        button.style.background =
+          "rgba(46,204,113,0.2)";
+      } else if (
+        buttonAnswer ===
+        selectedFinalBossAnswer
+      ) {
+        button.style.borderColor =
+          "#ff5270";
+
+        button.style.background =
+          "rgba(255,82,112,0.18)";
+      }
+    });
+
+  feedback.style.display = "block";
+
+  feedback.style.background =
+    isCorrect
+      ? "rgba(46,204,113,0.13)"
+      : "rgba(255,82,112,0.13)";
+
+  feedback.style.border =
+    isCorrect
+      ? "1px solid rgba(46,204,113,0.55)"
+      : "1px solid rgba(255,82,112,0.55)";
+
+  feedback.innerHTML = `
+    <div style="text-align:center;">
+
+      <strong style="
+        color:${
+          isCorrect
+            ? "#74f5a7"
+            : "#ff91a5"
+        };
+        font-size:20px;
+      ">
+        ${
+          isCorrect
+            ? `⚔️ โจมตีสำเร็จ! Boss เสียพลัง ${earnedPoints} HP`
+            : "💥 การโจมตีพลาด! เสียหัวใจ 1 ดวง"
+        }
+      </strong>
+
+      <div class="boss-attack-message">
+        ${
+          isCorrect
+            ? `−${earnedPoints} HP ได้รับ ${earnedPoints} คะแนน`
+            : `คำตอบที่ถูกต้องคือ ${question.answer}`
+        }
+      </div>
+
+    </div>
+
+    <div style="
+      margin-top:15px;
+      padding:14px;
+      border-radius:12px;
+      background:rgba(103,237,255,0.08);
+    ">
+      <strong style="color:#67edff;">
+        อธิบาย
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ${question.explanation}
+      </p>
+    </div>
+
+    <button
+      onclick="nextFinalBossQuestion()"
+      style="margin-top:16px;"
+    >
+      ${
+        finalBossHearts <= 0 ||
+        finalBossHP <= 0 ||
+        currentFinalBossQuestionIndex ===
+          selectedFinalBossQuestions.length - 1
+          ? "ดูผลการต่อสู้"
+          : "โจมตีต่อไป →"
+      }
+    </button>
+  `;
+
+  const checkButton =
+    document.getElementById(
+      "finalBossCheckButton"
+    );
+
+  const hintButton =
+    document.getElementById(
+      "finalBossHintButton"
+    );
+
+  if (checkButton) {
+    checkButton.style.display = "none";
+  }
+
+  if (hintButton) {
+    hintButton.style.display = "none";
+  }
+}
+   function nextFinalBossQuestion() {
+  if (
+    finalBossHearts <= 0 ||
+    finalBossHP <= 0 ||
+    currentFinalBossQuestionIndex >=
+      selectedFinalBossQuestions.length - 1
+  ) {
+    showFinalBossResult();
+    return;
+  }
+
+  currentFinalBossQuestionIndex += 1;
+
+  showFinalBossQuestion();
+}
+   function saveFinalBossStudentResult(
+  resultData
+) {
+  const storageKey =
+    "electronOrbitFinalBossScoreRecords";
+
+  const existingRecords =
+    JSON.parse(
+      localStorage.getItem(storageKey)
+    ) || [];
+
+  const isDuplicate =
+    existingRecords.some(
+      record =>
+        String(record.attemptId) ===
+        String(resultData.attemptId)
+    );
+
+  if (!isDuplicate) {
+    existingRecords.push(resultData);
+  }
+
+  localStorage.setItem(
+    storageKey,
+    JSON.stringify(existingRecords)
+  );
+}
+   function sendFinalBossScoreToGoogleSheets(
+  resultData
+) {
+  if (
+    !FINAL_BOSS_SCORE_API ||
+    FINAL_BOSS_SCORE_API.includes(
+      "https://script.google.com/macros/s/AKfycbybNpXUjemsku5iUAVfc_2bnTCvZqFiHBix87BLwnI/dev"
+    )
+  ) {
+    console.warn(
+      "ยังไม่ได้กำหนด URL Google Apps Script"
+    );
+
+    savePendingFinalBossScore(
+      resultData
+    );
+
+    return;
+  }
+
+  const formData =
+    new URLSearchParams();
+
+  formData.append(
+    "token",
+    FINAL_BOSS_API_TOKEN
+  );
+
+  formData.append(
+    "attemptId",
+    resultData.attemptId
+  );
+
+  formData.append(
+    "name",
+    resultData.name
+  );
+
+  formData.append(
+    "className",
+    resultData.className
+  );
+
+  formData.append(
+    "number",
+    resultData.number
+  );
+
+  formData.append(
+    "score",
+    resultData.score
+  );
+
+  formData.append(
+    "maxScore",
+    resultData.maxScore
+  );
+
+  formData.append(
+    "percentage",
+    resultData.percentage
+  );
+
+  formData.append(
+    "completedQuestions",
+    resultData.completedQuestions
+  );
+
+  formData.append(
+    "totalQuestions",
+    resultData.totalQuestions
+  );
+
+  formData.append(
+    "hintsUsed",
+    resultData.hintsUsed
+  );
+
+  formData.append(
+    "hintPenalty",
+    resultData.hintsUsed * 5
+  );
+
+  formData.append(
+    "hearts",
+    resultData.hearts
+  );
+
+  formData.append(
+    "bossHP",
+    resultData.bossHP
+  );
+
+  formData.append(
+    "bossDefeated",
+    String(resultData.bossDefeated)
+  );
+
+  formData.append(
+    "title",
+    resultData.title
+  );
+
+  formData.append(
+    "deviceDate",
+    resultData.date
+  );
+
+  formData.append(
+    "userAgent",
+    navigator.userAgent
+  );
+
+  fetch(
+    FINAL_BOSS_SCORE_API,
+    {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: {
+        "Content-Type":
+          "application/x-www-form-urlencoded;charset=UTF-8"
+      },
+      body: formData.toString()
+    }
+  ).catch(function (error) {
+    console.error(
+      "ส่งคะแนนไม่สำเร็จ",
+      error
+    );
+
+    savePendingFinalBossScore(
+      resultData
+    );
+  });
+}
+   function savePendingFinalBossScore(
+  resultData
+) {
+  const storageKey =
+    "electronOrbitPendingFinalBossScores";
+
+  const pendingScores =
+    JSON.parse(
+      localStorage.getItem(storageKey)
+    ) || [];
+
+  const alreadyExists =
+    pendingScores.some(
+      item =>
+        String(item.attemptId) ===
+        String(resultData.attemptId)
+    );
+
+  if (!alreadyExists) {
+    pendingScores.push(resultData);
+  }
+
+  localStorage.setItem(
+    storageKey,
+    JSON.stringify(pendingScores)
+  );
+}
+
+function retryPendingFinalBossScores() {
+  const storageKey =
+    "electronOrbitPendingFinalBossScores";
+
+  const pendingScores =
+    JSON.parse(
+      localStorage.getItem(storageKey)
+    ) || [];
+
+  if (pendingScores.length === 0) {
+    return;
+  }
+
+  pendingScores.forEach(
+    function (resultData) {
+      sendFinalBossScoreToGoogleSheets(
+        resultData
+      );
+    }
+  );
+
+  localStorage.removeItem(storageKey);
+}
+   function showFinalBossResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedFinalBossQuestions.length *
+    10;
+
+  const percentage = Math.round(
+    (finalBossScore / maxScore) * 100
+  );
+
+  const bossDefeated =
+    finalBossHP <= 0;
+
+  let title = "";
+  let trophy = "";
+  let message = "";
+
+  if (bossDefeated) {
+    title = "ผู้พิชิต Electron Orbit";
+    trophy = "🏆";
+    message =
+      "คุณใช้ความรู้จากทุกด่านเอาชนะผู้พิทักษ์แกนอะตอมได้สำเร็จ";
+  } else if (percentage >= 70) {
+    title = "Atomic Champion";
+    trophy = "🥇";
+    message =
+      "คุณผ่านภารกิจ Final Boss ด้วยผลการเรียนรู้ระดับดีมาก";
+  } else if (percentage >= 50) {
+    title = "Orbit Warrior";
+    trophy = "🥈";
+    message =
+      "คุณต่อสู้ได้ดี แต่ควรทบทวนบางเรื่องก่อนกลับมาท้าทายอีกครั้ง";
+  } else {
+    title = "Rising Explorer";
+    trophy = "🔄";
+    message =
+      "พลังของ Boss ยังเหลืออยู่ ทบทวนบทเรียนแล้วกลับมาต่อสู้อีกครั้ง";
+  }
+
+  const resultData = {
+    attemptId:
+      Date.now() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .slice(2, 9),
+
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+
+    score: finalBossScore,
+    maxScore: maxScore,
+    percentage: percentage,
+
+    totalQuestions:
+      selectedFinalBossQuestions.length,
+
+    completedQuestions:
+      currentFinalBossQuestionIndex + 1,
+
+    hintsUsed:
+      finalBossHintsUsed,
+
+    hintPenalty:
+      finalBossHintsUsed * 5,
+
+    hearts:
+      finalBossHearts,
+
+    bossHP:
+      finalBossHP,
+
+    bossDefeated:
+      bossDefeated,
+
+    title:
+      title,
+
+    date:
+      new Date().toLocaleString(
+        "th-TH"
+      )
+  };
+
+  localStorage.setItem(
+    "electronOrbitFinalBossResult",
+    JSON.stringify(resultData)
+  );
+
+  saveFinalBossStudentResult(
+    resultData
+  );
+
+  sendFinalBossScoreToGoogleSheets(
+    resultData
+  );
+
+  document.querySelector(
+    ".game-card"
+  ).innerHTML = `
+    <div style="text-align:center;">
+
+      <div style="
+        font-size:75px;
+        margin-bottom:8px;
+      ">
+        ${trophy}
+      </div>
+
+      <h1 style="color:#ffe071;">
+        ผลการต่อสู้ Final Boss
+      </h1>
+
+      <h2 style="color:#ff91b6;">
+        ${title}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:25px 0;
+        padding:24px;
+        border:1px solid #66507c;
+        border-radius:18px;
+        background:rgba(31,19,64,0.85);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${finalBossScore}
+          / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>จำนวนข้อที่ทำ:</strong>
+          ${currentFinalBossQuestionIndex + 1}
+          / ${selectedFinalBossQuestions.length}
+        </p>
+
+        <p>
+          <strong>จำนวนคำใบ้ที่ใช้:</strong>
+          ${finalBossHintsUsed} ครั้ง
+        </p>
+
+        <p>
+          <strong>คะแนนที่ลดจากคำใบ้:</strong>
+          ${finalBossHintsUsed * 5} คะแนน
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayFinalBossHearts()}
+        </p>
+
+        <p>
+          <strong>พลัง Boss ที่เหลือ:</strong>
+          ${finalBossHP} HP
+        </p>
+      </div>
+
+      <div style="
+        margin:16px 0;
+        padding:14px;
+        border:1px solid rgba(103,237,255,0.4);
+        border-radius:13px;
+        color:#bff7ff;
+        background:rgba(103,237,255,0.08);
+      ">
+        ☁️ ระบบกำลังส่งผลคะแนนไปยัง
+        Google Sheets ของครู
+        และเก็บสำรองผลไว้ในอุปกรณ์นี้แล้ว
+      </div>
+
+      <button onclick="startFinalBoss()">
+        ⚔️ ท้าทาย Final Boss อีกครั้ง
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   window.addEventListener(
+  "online",
+  retryPendingFinalBossScores
+);
+
+window.addEventListener(
+  "load",
+  retryPendingFinalBossScores
+);
+   
+   
  </script>
 
 </body>
