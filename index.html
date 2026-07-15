@@ -1032,6 +1032,190 @@
     height: 210px;
   }
 }
+    .electronegativity-game {
+  width: 100%;
+  text-align: left;
+}
+
+.en-question-card {
+  padding: 20px;
+  border: 1px solid #4d6094;
+  border-radius: 18px;
+  background: rgba(17, 27, 67, 0.94);
+}
+
+.en-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.en-choice-button {
+  min-height: 150px;
+  margin: 0;
+  padding: 18px 12px;
+  border: 2px solid #53689e;
+  border-radius: 16px;
+  color: white;
+  background: rgba(10, 19, 52, 0.96);
+  transition: 0.2s ease;
+}
+
+.en-choice-button:hover {
+  border-color: #d499ff;
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(194, 119, 255, 0.28);
+}
+
+.en-choice-button.selected {
+  border-color: #ff6ab4;
+  background: rgba(255, 79, 154, 0.16);
+  box-shadow: 0 0 18px rgba(255, 79, 154, 0.3);
+}
+
+.en-choice-symbol {
+  color: #d499ff;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.en-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.en-actions button {
+  margin: 0;
+}
+
+.en-bond-comparison {
+  margin-top: 18px;
+  padding: 20px 12px;
+  border: 1px solid #53679c;
+  border-radius: 16px;
+  background: rgba(7, 14, 42, 0.9);
+}
+
+.en-bond-area {
+  display: grid;
+  grid-template-columns: 1fr 170px 1fr;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.en-atom-card {
+  padding: 15px 8px;
+  border: 1px solid #4e6094;
+  border-radius: 15px;
+  text-align: center;
+  background: rgba(13, 23, 57, 0.95);
+}
+
+.en-atom-symbol {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.en-bond-center {
+  position: relative;
+  height: 100px;
+}
+
+.en-bond-line {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 49px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #7f8caf,
+    #ff6ab4
+  );
+}
+
+.en-electron-pair {
+  position: absolute;
+  top: 34px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #07102d;
+  background: #67edff;
+  box-shadow: 0 0 14px rgba(103, 237, 255, 0.9);
+  font-size: 16px;
+  font-weight: bold;
+  transform: translateX(-50%);
+  transition: 0.3s ease;
+}
+
+.en-pull-arrow {
+  position: absolute;
+  top: 62px;
+  width: 100%;
+  text-align: center;
+  color: #ffe17c;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.en-delta {
+  margin-top: 7px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.en-trend-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(202, 132, 255, 0.4);
+  border-radius: 14px;
+  background: rgba(139, 92, 255, 0.09);
+  line-height: 1.7;
+}
+
+.en-scale-bar {
+  position: relative;
+  height: 18px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #536687,
+    #8b5cff,
+    #ff4f9a
+  );
+}
+
+.en-scale-marker {
+  position: absolute;
+  top: -5px;
+  width: 5px;
+  height: 28px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 0 8px white;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 650px) {
+  .en-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .en-bond-area {
+    grid-template-columns: 1fr;
+  }
+
+  .en-bond-center {
+    width: 190px;
+    margin: 0 auto;
+  }
+}
 </style>
 </head>
 
@@ -1363,10 +1547,28 @@
 </button>
 
 
-          ${createLockedLevel(
-            10,
-            "ชุดไอโซอิเล็กโทรนิก"
-          )}
+          <button
+  onclick="showLevelTenLessonFromMap()"
+  style="
+    margin:0;
+    min-height:125px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg,#8b5cff,#ff4f9a);
+  "
+>
+  <span style="font-size:34px;">🧲</span>
+
+  <strong>ด่านที่ 10</strong>
+
+  <span style="font-size:14px;">
+    อิเล็กโทรเนกาติวิตี
+  </span>
+</button>
 
         </div>
 
@@ -9948,9 +10150,1183 @@ function showIonizationHint() {
     </div>
   `;
 }
+   function showLevelTenLessonFromMap() {
+  const studentData = JSON.parse(
+    localStorage.getItem("electronOrbitStudent")
+  );
+
+  if (!studentData) {
+    alert("ไม่พบข้อมูลผู้เล่น กรุณาลงทะเบียนใหม่");
+    location.reload();
+    return;
+  }
+
+  showLevelTenLesson(studentData);
+}
+
+function showLevelTenLesson(studentData) {
+  document.querySelector(".game-card").innerHTML = `
+    <div class="lesson-page">
+
+      <p style="color:#67edff;font-weight:bold;">
+        ผู้เล่น: ${studentData.name}
+        | ชั้น ${studentData.className}
+        | เลขที่ ${studentData.number}
+      </p>
+
+      <h1 style="font-size:38px;">
+        บทเรียนก่อนเริ่มภารกิจ
+      </h1>
+
+      <h2>
+        ด่านที่ 10: อิเล็กโทรเนกาติวิตี
+      </h2>
+
+      <div style="
+        margin-top:24px;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+
+        <h3 style="color:#d499ff;">
+          อิเล็กโทรเนกาติวิตีคืออะไร?
+        </h3>
+
+        <p>
+          อิเล็กโทรเนกาติวิตี คือ
+          ความสามารถของอะตอมในการดึงอิเล็กตรอนคู่ร่วมพันธะ
+          เข้าหาตนเอง
+        </p>
+
+        <div style="
+          margin:20px 0;
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(139,92,255,0.12);
+          border:1px solid rgba(202,132,255,0.45);
+          font-size:20px;
+        ">
+          ดึงอิเล็กตรอนในพันธะได้แรง
+          <br>
+          →
+          <strong style="color:#d499ff;">
+            ค่าอิเล็กโทรเนกาติวิตีสูง
+          </strong>
+        </div>
+
+        <h3 style="color:#67edff;">
+          แนวโน้มในคาบเดียวกัน
+        </h3>
+
+        <p>
+          โดยทั่วไปค่าอิเล็กโทรเนกาติวิตีเพิ่มขึ้น
+          จากซ้ายไปขวา เพราะประจุนิวเคลียสเพิ่มขึ้น
+          และอะตอมดึงอิเล็กตรอนได้แรงขึ้น
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(255,79,154,0.1);
+        ">
+          ซ้าย
+          <strong style="color:#ff9ac8;">
+            ค่าต่ำ
+          </strong>
+
+          &nbsp; → &nbsp;
+
+          ขวา
+          <strong style="color:#ff9ac8;">
+            ค่าสูง
+          </strong>
+        </div>
+
+        <h3 style="
+          color:#67edff;
+          margin-top:24px;
+        ">
+          แนวโน้มในหมู่เดียวกัน
+        </h3>
+
+        <p>
+          โดยทั่วไปค่าอิเล็กโทรเนกาติวิตีลดลง
+          จากบนลงล่าง เพราะจำนวนเชลล์และผลกำบังเพิ่มขึ้น
+          ทำให้แรงดึงดูดต่ออิเล็กตรอนคู่ร่วมพันธะลดลง
+        </p>
+
+        <div style="
+          padding:16px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(103,237,255,0.1);
+        ">
+          บน
+          <strong style="color:#67edff;">
+            ค่าสูง
+          </strong>
+
+          &nbsp; ↓ &nbsp;
+
+          ล่าง
+          <strong style="color:#67edff;">
+            ค่าต่ำ
+          </strong>
+        </div>
+
+        <h3 style="
+          color:#d499ff;
+          margin-top:24px;
+        ">
+          ธาตุที่มีค่าสูงที่สุด
+        </h3>
+
+        <div style="
+          padding:18px;
+          border-radius:14px;
+          text-align:center;
+          background:rgba(255,234,114,0.1);
+          border:1px solid rgba(255,234,114,0.4);
+        ">
+          ฟลูออรีน
+          <strong style="
+            color:#ffe972;
+            font-size:25px;
+          ">
+            F
+          </strong>
+          มีค่าอิเล็กโทรเนกาติวิตีสูงที่สุด
+        </div>
+
+        <div style="
+          margin-top:22px;
+          padding:16px;
+          border-radius:14px;
+          color:#ffe0a6;
+          background:rgba(255,184,76,0.1);
+          border:1px solid rgba(255,184,76,0.4);
+        ">
+          <strong>สรุปการจำ:</strong><br>
+          ค่าอิเล็กโทรเนกาติวิตีโดยทั่วไปเพิ่มขึ้น
+          เมื่อเคลื่อนไปทางขวาและขึ้นด้านบนของตารางธาตุ
+        </div>
+
+      </div>
+
+      <button onclick="startLevelTenQuiz()">
+        🧲 เริ่มภารกิจอิเล็กโทรเนกาติวิตี
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   const electronegativityQuestionBank = [
+  {
+    elementA: {
+      symbol: "Na",
+      name: "โซเดียม",
+      atomicNumber: 11,
+      shells: [2, 8, 1],
+      period: 3,
+      group: 1,
+      value: 0.93
+    },
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      value: 3.16
+    },
+    answer: "Cl",
+    trend: "period",
+    explanation:
+      "Na และ Cl อยู่ในคาบที่ 3 เหมือนกัน แต่ Cl อยู่ทางขวามากกว่าและดึงอิเล็กตรอนคู่ร่วมพันธะได้แรงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "Mg",
+      name: "แมกนีเซียม",
+      atomicNumber: 12,
+      shells: [2, 8, 2],
+      period: 3,
+      group: 2,
+      value: 1.31
+    },
+    elementB: {
+      symbol: "S",
+      name: "กำมะถัน",
+      atomicNumber: 16,
+      shells: [2, 8, 6],
+      period: 3,
+      group: 16,
+      value: 2.58
+    },
+    answer: "S",
+    trend: "period",
+    explanation:
+      "S อยู่ทางขวาของ Mg ในคาบเดียวกัน จึงมีค่าอิเล็กโทรเนกาติวิตีสูงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "Li",
+      name: "ลิเทียม",
+      atomicNumber: 3,
+      shells: [2, 1],
+      period: 2,
+      group: 1,
+      value: 0.98
+    },
+    elementB: {
+      symbol: "K",
+      name: "โพแทสเซียม",
+      atomicNumber: 19,
+      shells: [2, 8, 8, 1],
+      period: 4,
+      group: 1,
+      value: 0.82
+    },
+    answer: "Li",
+    trend: "group",
+    explanation:
+      "Li อยู่เหนือ K ในหมู่เดียวกัน มีจำนวนเชลล์น้อยกว่าและดึงอิเล็กตรอนในพันธะได้แรงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "F",
+      name: "ฟลูออรีน",
+      atomicNumber: 9,
+      shells: [2, 7],
+      period: 2,
+      group: 17,
+      value: 3.98
+    },
+    elementB: {
+      symbol: "Br",
+      name: "โบรมีน",
+      atomicNumber: 35,
+      shells: [2, 8, 18, 7],
+      period: 4,
+      group: 17,
+      value: 2.96
+    },
+    answer: "F",
+    trend: "group",
+    explanation:
+      "F อยู่เหนือ Br ในหมู่เดียวกัน มีขนาดเล็กกว่าและดึงอิเล็กตรอนคู่ร่วมพันธะได้แรงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "O",
+      name: "ออกซิเจน",
+      atomicNumber: 8,
+      shells: [2, 6],
+      period: 2,
+      group: 16,
+      value: 3.44
+    },
+    elementB: {
+      symbol: "S",
+      name: "กำมะถัน",
+      atomicNumber: 16,
+      shells: [2, 8, 6],
+      period: 3,
+      group: 16,
+      value: 2.58
+    },
+    answer: "O",
+    trend: "group",
+    explanation:
+      "O อยู่เหนือ S ในหมู่เดียวกันและมีจำนวนเชลล์น้อยกว่า จึงดึงอิเล็กตรอนในพันธะได้แรงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "C",
+      name: "คาร์บอน",
+      atomicNumber: 6,
+      shells: [2, 4],
+      period: 2,
+      group: 14,
+      value: 2.55
+    },
+    elementB: {
+      symbol: "N",
+      name: "ไนโตรเจน",
+      atomicNumber: 7,
+      shells: [2, 5],
+      period: 2,
+      group: 15,
+      value: 3.04
+    },
+    answer: "N",
+    trend: "period",
+    explanation:
+      "N อยู่ทางขวาของ C ในคาบเดียวกัน จึงมีค่าอิเล็กโทรเนกาติวิตีสูงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "Al",
+      name: "อะลูมิเนียม",
+      atomicNumber: 13,
+      shells: [2, 8, 3],
+      period: 3,
+      group: 13,
+      value: 1.61
+    },
+    elementB: {
+      symbol: "Cl",
+      name: "คลอรีน",
+      atomicNumber: 17,
+      shells: [2, 8, 7],
+      period: 3,
+      group: 17,
+      value: 3.16
+    },
+    answer: "Cl",
+    trend: "period",
+    explanation:
+      "Cl อยู่ทางขวาของ Al ในคาบเดียวกัน จึงสามารถดึงอิเล็กตรอนคู่ร่วมพันธะได้แรงกว่า"
+  },
+  {
+    elementA: {
+      symbol: "P",
+      name: "ฟอสฟอรัส",
+      atomicNumber: 15,
+      shells: [2, 8, 5],
+      period: 3,
+      group: 15,
+      value: 2.19
+    },
+    elementB: {
+      symbol: "N",
+      name: "ไนโตรเจน",
+      atomicNumber: 7,
+      shells: [2, 5],
+      period: 2,
+      group: 15,
+      value: 3.04
+    },
+    answer: "N",
+    trend: "group",
+    explanation:
+      "N อยู่เหนือ P ในหมู่เดียวกัน มีขนาดอะตอมเล็กกว่าและมีค่าอิเล็กโทรเนกาติวิตีสูงกว่า"
+  }
+];
+
+let selectedElectronegativityQuestions = [];
+let currentElectronegativityQuestionIndex = 0;
+let electronegativityScore = 0;
+let electronegativityHearts = 3;
+let selectedElectronegativityAnswer = "";
+let electronegativityAnswerLocked = false;
    
-   
-</script>
+   function startLevelTenQuiz() {
+  selectedElectronegativityQuestions =
+    shuffleQuestions(
+      [...electronegativityQuestionBank]
+    );
+
+  currentElectronegativityQuestionIndex = 0;
+  electronegativityScore = 0;
+  electronegativityHearts = 3;
+  selectedElectronegativityAnswer = "";
+  electronegativityAnswerLocked = false;
+
+  showElectronegativityQuestion();
+}
+ function showElectronegativityQuestion() {
+  const question =
+    selectedElectronegativityQuestions[
+      currentElectronegativityQuestionIndex
+    ];
+
+  const progress =
+    ((currentElectronegativityQuestionIndex + 1) /
+      selectedElectronegativityQuestions.length) *
+    100;
+
+  selectedElectronegativityAnswer = "";
+  electronegativityAnswerLocked = false;
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="electronegativity-game">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        margin-bottom:14px;
+        font-weight:bold;
+      ">
+        <span style="color:#d499ff;">
+          ข้อ ${currentElectronegativityQuestionIndex + 1}
+          / ${selectedElectronegativityQuestions.length}
+        </span>
+
+        <span style="font-size:21px;">
+          ${displayElectronegativityHearts()}
+        </span>
+
+        <span>
+          คะแนน ${electronegativityScore}
+        </span>
+      </div>
+
+      <div style="
+        height:10px;
+        margin-bottom:20px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.12);
+        overflow:hidden;
+      ">
+        <div style="
+          width:${progress}%;
+          height:100%;
+          background:linear-gradient(
+            90deg,
+            #8b5cff,
+            #ff4f9a
+          );
+        "></div>
+      </div>
+
+      <div class="en-question-card">
+
+        <div style="
+          text-align:center;
+          color:#aeb9da;
+        ">
+          เปรียบเทียบความสามารถในการดึงอิเล็กตรอน
+        </div>
+
+        <h2 style="
+          text-align:center;
+          line-height:1.5;
+          margin-bottom:6px;
+        ">
+          ธาตุใดมีค่าอิเล็กโทรเนกาติวิตีสูงกว่า?
+        </h2>
+
+        <p style="
+          text-align:center;
+          color:#9ca8ca;
+        ">
+          เลือกธาตุที่ดึงอิเล็กตรอนคู่ร่วมพันธะได้แรงกว่า
+        </p>
+
+        <div class="en-choice-grid">
+
+          ${createElectronegativityChoice(
+            question.elementA
+          )}
+
+          ${createElectronegativityChoice(
+            question.elementB
+          )}
+
+        </div>
+
+        <div
+          id="electronegativityFeedback"
+          style="
+            display:none;
+            margin-top:18px;
+            padding:16px;
+            border-radius:14px;
+            line-height:1.6;
+          "
+        ></div>
+
+      </div>
+
+      <div class="en-actions">
+
+        <button
+          onclick="showElectronegativityHint()"
+          style="
+            border:1px solid #f2c652;
+            color:#ffe27e;
+            background:rgba(83,61,14,0.45);
+          "
+        >
+          💡 คำใบ้
+        </button>
+
+        <button
+          onclick="checkElectronegativityAnswer()"
+          style="
+            color:white;
+            background:linear-gradient(
+              90deg,
+              #20c66c,
+              #35dd79
+            );
+          "
+        >
+          ✅ ตรวจคำตอบ
+        </button>
+
+      </div>
+
+      <button
+        onclick="showLevelTenLessonFromMap()"
+        style="
+          margin-top:10px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ดูบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:10px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        ← กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+   function createElectronegativityChoice(element) {
+  return `
+    <button
+      class="en-choice-button"
+      data-symbol="${element.symbol}"
+      onclick="
+        selectElectronegativityAnswer(
+          '${element.symbol}',
+          this
+        )
+      "
+    >
+      <div style="
+        color:#9ca8ca;
+        font-size:13px;
+      ">
+        เลขอะตอม ${element.atomicNumber}
+      </div>
+
+      <div class="en-choice-symbol">
+        ${element.symbol}
+      </div>
+
+      <div style="
+        margin-top:5px;
+        color:#dce5ff;
+      ">
+        ${element.name}
+      </div>
+
+      <div style="
+        margin-top:10px;
+        color:#aeb9da;
+        font-size:14px;
+      ">
+        คาบ ${element.period}
+        | หมู่ ${element.group}
+      </div>
+
+      <div style="
+        margin-top:9px;
+        color:#ffe0a6;
+      ">
+        ${element.shells.join(", ")}
+      </div>
+    </button>
+  `;
+}
+
+function selectElectronegativityAnswer(
+  symbol,
+  button
+) {
+  if (electronegativityAnswerLocked) {
+    return;
+  }
+
+  selectedElectronegativityAnswer = symbol;
+
+  document
+    .querySelectorAll(".en-choice-button")
+    .forEach(function (choiceButton) {
+      choiceButton.classList.remove(
+        "selected"
+      );
+    });
+
+  button.classList.add("selected");
+}
+   function createElectronegativityBondVisual(
+  lowerElement,
+  higherElement
+) {
+  const lowerValue =
+    lowerElement.value;
+
+  const higherValue =
+    higherElement.value;
+
+  const total =
+    lowerValue + higherValue;
+
+  const higherPullPercent =
+    Math.round(
+      (higherValue / total) * 100
+    );
+
+  const electronPosition =
+    Math.max(
+      58,
+      Math.min(78, higherPullPercent)
+    );
+
+  return `
+    <div class="en-bond-comparison">
+
+      <h3 style="
+        color:#d499ff;
+        text-align:center;
+      ">
+        การดึงอิเล็กตรอนคู่ร่วมพันธะ
+      </h3>
+
+      <div class="en-bond-area">
+
+        <div class="en-atom-card">
+
+          <div
+            class="en-atom-symbol"
+            style="color:#8fa3ca;"
+          >
+            ${lowerElement.symbol}
+          </div>
+
+          <div>
+            ${lowerElement.name}
+          </div>
+
+          <div
+            class="en-delta"
+            style="color:#ffb072;"
+          >
+            δ+
+          </div>
+
+          <div style="
+            margin-top:6px;
+            color:#aeb9da;
+          ">
+            EN = ${lowerElement.value}
+          </div>
+
+        </div>
+
+        <div class="en-bond-center">
+
+          <div class="en-bond-line"></div>
+
+          <div
+            class="en-electron-pair"
+            style="
+              left:${electronPosition}%;
+            "
+          >
+            e⁻ e⁻
+          </div>
+
+          <div class="en-pull-arrow">
+            → ดึงเข้าหา ${higherElement.symbol}
+          </div>
+
+        </div>
+
+        <div class="en-atom-card">
+
+          <div
+            class="en-atom-symbol"
+            style="color:#ff6ab4;"
+          >
+            ${higherElement.symbol}
+          </div>
+
+          <div>
+            ${higherElement.name}
+          </div>
+
+          <div
+            class="en-delta"
+            style="color:#67edff;"
+          >
+            δ−
+          </div>
+
+          <div style="
+            margin-top:6px;
+            color:#d499ff;
+          ">
+            EN = ${higherElement.value}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="
+        margin-top:16px;
+        text-align:center;
+        color:#ffe17c;
+        font-weight:bold;
+      ">
+        คู่อิเล็กตรอนอยู่ใกล้
+        ${higherElement.symbol}
+        มากกว่า
+      </div>
+
+    </div>
+  `;
+}
+   function displayElectronegativityHearts() {
+  let result = "";
+
+  for (let i = 0; i < 3; i++) {
+    result +=
+      i < electronegativityHearts
+        ? "❤️"
+        : "🖤";
+  }
+
+  return result;
+}
+
+function showElectronegativityHint() {
+  const question =
+    selectedElectronegativityQuestions[
+      currentElectronegativityQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "electronegativityFeedback"
+    );
+
+  feedback.style.display = "block";
+  feedback.style.background =
+    "rgba(255,196,66,0.12)";
+  feedback.style.border =
+    "1px solid rgba(255,196,66,0.55)";
+
+  if (question.trend === "period") {
+    feedback.innerHTML = `
+      <strong style="color:#ffe27e;">
+        💡 คำใบ้
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ธาตุทั้งสองอยู่ในคาบเดียวกัน
+        โดยทั่วไปธาตุที่อยู่ทางขวามากกว่า
+        จะมีค่าอิเล็กโทรเนกาติวิตีสูงกว่า
+      </p>
+    `;
+  } else {
+    feedback.innerHTML = `
+      <strong style="color:#ffe27e;">
+        💡 คำใบ้
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ธาตุทั้งสองอยู่ในหมู่เดียวกัน
+        โดยทั่วไปธาตุที่อยู่สูงกว่า
+        และมีจำนวนเชลล์น้อยกว่า
+        จะดึงอิเล็กตรอนได้แรงกว่า
+      </p>
+    `;
+  }
+}
+   function checkElectronegativityAnswer() {
+  if (electronegativityAnswerLocked) {
+    return;
+  }
+
+  const question =
+    selectedElectronegativityQuestions[
+      currentElectronegativityQuestionIndex
+    ];
+
+  const feedback =
+    document.getElementById(
+      "electronegativityFeedback"
+    );
+
+  if (!selectedElectronegativityAnswer) {
+    feedback.style.display = "block";
+    feedback.style.background =
+      "rgba(255,184,76,0.12)";
+    feedback.style.border =
+      "1px solid rgba(255,184,76,0.55)";
+
+    feedback.innerHTML = `
+      <strong style="color:#ffe0a6;">
+        ⚠️ กรุณาเลือกธาตุก่อนตรวจคำตอบ
+      </strong>
+    `;
+
+    return;
+  }
+
+  electronegativityAnswerLocked = true;
+
+  const isCorrect =
+    selectedElectronegativityAnswer ===
+    question.answer;
+
+  if (isCorrect) {
+    electronegativityScore += 10;
+  } else {
+    electronegativityHearts -= 1;
+  }
+
+  const higherElement =
+    question.elementA.symbol ===
+    question.answer
+      ? question.elementA
+      : question.elementB;
+
+  const lowerElement =
+    question.elementA.symbol ===
+    question.answer
+      ? question.elementB
+      : question.elementA;
+
+  document
+    .querySelectorAll(".en-choice-button")
+    .forEach(function (button) {
+      button.disabled = true;
+
+      const symbol =
+        button.dataset.symbol;
+
+      if (symbol === question.answer) {
+        button.style.borderColor =
+          "#2ecc71";
+
+        button.style.background =
+          "rgba(46,204,113,0.18)";
+      } else if (
+        symbol ===
+        selectedElectronegativityAnswer
+      ) {
+        button.style.borderColor =
+          "#ff5270";
+
+        button.style.background =
+          "rgba(255,82,112,0.16)";
+      }
+    });
+
+  feedback.style.display = "block";
+
+  feedback.style.background =
+    isCorrect
+      ? "rgba(46,204,113,0.12)"
+      : "rgba(255,82,112,0.12)";
+
+  feedback.style.border =
+    isCorrect
+      ? "1px solid rgba(46,204,113,0.55)"
+      : "1px solid rgba(255,82,112,0.55)";
+
+  feedback.innerHTML = `
+    <div style="text-align:center;">
+
+      <strong style="
+        color:${
+          isCorrect
+            ? "#74f5a7"
+            : "#ff91a5"
+        };
+        font-size:20px;
+      ">
+        ${
+          isCorrect
+            ? "✅ ถูกต้อง! ได้รับ 10 คะแนน"
+            : "❌ ยังไม่ถูกต้อง เสียหัวใจ 1 ดวง"
+        }
+      </strong>
+
+      <p>
+        ธาตุที่มีค่าอิเล็กโทรเนกาติวิตีสูงกว่าคือ
+        <strong style="color:#d499ff;">
+          ${higherElement.symbol}
+        </strong>
+      </p>
+
+    </div>
+
+    ${createElectronegativityBondVisual(
+      lowerElement,
+      higherElement
+    )}
+
+    <div class="en-trend-panel">
+
+      <strong style="color:#d499ff;">
+        เหตุผล
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ${question.explanation}
+      </p>
+
+    </div>
+
+    <div style="
+      margin-top:15px;
+      padding:14px;
+      border-radius:13px;
+      background:rgba(103,237,255,0.08);
+    ">
+      <strong style="color:#67edff;">
+        การจัดเรียงอิเล็กตรอน
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ${question.elementA.symbol}
+        :
+        ${question.elementA.shells.join(", ")}
+        <br>
+
+        ${question.elementB.symbol}
+        :
+        ${question.elementB.shells.join(", ")}
+      </p>
+    </div>
+
+    <div style="
+      margin-top:15px;
+      padding:14px;
+      border-radius:13px;
+      background:rgba(139,92,255,0.1);
+    ">
+      <strong style="color:#d499ff;">
+        ค่าอิเล็กโทรเนกาติวิตี
+      </strong>
+
+      <p style="margin-bottom:0;">
+        ${higherElement.symbol}
+        = ${higherElement.value}
+        <br>
+
+        ${lowerElement.symbol}
+        = ${lowerElement.value}
+      </p>
+    </div>
+
+    <button
+      onclick="nextElectronegativityQuestion()"
+      style="margin-top:16px;"
+    >
+      ${
+        electronegativityHearts <= 0 ||
+        currentElectronegativityQuestionIndex ===
+        selectedElectronegativityQuestions.length - 1
+          ? "ดูผลภารกิจ"
+          : "ข้อต่อไป →"
+      }
+    </button>
+  `;
+}
+   function nextElectronegativityQuestion() {
+  if (
+    electronegativityHearts <= 0 ||
+    currentElectronegativityQuestionIndex >=
+      selectedElectronegativityQuestions.length - 1
+  ) {
+    showLevelTenResult();
+    return;
+  }
+
+  currentElectronegativityQuestionIndex += 1;
+
+  showElectronegativityQuestion();
+}
+   function showLevelTenResult() {
+  const studentData = JSON.parse(
+    localStorage.getItem(
+      "electronOrbitStudent"
+    )
+  );
+
+  const maxScore =
+    selectedElectronegativityQuestions.length *
+    10;
+
+  const percentage = Math.round(
+    (electronegativityScore / maxScore) *
+    100
+  );
+
+  let level = "Try Again Hero";
+  let stars = "🔄";
+  let message =
+    "ทบทวนแนวโน้มอิเล็กโทรเนกาติวิตีแล้วลองใหม่อีกครั้ง";
+
+  if (percentage >= 90) {
+    level = "Electron Master";
+    stars = "⭐⭐⭐";
+    message =
+      "ยอดเยี่ยมมาก! คุณเปรียบเทียบค่าอิเล็กโทรเนกาติวิตีได้อย่างแม่นยำ";
+  } else if (percentage >= 75) {
+    level = "Atomic Explorer";
+    stars = "⭐⭐";
+    message =
+      "ทำได้ดีมาก คุณเข้าใจความสามารถในการดึงอิเล็กตรอนแล้ว";
+  } else if (percentage >= 60) {
+    level = "Orbit Trainee";
+    stars = "⭐";
+    message =
+      "ผ่านภารกิจแล้ว ลองฝึกแนวโน้มในคาบและในหมู่เพิ่มเติม";
+  }
+
+  const resultData = {
+    name: studentData.name,
+    className: studentData.className,
+    number: studentData.number,
+    levelNumber: 10,
+    score: electronegativityScore,
+    maxScore: maxScore,
+    percentage: percentage,
+    hearts: electronegativityHearts,
+    level: level,
+    date: new Date().toLocaleString(
+      "th-TH"
+    )
+  };
+
+  localStorage.setItem(
+    "electronOrbitLevelTenResult",
+    JSON.stringify(resultData)
+  );
+
+  document.querySelector(".game-card").innerHTML = `
+    <div class="result-page">
+
+      <div style="font-size:58px;">
+        ${stars}
+      </div>
+
+      <h1>
+        สรุปผลด่านที่ 10
+      </h1>
+
+      <h2 style="color:#c9b8ff;">
+        ${level}
+      </h2>
+
+      <p>
+        ${message}
+      </p>
+
+      <div style="
+        margin:24px 0;
+        padding:24px;
+        border:1px solid #4e72b8;
+        border-radius:18px;
+        background:rgba(8,15,45,0.75);
+        text-align:left;
+      ">
+        <p>
+          <strong>ผู้เล่น:</strong>
+          ${studentData.name}
+        </p>
+
+        <p>
+          <strong>ชั้น:</strong>
+          ${studentData.className}
+        </p>
+
+        <p>
+          <strong>เลขที่:</strong>
+          ${studentData.number}
+        </p>
+
+        <p>
+          <strong>คะแนน:</strong>
+          ${electronegativityScore}
+          / ${maxScore}
+        </p>
+
+        <p>
+          <strong>คิดเป็น:</strong>
+          ${percentage}%
+        </p>
+
+        <p>
+          <strong>หัวใจที่เหลือ:</strong>
+          ${displayElectronegativityHearts()}
+        </p>
+      </div>
+
+      <button onclick="startLevelTenQuiz()">
+        🔄 เล่นด่านที่ 10 อีกครั้ง
+      </button>
+
+      <button
+        onclick="showLevelTenLessonFromMap()"
+        style="
+          margin-top:12px;
+          color:#dce5ff;
+          background:rgba(12,20,52,0.9);
+          border:1px solid #455588;
+        "
+      >
+        📖 ทบทวนบทเรียน
+      </button>
+
+      <button
+        onclick="backToLevelMap()"
+        style="
+          margin-top:12px;
+          color:#67edff;
+          background:transparent;
+          border:1px solid #67edff;
+        "
+      >
+        🗺️ กลับหน้าเลือกด่าน
+      </button>
+
+    </div>
+  `;
+}
+      
+ </script>
 
 </body>
 </html>
