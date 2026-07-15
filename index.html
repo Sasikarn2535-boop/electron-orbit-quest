@@ -1534,9 +1534,10 @@ const studentNumber =
           font-weight:bold;
           margin-bottom:8px;
         ">
-          ผู้เล่น: ${studentData.name}
-          | ชั้น ${studentData.className}
-          | เลขที่ ${studentData.number}
+         ผู้เล่น: ${studentData.name}
+| ชั้น ${studentData.className}
+| ห้อง ${studentData.room}
+| เลขที่ ${studentData.number}
         </p>
 
         <h1 style="
@@ -2369,8 +2370,9 @@ let answerLocked = false;
 
   const resultData = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     score: score,
     maxScore: maxScore,
     percentage: percentage,
@@ -2415,7 +2417,6 @@ let answerLocked = false;
           ${studentData.name}
         </p>
 
-        <p>
        <p>
   <strong>ชั้น:</strong>
   ${studentData.className}
@@ -3159,18 +3160,17 @@ function showLevelThreeResult() {
       "ทบทวนวิธีดูตัวเลขตำแหน่งสุดท้ายแล้วลองใหม่อีกครั้ง";
   }
 
-  const resultData = {
-    name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
-    levelNumber: 3,
-    score: valenceScore,
-    maxScore: maxScore,
-    percentage: percentage,
-    level: resultLevel,
-    hearts: valenceHearts,
-    date: new Date().toLocaleString("th-TH")
-  };
+ const resultData = {
+  name: studentData.name,
+  className: studentData.className,
+  room: studentData.room,
+  number: studentData.number,
+  score: score,
+  maxScore: maxScore,
+  percentage: percentage,
+  level: resultLevel,
+  date: new Date().toLocaleString("th-TH")
+};
 
   localStorage.setItem(
     "electronOrbitLevelThreeResult",
@@ -12318,9 +12318,6 @@ function showFinalBossIntro(studentData) {
   finalBossScore = 0;
   finalBossHearts = 5;
 
-  finalBossMaxHP =
-    selectedFinalBossQuestions.length * 10;
-
 finalBossMaxHP = 240;
 finalBossHP = 240;
 
@@ -12876,11 +12873,8 @@ function showFinalBossHint() {
   );
     
    formData.append(
-
   "room",
-
   resultData.room
-
 );
 
   formData.append(
