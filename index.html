@@ -2373,7 +2373,7 @@ let answerLocked = false;
 className: studentData.className,
 room: studentData.room,
 number: studentData.number,
-    score: score,
+   score: valenceScore,
     maxScore: maxScore,
     percentage: percentage,
     level: resultLevel,
@@ -4110,8 +4110,9 @@ function showShellBuilder() {
 
   const levelTwoResult = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 2,
     score: shellScore,
     maxScore: maxScore,
@@ -4805,8 +4806,9 @@ function nextAufbauQuestion() {
     "electronOrbitLevelFourResult",
     JSON.stringify({
       name: studentData.name,
-      className: studentData.className,
-      number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
       score: aufbauScore,
       maxScore: maxScore,
       percentage: percentage,
@@ -5835,8 +5837,9 @@ function showLevelFiveResult() {
 
   const resultData = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 5,
     score: orbitalScore,
     maxScore: maxScore,
@@ -7829,8 +7832,9 @@ function showLevelSevenResult() {
 
   const resultData = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 7,
     score: anionScore,
     maxScore: maxScore,
@@ -8998,8 +9002,9 @@ function showAtomicRadiusHint() {
 
   const resultData = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 8,
     score: atomicRadiusScore,
     maxScore: maxScore,
@@ -10315,8 +10320,9 @@ function showIonizationHint() {
 
   const resultData = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 9,
     score: ionizationScore,
     maxScore: maxScore,
@@ -11494,8 +11500,9 @@ function showElectronegativityHint() {
 
   const resultData = {
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
     levelNumber: 10,
     score: electronegativityScore,
     maxScore: maxScore,
@@ -13082,8 +13089,9 @@ const bossDefeated =
         .slice(2, 9),
 
     name: studentData.name,
-    className: studentData.className,
-    number: studentData.number,
+className: studentData.className,
+room: studentData.room,
+number: studentData.number,
 
     score: finalBossScore,
     maxScore: maxScore,
